@@ -1,15 +1,32 @@
 public class StepSequencer
 {
-  int steps[];
+  int triggerSteps[];
+  fun void trigger() {
+    <<<"bingo">>>;
+  }
+
+  fun void stop() {
+    <<<"no">>>;
+  }
 
   fun void play(int step) {
-    if (steps == null) { return; }
-    step % steps.size() => step;
+    if (triggerSteps == null) { return; }
+    step % triggerSteps.size() => int triggerStep;
 
-    if (steps[step]) {
-      <<<"bingo">>>;
+    if (triggerSteps[step]) {
+      trigger();
     } else {
-      <<<"no">>>;
+      stop();
     }
   }
+
+  fun int validate() {
+    if (
+      triggerSteps != null
+    ) {
+      return 1;
+    }
+    return 0;
+  }
+
 }
