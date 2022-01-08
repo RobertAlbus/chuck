@@ -7,6 +7,9 @@ public class Time {
   dur beat;
   dur quat;
   dur trip;
+  
+  dur advanceIncrement;
+  16 => int patternSteps; 
 
   setBpm(120);
 
@@ -19,5 +22,19 @@ public class Time {
     4::beat => bar;
     1::beat / 4 => quat;
     1::beat / 3 => trip;
+
+    1::quat => advanceIncrement;
+  }
+
+  fun void advance() {
+    advanceIncrement => now;
+  }
+
+  fun int masterStep() {
+    return (now / quat) $ int;
+  }
+
+  fun int sequenceStep() {
+    return masterStep() % patternSteps;
   }
 }
