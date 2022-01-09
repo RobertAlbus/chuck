@@ -10,6 +10,7 @@
 - left-to-right assignment
 - atypical assignment operators
 - no generics
+- no string concatenation!! wtf
 
 ## Dependencies
 

@@ -1,34 +1,27 @@
-"Foundation/" => string PATH_FOUNDATION;
-"Feature/" => string PATH_FEATURE;
-
 class FoundationModule {
-  fun void addAll() {
-    addTime();
-    addMidi();
-  }
+  "Foundation/Time/time.ck" => string time_module;
 
-  fun void addTime() {
-    Machine.add(PATH_FOUNDATION + "Time/time.ck");
-  }
-  fun void addMidi() {
-    Machine.add(PATH_FOUNDATION + "Midi/midi_intervals.ck");
-    Machine.add(PATH_FOUNDATION + "Midi/midi_notes.ck");
-  }
+  // midi_intervals first
+  "Foundation/Midi/midi_intervals.ck" => string midi_intervals;
+  "Foundation/Midi/midi_notes.ck" => string midi_notes;
+
+  [
+    time_module, 
+    midi_intervals,
+    midi_notes  
+  ] @=> string all[];
 }
 
 class FeatureModule {
-  fun void addStepSequencer() {
-    Machine.add(PATH_FEATURE + "StepSequencer/step_sequencer.ck");
-  }
-  fun void addStepSequencerOsc() {
-    Machine.add(PATH_FEATURE + "StepSequencer/step_sequencer_osc.ck");
-  }
+  "Feature/StepSequencer/step_sequencer.ck" => string step_sequncer;
+  "Feature/StepSequencer/step_sequencer_osc.ck" => string step_sequncer_osc;
+  [
+    step_sequncer, 
+    step_sequncer_osc
+  ] @=> string all[];
 }
 
 public class DependencyManager {
   FoundationModule foundation;
   FeatureModule feature;
-  fun void addByPath(string name) {
-    Machine.add(name);
-  }
 }

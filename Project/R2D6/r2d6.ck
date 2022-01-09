@@ -1,6 +1,13 @@
 DependencyManager deps;
-deps.foundation.addAll();
-deps.feature.addStepSequencer();
-deps.feature.addStepSequencerOsc();
 
-deps.addByPath("Project/R2D6/r2d6_source.ck");
+deps.foundation.all @=> string foundation[];
+deps.feature.all @=> string feature[];
+
+for (0 => int i; i < foundation.size(); i++) {
+  Machine.add(foundation[i]);
+}
+for (0 => int i; i < feature.size(); i++) {
+  Machine.add(feature[i]);
+}
+
+Machine.add("Project/R2D6/r2d6_source.ck");
