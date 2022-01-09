@@ -1,31 +1,31 @@
 public class MidiIntervals {
 
   // base
-  1 =>  int semitone;
-  2 =>  int wholetone;
-  12 => int octave;
+  1 =>  int semi;
+  2 =>  int whole;
+  12 => int oct;
 
   // perfect
-  0  => int perf1;
-  5  => int perf4;
-  7  => int perf5;
-  12 => int perf8;
+  0  => int P1;
+  5  => int P4;
+  7  => int P5;
+  12 => int P8;
 
   // major
-  2  => int maj2;
-  4  => int maj3;
-  9  => int maj6;
-  11 => int maj7;
+  2  => int M2;
+  4  => int M3;
+  9  => int M6;
+  11 => int M7;
 
   // minor
-  1  => int min2;
-  3  => int min3;
-  8  => int min6;
-  10 => int min7;
+  1  => int m2;
+  3  => int m3;
+  8  => int m6;
+  10 => int m7;
 
   // tritone
-  6  => int tritone;
-  tritone => int aug4;
-  tritone => int dim5;
+  6  => int TT;
+  TT => int a4;
+  TT => int d5;
 
 }
