@@ -1,4 +1,5 @@
 class FoundationModule {
+  "Foundation/Array/rotate.ck" => string array_rotate;
   "Foundation/Time/time.ck" => string time_module;
 
   // midi_intervals first
@@ -6,6 +7,7 @@ class FoundationModule {
   "Foundation/Midi/midi_notes.ck"     => string midi_notes;
 
   [
+    array_rotate,
     time_module, 
     midi_intervals,
     midi_notes  
