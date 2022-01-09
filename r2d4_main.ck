@@ -25,17 +25,17 @@ Std.mtof(bassRootNote) => bass.freq;
 0 => bass.gain;
 0.3 => float bassGain;
 
-"audio/kick_01.wav" => kick.read;
+"_audio/kick_01.wav" => kick.read;
 0.8 => kick.rate;
-"audio/hihat_03.wav" => oh.read;
+"_audio/hihat_03.wav" => oh.read;
 0.5 => oh.gain;
 0.99 => oh.rate;
 
-"audio/snare_02.wav" => snare.read;
+"_audio/snare_02.wav" => snare.read;
 1.2 => snare.gain;
 0.9 => snare.rate;
 
-"audio/snare_03.wav" => stick.read;
+"_audio/snare_03.wav" => stick.read;
 1.2 => stick.gain;
 1 => stick.rate;
 
