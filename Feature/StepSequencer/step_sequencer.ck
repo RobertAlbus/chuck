@@ -1,16 +1,18 @@
 public class StepSequencer
 {
-  int triggerSteps[];
-
+  int steps[];
+  
   fun void play(int step) {
-    step % triggerSteps.size() => int triggerStep;
+    step % steps.size() => int currentStep;
 
-    if (triggerSteps[step]) {
+    if (steps[currentStep]) {
       <<<"bingo">>>;
     } else {
       <<<"no">>>;
     }
   }
 
-
+  fun void end() {
+    return;
+  }
 }

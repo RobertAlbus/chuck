@@ -1,6 +1,4 @@
 public class StepSequencerEnv extends StepSequencer {
-
-  int steps[];
   Envelope @ env;
 
   fun void play(int step) {

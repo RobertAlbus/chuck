@@ -8,7 +8,7 @@ TriOsc osc => dac;
 StepSequencerOsc stsq;
 osc @=> stsq.osc;
 
-[1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0] @=> stsq.triggerSteps;
+[1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0] @=> stsq.steps;
 [0,2,3] @=> stsq.pitchSteps;
 [1.0] @=> stsq.velocitySteps;
 

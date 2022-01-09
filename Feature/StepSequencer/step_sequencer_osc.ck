@@ -1,6 +1,8 @@
-public class StepSequencerOsc extends StepSequencer {
+// TODO: Deprecate this in favour of using multiple purpose-built STSQ
 
+public class StepSequencerOsc extends StepSequencer {
   Osc @ osc;
+
   int baseNote;
   int pitchSteps[];
 
@@ -8,9 +10,9 @@ public class StepSequencerOsc extends StepSequencer {
   float velocitySteps[];
 
   fun void play(int step) {
-    step % triggerSteps.size() => int triggerStep;
+    step % steps.size() => int currentStep;
 
-    if (triggerSteps[triggerStep]) {
+    if (steps[currentStep]) {
       step % pitchSteps.size() => int pitchStep;
       pitchSteps[pitchStep] + baseNote => int midiNote;
       Std.mtof(midiNote) => osc.freq;
