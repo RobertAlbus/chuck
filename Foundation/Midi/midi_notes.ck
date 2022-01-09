@@ -1,5 +1,8 @@
 public class MidiNotes {
 
+  MidiIntervals _;
+  _.octave => int octave;
+
   21 => int A0;
   22 => int As0;
   22 => int Bb0;
