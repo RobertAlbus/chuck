@@ -1,5 +1,5 @@
-Time time;
-time.setBpm(120);
+Time _time;
+_time.setBpm(120);
 
 TriOsc osc => dac;
 StepSequencerOsc stsq;
@@ -14,7 +14,7 @@ osc @=> stsq.osc;
 55 => stsq.basePitch;
 0.0 => stsq.baseVelocity;
 
-while ( now / time.bar < 2) {
-  stsq.play(time.sequenceStep());
-  time.advance();
+while ( now / _time.bar < 2) {
+  stsq.play(_time.sequenceStep());
+  _time.advance();
 }

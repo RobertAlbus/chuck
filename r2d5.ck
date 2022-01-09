@@ -1,5 +1,5 @@
-Time time;
-time.setBpm(160);
+Time _time;
+_time.setBpm(160);
 
 TriOsc osc => dac;
 StepSequencer stsq;
@@ -13,13 +13,13 @@ fun void stopOsc() {
   0 => osc.gain;
 }
 
-while ( now / time.bar < 1) {
+while ( now / _time.bar < 1) {
 
   // playOsc =>  stsq.triggerFunction;
   // stopOsc =>  stsq.stopFunction;
 
-  stsq.play(time.sequenceStep());
+  stsq.play(_time.sequenceStep());
 
-  time.advance();
+  _time.advance();
 }
 
