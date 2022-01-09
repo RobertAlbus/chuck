@@ -4,24 +4,37 @@ _time.setBpm(120);
 MidiNotes _n;
 MidiIntervals _;
 
-TriOsc osc => dac;
-StepSequencerOsc stsq;
-osc @=> stsq.osc;
-0 => osc.gain;
+TriOsc osc => ADSR adsr => dac;
+
+0.25::_time.quat => dur A;
+0.5::_time.quat => dur D;
+1.0 => float S;
+2::_time.quat => dur R;
+
+adsr.set(A,D,S,R);
+
+0.4 => osc.gain;
 0 => osc.freq;
 
-[1,1,1,0,1] @=> stsq.triggerSteps;
+StepSequencerEnv stsq_env;
+StepSequencerPitch stsq_pitch;
+adsr @=> stsq_env.env;
+osc  @=> stsq_pitch.osc;
+
+[1,1,1,0,1] @=> stsq_env.steps;
 [
   _.P1,
   _.M2,
   _.m3
-] @=> stsq.pitchSteps;
-[1.0] @=> stsq.velocitySteps;
+] @=> stsq_pitch.steps;
 
-_n.G3 => stsq.basePitch;
-0.0 => stsq.baseVelocity;
+_n.G3 => stsq_pitch.baseNote;
 
-while ( now / _time.bar < 2) {
-  stsq.play(_time.sequenceStep());
+while ( now / _time.bar < 4) {
+  _time.sequenceStep() => int step;
+
+  stsq_env.play(step);
+  stsq_pitch.play(step);
+
   _time.advance();
 }
