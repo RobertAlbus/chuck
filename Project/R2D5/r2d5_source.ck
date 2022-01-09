@@ -12,7 +12,7 @@ osc @=> stsq.osc;
 [0,2,3] @=> stsq.pitchSteps;
 [1.0] @=> stsq.velocitySteps;
 
-55 => stsq.basePitch;
+55 => stsq.baseNote;
 0.0 => stsq.baseVelocity;
 
 while ( now / _time.bar < 1) {
