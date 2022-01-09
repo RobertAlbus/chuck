@@ -1,6 +1,6 @@
 public class Time {
   
-  60 => static float m_seconds;
+  60 => static float _seconds;
   float bpm;
   dur measure;
   dur bar;
@@ -17,7 +17,7 @@ public class Time {
   {
     bpm_value => bpm;
 
-    0.5 => float beatLength;
+    _seconds / bpm => float beatLength;
     beatLength::second => beat;
     4::beat => bar;
     1::beat / 4 => quat;
