@@ -30,6 +30,10 @@ public class Time {
     advanceIncrement => now;
   }
 
+  fun void advance(dur amount) {
+    amount => now;
+  }
+
   fun int masterStep() {
     return (now / quat) $ int;
   }

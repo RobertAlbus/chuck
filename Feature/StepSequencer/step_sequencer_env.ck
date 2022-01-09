@@ -24,4 +24,8 @@ public class StepSequencerEnv extends StepSequencer {
     <<< "StepSeqencerEnv invalid state" >>>;
     return 0;
   }
+
+  fun void end() {
+    env.keyOff();
+  }
 }

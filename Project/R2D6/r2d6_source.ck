@@ -28,7 +28,7 @@ osc  @=> stsq_pitch.osc;
   _.m3
 ] @=> stsq_pitch.steps;
 
-_n.G3 => stsq_pitch.baseNote;
+_n.G1 => stsq_pitch.baseNote;
 
 while ( now / _time.bar < 4) {
   _time.sequenceStep() => int step;
@@ -38,3 +38,6 @@ while ( now / _time.bar < 4) {
 
   _time.advance();
 }
+
+stsq_env.end();
+_time.advance(R);
