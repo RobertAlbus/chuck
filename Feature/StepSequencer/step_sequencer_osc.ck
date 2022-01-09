@@ -27,9 +27,9 @@ public class StepSequencerOsc extends StepSequencer {
 
   fun int validate() {
     if (
-      triggerSteps != null,
-      pitchSteps != null,
-      velocitySteps != null,
+      triggerSteps.size()  > 0,
+      pitchSteps.size()    > 0,
+      velocitySteps.size() > 0,
       osc != null
     ) {
       return 1;
