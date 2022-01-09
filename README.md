@@ -11,4 +11,36 @@ To run these files:
 - prefer the jack version of chuck when possible
 - run `chuck r2d4_main.ck`
 
-The repo is set up in accordance with Helix architecture principles.
+## Project Architecture
+
+The repo is set up in accordance with Helix 3-layer architecture principles.
+
+- Project
+- Feature
+- Foundation
+
+### Foundation
+
+Abstract libraries and base utilities.
+Module Rules:
+
+- May only depend on Foundation/Core module
+- May not depend on other Foundation modules
+- May not reach up into Feature or Project modules
+
+### Feature
+
+Intruments and such.
+Module Rules:
+
+- May depend on any Foundation modules
+- May not depend on any other Feature modules
+- May not reach up into Project modules
+
+### Project
+
+Actual compositions with run-able loops.
+Module Rules:
+
+- May depend on any Feature and Foundation modules
+- May not depend on other Project modules
