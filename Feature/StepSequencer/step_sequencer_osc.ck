@@ -1,6 +1,6 @@
 public class StepSequencerOsc extends StepSequencer {
 
-  TriOsc osc;
+  Osc osc;
   int basePitch;
   int pitchSteps[];
 
