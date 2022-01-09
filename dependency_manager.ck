@@ -5,12 +5,14 @@ class FoundationModule {
   // midi_intervals first
   "Foundation/Midi/midi_intervals.ck" => string midi_intervals;
   "Foundation/Midi/midi_notes.ck"     => string midi_notes;
+  "Foundation/Midi/midi_scales.ck"    => string midi_scales;
 
   [
     array_rotate,
     time_module, 
     midi_intervals,
-    midi_notes  
+    midi_notes,
+    midi_scales
   ] @=> string all[];
 }
 
