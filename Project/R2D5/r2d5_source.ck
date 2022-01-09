@@ -15,9 +15,13 @@ osc @=> stsq.osc;
 55 => stsq.baseNote;
 0.0 => stsq.baseVelocity;
 
-while ( now / _time.bar < 1) {
+while ( now / _time.bar < 4) {
 
-  stsq.play(_time.sequenceStep());
+  if (_time.isStepStart()){
+    _time.sequenceStep() => int step;
+
+    stsq.play(step);
+  }
 
   _time.advance();
 }

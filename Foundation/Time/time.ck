@@ -27,7 +27,7 @@ public class Time {
   }
 
   fun void advance() {
-    advanceIncrement => now;
+    1::samp => now;
   }
 
   fun void advance(dur amount) {
@@ -40,5 +40,9 @@ public class Time {
 
   fun int sequenceStep() {
     return masterStep() % patternSteps;
+  }
+
+  fun int isStepStart() {
+    return (now / samp) % (quat / samp) == 0.0; 
   }
 }
