@@ -3,7 +3,7 @@ class FoundationModule {
 
   // midi_intervals first
   "Foundation/Midi/midi_intervals.ck" => string midi_intervals;
-  "Foundation/Midi/midi_notes.ck" => string midi_notes;
+  "Foundation/Midi/midi_notes.ck"     => string midi_notes;
 
   [
     time_module, 
@@ -13,9 +13,9 @@ class FoundationModule {
 }
 
 class FeatureModule {
-  "Feature/StepSequencer/step_sequencer.ck" => string step_sequencer;
-  "Feature/StepSequencer/step_sequencer_osc.ck" => string step_sequencer_osc;
-  "Feature/StepSequencer/step_sequencer_env.ck" => string step_sequencer_env;
+  "Feature/StepSequencer/step_sequencer.ck"       => string step_sequencer;
+  "Feature/StepSequencer/step_sequencer_osc.ck"   => string step_sequencer_osc;
+  "Feature/StepSequencer/step_sequencer_env.ck"   => string step_sequencer_env;
   "Feature/StepSequencer/step_sequencer_pitch.ck" => string step_sequencer_pitch;
   [
     step_sequencer, 
