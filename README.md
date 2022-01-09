@@ -1,14 +1,14 @@
-#100DaysOfCode
+# #100DaysOfCode
 
-This is my second round for #100DaysOfCode and as such you will see the `R2` prefix on file names.
+This is my second round for #100DaysOfCode and as such you will see the `R2` prefix on file names. The `D5` portion signifies the day of the challenge.
 
 To run these files:
 
 - install chuck if needed
-- run `chuck r2d4_run.ck`
-- due to an idiosyncrasy with the ChucK interpretter, you cannot import a dependency and immediately use it. All dependencies must be aggregated in one root file which does not itself have any code that relies on these dependencies. The convention is to call this `$projectName_run.ck` and often this file contains _only_ the imports.
+- there is a pulse-audio version of chuck
+  - get up and running faster
+  - will experience audible playback artifacts
+- prefer the jack version of chuck when possible
+- run `chuck r2d4_main.ck`
 
-File format follows R2D0 such that
-
-- R2 = round 2
-- D\_ = day \_\_\_
+The repo is set up in accordance with Helix architecture principles.
