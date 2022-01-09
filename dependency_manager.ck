@@ -13,11 +13,15 @@ class FoundationModule {
 }
 
 class FeatureModule {
-  "Feature/StepSequencer/step_sequencer.ck" => string step_sequncer;
-  "Feature/StepSequencer/step_sequencer_osc.ck" => string step_sequncer_osc;
+  "Feature/StepSequencer/step_sequencer.ck" => string step_sequencer;
+  "Feature/StepSequencer/step_sequencer_osc.ck" => string step_sequencer_osc;
+  "Feature/StepSequencer/step_sequencer_env.ck" => string step_sequencer_env;
+  "Feature/StepSequencer/step_sequencer_pitch.ck" => string step_sequencer_pitch;
   [
-    step_sequncer, 
-    step_sequncer_osc
+    step_sequencer, 
+    step_sequencer_osc,
+    step_sequencer_env,
+    step_sequencer_pitch
   ] @=> string all[];
 }
 

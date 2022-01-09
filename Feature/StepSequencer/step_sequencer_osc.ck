@@ -1,7 +1,7 @@
 public class StepSequencerOsc extends StepSequencer {
 
   Osc @ osc;
-  int basePitch;
+  int baseNote;
   int pitchSteps[];
 
   float baseVelocity;
@@ -10,11 +10,10 @@ public class StepSequencerOsc extends StepSequencer {
   fun void play(int step) {
     if (validate() == 0 ) { return; }
     step % triggerSteps.size() => int triggerStep;
-    triggerSteps[triggerStep];
 
     if (triggerSteps[triggerStep]) {
       step % pitchSteps.size() => int pitchStep;
-      pitchSteps[pitchStep] + basePitch => int midiNote;
+      pitchSteps[pitchStep] + baseNote => int midiNote;
       Std.mtof(midiNote) => osc.freq;
 
       step % velocitySteps.size() => int velocityStep;
