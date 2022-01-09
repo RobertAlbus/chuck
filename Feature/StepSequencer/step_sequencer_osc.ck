@@ -8,7 +8,6 @@ public class StepSequencerOsc extends StepSequencer {
   float velocitySteps[];
 
   fun void play(int step) {
-    if (validate() == 0 ) { return; }
     step % triggerSteps.size() => int triggerStep;
 
     if (triggerSteps[triggerStep]) {
@@ -22,18 +21,5 @@ public class StepSequencerOsc extends StepSequencer {
     } else {
       0 => osc.gain;
     }
-  }
-
-  fun int validate() {
-    if (
-      triggerSteps.size()  > 0,
-      pitchSteps.size()    > 0,
-      velocitySteps.size() > 0,
-      osc != null
-    ) {
-      return 1;
-    } 
-    <<< "StepSeqencerOsc invalid state" >>>;
-    return 0;
   }
 }

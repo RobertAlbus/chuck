@@ -23,15 +23,4 @@ public class StepSequencerPitch extends StepSequencer {
   fun void setNote(int midiNote) {
     Std.mtof(midiNote) => osc.freq;
   }
-
-  fun int validate() {
-    if (
-      steps.size()  > 0,
-      osc != null
-    ) {
-      return 1;
-    } 
-    <<< "StepSeqencerEnv invalid state" >>>;
-    return 0;
-  }
 }
