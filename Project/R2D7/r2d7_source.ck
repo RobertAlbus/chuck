@@ -36,21 +36,35 @@ Envelope envs[0];
 envs << adsr;
 envs @=> stsq_e.envs;
 
-_scales.dorian(_notes.D2) @=> stsq_p.steps;
 0 => stsq_p.baseNote;
 [1] @=> stsq_e.steps;
 
-while ( now / _time.bar < 2) {
+_scales.dorian(_notes.Eb2) @=> stsq_p.steps;
+
+while ( _time.currentBar() < 2) {
 
   if (_time.isStepStart()){
     _time.sequenceStep() => int step;
     stsq_p.play(step);
     stsq_e.play(step);
   }
+
   _time.advance();
 }
+
+_scales.phrygian(_notes.Eb2) @=> stsq_p.steps;
+
+while ( _time.currentBar() >= 2 && _time.currentBar() < 4) {
+
+  if (_time.isStepStart()){
+    _time.sequenceStep() => int step;
+    stsq_p.play(step);
+    stsq_e.play(step);
+  }
+
+  _time.advance();
+}
+
 stsq_e.off();
 stsq_p.off();
-
 _time.advance(R);
-
