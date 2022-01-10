@@ -12,10 +12,6 @@ public class StepSequencer
     }
   }
 
-  fun void on() {
-    <<<"bingo">>>;
-  }  
-  fun void off() {
-    <<<"no">>>;
-  }
+  fun void on() {}  
+  fun void off() {}
 }
