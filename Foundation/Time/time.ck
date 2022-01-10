@@ -45,4 +45,14 @@ public class Time {
   fun int isStepStart() {
     return (now / samp) % (quat / samp) == 0.0; 
   }
+
+
+  fun int currentBar() {
+    return (now / bar) $ int;
+  }
+
+  fun int currentMeasure() {
+    return (now / measure) $ int;
+  }
+
 }
