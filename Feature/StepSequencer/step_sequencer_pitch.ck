@@ -2,7 +2,7 @@ public class StepSequencerPitch extends StepSequencer {
 
   0 => int holdOnZero;
   int baseNote;
-  Osc @ osc;
+  Osc @ oscs[];
 
   fun void play(int step) {
     step % steps.size() => int patternStep;
@@ -19,6 +19,8 @@ public class StepSequencerPitch extends StepSequencer {
   }
 
   fun void setNote(int midiNote) {
-    Std.mtof(midiNote) => osc.freq;
+    for ( 0 => int i; i < oscs.size(); i++ ){
+      Std.mtof(midiNote) => oscs[i].freq;
+    }
   }
 }

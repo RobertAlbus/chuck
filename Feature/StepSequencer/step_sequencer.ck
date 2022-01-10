@@ -1,18 +1,21 @@
 public class StepSequencer
 {
   int steps[];
-  
+
   fun void play(int step) {
     step % steps.size() => int currentStep;
 
     if (steps[currentStep]) {
-      <<<"bingo">>>;
+      on();
     } else {
-      <<<"no">>>;
+      off();
     }
   }
 
-  fun void end() {
-    return;
+  fun void on() {
+    <<<"bingo">>>;
+  }  
+  fun void off() {
+    <<<"no">>>;
   }
 }

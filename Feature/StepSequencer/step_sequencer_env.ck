@@ -1,17 +1,24 @@
 public class StepSequencerEnv extends StepSequencer {
-  Envelope @ env;
+  Envelope @ envs[];
 
   fun void play(int step) {
     step % steps.size() => int patternStep;
 
     if (steps[patternStep]) {
-      env.keyOn();
+      on();
     } else {
-      env.keyOff();
+      off();
     }
   }
 
-  fun void end() {
-    env.keyOff();
+  fun void on() {
+    for ( 0 => int i; i < envs.size(); i++ ){
+      envs[i].keyOn();
+    }
+  }
+  fun void off() {
+    for ( 0 => int i; i < envs.size(); i++ ){
+      envs[i].keyOff();
+    }
   }
 }

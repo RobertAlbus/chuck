@@ -5,11 +5,16 @@ MidiNotes _notes;
 MidiScales _scales;
 
 // SOUND NETWORK
-TriOsc osc => ADSR adsr => dac;
+ADSR adsr => dac;
+SawOsc osc1 => adsr;
+SqrOsc osc2 => adsr;
 
 // OSC/ENV INSTRUMENTATION
-0.4 => osc.gain;
-0 => osc.freq;
+0.4 => osc1.gain;
+0 => osc1.freq;
+
+0.4 => osc2.gain;
+0 => osc2.freq;
 
 0.25::_time.quat => dur A;
 0.5::_time.quat => dur D;
@@ -23,8 +28,13 @@ StepSequencerPitch stsq_p;
 StepSequencerEnv stsq_e;
 
 // STSQ INSTRUMENTATION
-osc  @=> stsq_p.osc;
-adsr @=> stsq_e.env;
+Osc oscs[0];
+oscs << osc1 << osc2;
+oscs @=> stsq_p.oscs;
+
+Envelope envs[0];
+envs << adsr;
+envs @=> stsq_e.envs;
 
 _scales.dorian(_notes.D2) @=> stsq_p.steps;
 0 => stsq_p.baseNote;
@@ -39,8 +49,8 @@ while ( now / _time.bar < 2) {
   }
   _time.advance();
 }
-stsq_e.end();
-stsq_p.end();
+stsq_e.off();
+stsq_p.off();
 
-_time.advance(_time.beat);
+_time.advance(R);
 
