@@ -1,6 +1,8 @@
 Time _time;
-_time.setBpm(60);
+_time.setBpm(80);
 
+MidiNotes _notes;
+MidiScales _scales;
 LibR2D8 _lib;
 
 ////////
@@ -73,19 +75,53 @@ for (0 => int i; i < stsqs_p.size(); i++){
 ////////
 // CHORDS
 
-// x: time, y: pitch
-int chords[0][0];
-_lib.getChords() @=> chords;
+_notes.Eb3 => int note;
+_scales.heptoniaPrima @=> int toneSpace[];
+_scales.generateMode(1, note, toneSpace) @=> int scale1[];
+_scales.generateMode(3, note-4, toneSpace) @=> int scale2[];
 
-////////
-// STEPS
-for (0 => int i; i < chords.size(); i++){
-  chords[i] @=> stsqs_p[i].steps;
-  chords[i] @=> stsqs_e[i].steps;
+// x: time, y: pitch
+int chordProgression1[0][0];
+_lib.getChords(scale1) @=> chordProgression1;
+int chordProgression2[0][0];
+_lib.getChords(scale2) @=> chordProgression2;
+
+
+0 => int sectionA_start;
+2 => int sectionA_end;
+sectionA_end => int sectionB_start;
+4 => int sectionB_end;
+
+_lib.setSteps(stsqs_p, stsqs_e, chordProgression1);
+_time.currentUnit(_time.bar) => int currentBar;
+
+fun int isFinalSampleOf(dur duration){
+  duration / samp => float durationSamples;
+  durationSamples - 1 => float finalSample;
+  
+  now / samp => float currentSample;
+  return currentSample == finalSample;
 }
 
-_time.currentUnit(_time.bar) => int currentBar;
-while ( currentBar >= 0 && currentBar < 4) {
+while ( currentBar >= sectionA_start && currentBar < sectionA_end) {
+
+  if (_time.isStartOfUnit(_time.quat)){
+    _time.currentUnit(_time.quat) => int step;
+
+    for (0 => int i; i < stsqs_p.size(); i++){
+      stsqs_p[i].play(step);
+      stsqs_e[i].play(step);
+    }
+  }
+
+  _time.currentUnit(_time.bar) => currentBar;
+  if (isFinalSampleOf(sectionA_end::_time.bar)) {
+    _lib.setSteps(stsqs_p, stsqs_e, chordProgression2);
+  }
+  _time.advance();
+}
+
+while ( currentBar >= sectionB_start && currentBar < sectionB_end) {
 
   if (_time.isStartOfUnit(_time.quat)){
     _time.currentUnit(_time.quat) => int step;
