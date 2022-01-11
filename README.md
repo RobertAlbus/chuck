@@ -22,16 +22,18 @@ The repo is set up in accordance with Helix 3-layer architecture principles.
 ### Foundation
 
 Abstract libraries and base utilities.
-Module Rules:
 
-- May only depend on Foundation/Core module
+A module in Foundation:
+
+- May only depend on files Foundation/Core module
 - May not depend on other Foundation modules
 - May not reach up into Feature or Project modules
 
 ### Feature
 
 Intruments and such.
-Module Rules:
+
+A module in Feature:
 
 - May depend on any Foundation modules
 - May not depend on any other Feature modules
@@ -40,7 +42,8 @@ Module Rules:
 ### Project
 
 Actual compositions with run-able loops.
-Module Rules:
+
+A module in Project:
 
 - May depend on any Feature and Foundation modules
 - May not depend on other Project modules
