@@ -68,19 +68,20 @@ for (0 => int i; i < stsqs_p.size(); i++){
 
   // Attach envelopes to envelope step sequencer
   [envelope] @=> stsq_e.envs;
-  // add same pattern for each envelope step sequencer
-  [1] @=> stsq_e.steps;
 }
 
 ////////
 // CHORDS
 
+// x: time, y: pitch
 int chords[0][0];
 _lib.getChords() @=> chords;
 
-// Attach chords to pitch step sequencers
+////////
+// STEPS
 for (0 => int i; i < chords.size(); i++){
   chords[i] @=> stsqs_p[i].steps;
+  chords[i] @=> stsqs_e[i].steps;
 }
 
 _time.currentUnit(_time.bar) => int currentBar;
