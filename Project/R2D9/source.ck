@@ -84,7 +84,7 @@ for (0 => int i; i < chords.size(); i++){
 }
 
 _time.currentUnit(_time.bar) => int currentBar;
-while ( currentBar >= 0 && currentBar < 2) {
+while ( currentBar >= 0 && currentBar < 4) {
 
   if (_time.isStartOfUnit(_time.quat)){
     _time.currentUnit(_time.quat) => int step;

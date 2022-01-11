@@ -33,7 +33,7 @@ public class LibR2D8 {
     _scales.dorian(_notes.Eb3) @=> int scale[];
     scale.popBack(); // remove the octave so that we can wrap around the scale for the next note appropriately
 
-    [ 0, 0, 0, 0 ]             @=> int O[];
+    [ 0, 0, 0, 0 ]        @=> int O[];
     makeSeventh(scale, 0) @=> int I[];
     makeSeventh(scale, 1) @=> int II[];
     makeSeventh(scale, 2) @=> int III[];
@@ -44,6 +44,18 @@ public class LibR2D8 {
 
     int chords[0][0];
     chords << I << VI << II << V << I << VI << V << VII;
+
+    int groovyChords[0][0];
+    for (0 => int i; i < chords.size(); i++){
+      groovyChords << chords[i];
+      if (i % 2 == 0) {
+        groovyChords << chords[i] << chords[i] << O;
+      } else {
+        groovyChords << chords[i] << O << O;
+
+      }
+    }
+    groovyChords @=> chords;
     rotateMatrix(chords) @=> chords;
 
     return chords;
