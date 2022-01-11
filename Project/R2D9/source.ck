@@ -79,16 +79,7 @@ _lib.makeSeventh(scale, 6) @=> int VII[];
 
 int chords[0][0];
 chords << I << O << VI << II << V << I << VI << V << VII;
-
-<<< chords.size(), chords[0].size() >>>;
-for (0 => int i; i < chords.size(); i++){
-  <<< chords[i][0], chords[i][1], chords[i][2], chords[i][3] >>>;
-}
 _lib.rotateMatrix(chords) @=> chords;
-<<< chords.size(), chords[0].size() >>>;
-for (0 => int i; i < chords.size(); i++){
-  <<< chords[i][0], chords[i][1], chords[i][2] >>>;
-}
 
 // Attach chords to pitch step sequencers
 for (0 => int i; i < chords.size(); i++){
