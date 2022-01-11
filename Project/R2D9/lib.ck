@@ -3,6 +3,9 @@
 
 public class LibR2D8 {
 
+  MidiNotes _notes;
+  MidiScales _scales;
+
   fun int[] makeSeventh(int scale[], int start) {
     int chord[4];
     for(0=>int i; i < 4; i++ ){
@@ -24,5 +27,25 @@ public class LibR2D8 {
       }
     }
     return polyphonicMatrix;
+  }
+
+  fun int[][] getChords() {
+    _scales.dorian(_notes.Eb3) @=> int scale[];
+    scale.popBack(); // remove the octave so that we can wrap around the scale for the next note appropriately
+
+    [ 0, 0, 0, 0 ]             @=> int O[];
+    makeSeventh(scale, 0) @=> int I[];
+    makeSeventh(scale, 1) @=> int II[];
+    makeSeventh(scale, 2) @=> int III[];
+    makeSeventh(scale, 3) @=> int IV[];
+    makeSeventh(scale, 4) @=> int V[];
+    makeSeventh(scale, 5) @=> int VI[];
+    makeSeventh(scale, 6) @=> int VII[];
+
+    int chords[0][0];
+    chords << I << VI << II << V << I << VI << V << VII;
+    rotateMatrix(chords) @=> chords;
+
+    return chords;
   }
 }

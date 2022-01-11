@@ -1,8 +1,6 @@
 Time _time;
 _time.setBpm(60);
 
-MidiNotes _notes;
-MidiScales _scales;
 LibR2D8 _lib;
 
 ////////
@@ -77,21 +75,8 @@ for (0 => int i; i < stsqs_p.size(); i++){
 ////////
 // CHORDS
 
-_scales.dorian(_notes.Eb3) @=> int scale[];
-scale.popBack(); // remove the octave so that we can wrap around the scale for the next note appropriately
-
-[ 0, 0, 0, 0 ]             @=> int O[];
-_lib.makeSeventh(scale, 0) @=> int I[];
-_lib.makeSeventh(scale, 1) @=> int II[];
-_lib.makeSeventh(scale, 2) @=> int III[];
-_lib.makeSeventh(scale, 3) @=> int IV[];
-_lib.makeSeventh(scale, 4) @=> int V[];
-_lib.makeSeventh(scale, 5) @=> int VI[];
-_lib.makeSeventh(scale, 6) @=> int VII[];
-
 int chords[0][0];
-chords << I << O << VI << II << V << I << VI << V << VII;
-_lib.rotateMatrix(chords) @=> chords;
+_lib.getChords() @=> chords;
 
 // Attach chords to pitch step sequencers
 for (0 => int i; i < chords.size(); i++){
