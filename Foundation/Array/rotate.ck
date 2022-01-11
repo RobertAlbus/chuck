@@ -1,4 +1,4 @@
-public class ArrayUtils {
+public class ArrayRotate {
 
   // TODO: Does ChucK have templates/generics? 
   fun Object[] rotateO(Object array[], int start) {

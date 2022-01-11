@@ -1,5 +1,5 @@
 public class MidiScales {
-  ArrayUtils _array;
+  ArrayRotate _array;
   MidiIntervals _i;
 
   [
