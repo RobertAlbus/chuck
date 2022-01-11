@@ -9,7 +9,7 @@ public class Time {
   dur trip;
   
   dur advanceIncrement;
-  16 => int patternSteps; 
+  16 => int patternSteps;
 
   setBpm(120);
 
@@ -43,16 +43,17 @@ public class Time {
   }
 
   fun int isStepStart() {
-    return (now / samp) % (quat / samp) == 0.0; 
+    return isStartOfUnit(quat);
   }
 
+  fun int isStartOfUnit(dur duration) {
+    return (now / samp) % (duration / samp) == 0.0; 
+  }
+  fun int currentUnit(dur duration) {
+    return (now / duration) $ int;
+  }
 
   fun int currentBar() {
-    return (now / bar) $ int;
+    return currentUnit(bar);
   }
-
-  fun int currentMeasure() {
-    return (now / measure) $ int;
-  }
-
 }
