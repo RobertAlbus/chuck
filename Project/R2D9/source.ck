@@ -68,6 +68,7 @@ envs @=> stsq_e.envs;
 _scales.dorian(_notes.Eb3) @=> int scale[];
 scale.popBack(); // remove the octave so that we can wrap around the scale for the next note appropriately
 
+[ 0, 0, 0, 0 ]             @=> int O[];
 _lib.makeSeventh(scale, 0) @=> int I[];
 _lib.makeSeventh(scale, 1) @=> int II[];
 _lib.makeSeventh(scale, 2) @=> int III[];
@@ -77,7 +78,7 @@ _lib.makeSeventh(scale, 5) @=> int VI[];
 _lib.makeSeventh(scale, 6) @=> int VII[];
 
 int chords[0][0];
-chords << I << VI << II << V << I << VI << V << VII;
+chords << I << O << VI << II << V << I << VI << V << VII;
 
 <<< chords.size(), chords[0].size() >>>;
 for (0 => int i; i < chords.size(); i++){
