@@ -46,21 +46,33 @@ StepSequencerPitch stsq_p1;
 StepSequencerPitch stsq_p2;
 StepSequencerPitch stsq_p3;
 StepSequencerPitch stsq_p4;
-StepSequencerPitch stsqs_pitch[0];
-stsqs_pitch << stsq_p1 << stsq_p2 << stsq_p3 << stsq_p4;
-StepSequencerEnv stsq_e;
+StepSequencerPitch stsqs_p[0];
+stsqs_p << stsq_p1 << stsq_p2 << stsq_p3 << stsq_p4;
+
+StepSequencerEnv stsq_e1;
+StepSequencerEnv stsq_e2;
+StepSequencerEnv stsq_e3;
+StepSequencerEnv stsq_e4;
+StepSequencerEnv stsqs_e[0];
+stsqs_e << stsq_e1 << stsq_e2 << stsq_e3 << stsq_e4 ;
 
 // LINK TO STSQ
-for (0 => int i; i < stsqs_pitch.size(); i++){
-  oscs[i] @=> Osc oscillator;
-  stsqs_pitch[i] @=> StepSequencerPitch stsq;
+for (0 => int i; i < stsqs_p.size(); i++){
+  oscs[i]            @=> Osc      oscillator;
+  envs[i] $ Envelope @=> Envelope envelope;
+  stsqs_p[i] @=> StepSequencerPitch stsq_p;
+  stsqs_e[i] @=> StepSequencerEnv   stsq_e;
+
   // Attach oscs to pitch step sequencers
-  [oscillator] @=> stsq.oscs;
-  // DO NOT TRANSPOSE
-  0 => stsq.baseNote;
+  [oscillator] @=> stsq_p.oscs;
+  // do not transpose
+  0 => stsq_p.baseNote;
+
+  // Attach envelopes to envelope step sequencer
+  [envelope] @=> stsq_e.envs;
+  // add same pattern for each envelope step sequencer
+  [1] @=> stsq_e.steps;
 }
-envs @=> stsq_e.envs;
-[1] @=> stsq_e.steps;
 
 ////////
 // CHORDS
@@ -83,7 +95,7 @@ _lib.rotateMatrix(chords) @=> chords;
 
 // Attach chords to pitch step sequencers
 for (0 => int i; i < chords.size(); i++){
-  chords[i] @=> stsqs_pitch[i].steps;
+  chords[i] @=> stsqs_p[i].steps;
 }
 
 _time.currentUnit(_time.bar) => int currentBar;
@@ -92,11 +104,10 @@ while ( currentBar >= 0 && currentBar < 2) {
   if (_time.isStartOfUnit(_time.quat)){
     _time.currentUnit(_time.quat) => int step;
 
-    for (0 => int i; i < stsqs_pitch.size(); i++){
-      stsqs_pitch[i].play(step);
+    for (0 => int i; i < stsqs_p.size(); i++){
+      stsqs_p[i].play(step);
+      stsqs_e[i].play(step);
     }
-
-    stsq_e.play(step);
   }
 
   _time.currentUnit(_time.bar) => currentBar;
@@ -104,16 +115,16 @@ while ( currentBar >= 0 && currentBar < 2) {
 }
 
 // REPEAT THE FIRST CHORD ONE LAST TIME
-for (0 => int i; i < stsqs_pitch.size(); i++){
-  stsqs_pitch[i].play(0);
+for (0 => int i; i < stsqs_p.size(); i++){
+  stsqs_p[i].play(0);
+  stsqs_e[i].play(0);
 }
-stsq_e.play(0);
 _time.advance(_time.quat);
 _time.advance(_time.quat);
 
 // CLOSE OUT
-stsq_e.off();
-for (0 => int i; i < stsqs_pitch.size(); i++){
-  stsqs_pitch[i].off();
+for (0 => int i; i < stsqs_p.size(); i++){
+  stsqs_p[i].off();
+  stsqs_e[i].off();
 }
 _time.advance(R);
