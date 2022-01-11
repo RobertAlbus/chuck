@@ -100,14 +100,6 @@ while ( currentBar >= 0 && currentBar < 4) {
   _time.advance();
 }
 
-// REPEAT THE FIRST CHORD ONE LAST TIME
-for (0 => int i; i < stsqs_p.size(); i++){
-  stsqs_p[i].play(0);
-  stsqs_e[i].play(0);
-}
-_time.advance(_time.quat);
-_time.advance(_time.quat);
-
 // CLOSE OUT
 for (0 => int i; i < stsqs_p.size(); i++){
   stsqs_p[i].off();
