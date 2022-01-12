@@ -4,22 +4,14 @@ _time.setBpm(100);
 MidiNotes _notes;
 MidiScales _scales;
 LibR2D9 _lib9;
-LibR2D9 _lib10;
+LibR2D10 _lib10;
 
 ////////
 // SOUND NETWORK
-SqrOsc osc1;
-SqrOsc osc2;
-SqrOsc osc3;
-SqrOsc osc4;
-Osc oscs[0];
-oscs << osc1 << osc2 << osc3 << osc4;
-ADSR adsr1;
-ADSR adsr2;
-ADSR adsr3;
-ADSR adsr4;
-Envelope envs[0];
-envs << adsr1 << adsr2 << adsr3 << adsr4;
+// Osc oscs[0]
+_lib10.create.Oscs(4)  @=> Osc oscs[];
+_lib10.create.ADSRs(4) @=> ADSR envs[];
+
 Gain master => dac;
 0.4 => master.gain;
 
@@ -43,19 +35,8 @@ for (0 => int i; i < oscs.size(); i++) {
 
 ////////
 // STEP SEQUENCER INIT
-StepSequencerPitch stsq_p1;
-StepSequencerPitch stsq_p2;
-StepSequencerPitch stsq_p3;
-StepSequencerPitch stsq_p4;
-StepSequencerPitch stsqs_p[0];
-stsqs_p << stsq_p1 << stsq_p2 << stsq_p3 << stsq_p4;
-
-StepSequencerEnv stsq_e1;
-StepSequencerEnv stsq_e2;
-StepSequencerEnv stsq_e3;
-StepSequencerEnv stsq_e4;
-StepSequencerEnv stsqs_e[0];
-stsqs_e << stsq_e1 << stsq_e2 << stsq_e3 << stsq_e4 ;
+_lib10.create.STSQ_Ps(4) @=> StepSequencerPitch stsqs_p[];
+_lib10.create.STSQ_Es(4) @=> StepSequencerEnv   stsqs_e[];
 
 // LINK TO STSQ
 for (0 => int i; i < stsqs_p.size(); i++){
@@ -77,13 +58,12 @@ for (0 => int i; i < stsqs_p.size(); i++){
 // CHORDS
 
 _notes.Gs3 => int note;
+[ note, note+7, note+2] @=> int tonics[];
+[ 0, 4, 1] @=> int modes[];
 _scales.heptoniaPrima @=> int toneSpace[];
-_scales.generateMode(0, note, toneSpace) @=> int scale1[];
-_scales.generateMode(5, note+7, toneSpace) @=> int scale2[];
-_scales.generateMode(1, note+2, toneSpace) @=> int scale3[];
+// int scales[0][0];
+_lib10.create.scales(tonics, modes, toneSpace) @=> int scales[][];
 
-int scales[0][0];
-scales << scale1 << scale2 << scale3;
 
 int chordProgressions[0][0][0];
 for(0 => int i; i < scales.size(); i++){
@@ -94,23 +74,15 @@ for(0 => int i; i < scales.size(); i++){
 _lib9.print2dArray(chordProgressions[0]);
 
 _time.bar => dur arrangementUnit;
-dur sectionTriggers[0][0];
 [
   [0::arrangementUnit, 2::arrangementUnit],
   [2::arrangementUnit, 4::arrangementUnit],
   [4::arrangementUnit, 6::arrangementUnit]
-] @=> sectionTriggers;
+] @=> dur sectionTriggers[][];
 
 
 0 => int currentBar;
 
-fun int isFinalSampleOf(dur duration){
-  duration / samp => float durationSamples;
-  durationSamples - 1 => float finalSample;
-  
-  now / samp => float currentSample;
-  return currentSample == finalSample;
-}
 
 ////////
 // MAIN ARRANGEMENT LOOP
@@ -138,7 +110,7 @@ for (0 => int i; i < sectionTriggers.size(); i++){
       }
     }
 
-    if (isFinalSampleOf(end) && (nextChordProgression != null)) {
+    if (_lib10.isFinalSampleOf(end) && (nextChordProgression != null)) {
       _lib9.setSteps(stsqs_p, stsqs_e, nextChordProgression);
     }
     _time.advance();
