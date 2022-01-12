@@ -1,7 +1,7 @@
 ////////
 // CHORDS
 
-public class LibR2D8 {
+public class LibR2D9 {
 
   fun int[] makeSeventh(int scale[], int start) {
     int chord[4];

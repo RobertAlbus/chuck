@@ -3,7 +3,7 @@ _time.setBpm(80);
 
 MidiNotes _notes;
 MidiScales _scales;
-LibR2D8 _lib;
+LibR2D9 _lib;
 
 ////////
 // SOUND NETWORK
