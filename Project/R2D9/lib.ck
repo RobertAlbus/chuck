@@ -13,6 +13,7 @@ public class LibR2D9 {
   }
 
   fun int[][] rotateMatrix(int chords [][]) {
+    // actually it's an axis change, not a rotation
     chords.size() => int numChords;
     chords[0].size() => int chordSize;
 
@@ -39,7 +40,14 @@ public class LibR2D9 {
     makeSeventh(scale, 6) @=> int VII[];
 
     int chords[0][0];
-    chords << I << VI << II << V << I << VI << V << VII;
+    // chords << I << VI << II << V << I << VI << V << VII;
+    chords << I << IV << IV << V;
+    // <<< "HEEEECK">>>;
+    // <<< "HEEEECK">>>;
+    // <<< "HEEEECK">>>;
+    // <<< "HEEEECK">>>;
+    // <<< scale[0],scale[1], scale[2], scale[3],scale[4], scale[5], scale[6] >>>;
+    // <<< VII[0], VII[1], VII[2], VII[3] >>>;
 
     int groovyChords[0][0];
     for (0 => int i; i < chords.size(); i++){
@@ -61,6 +69,13 @@ public class LibR2D9 {
     for (0 => int i; i < chords.size(); i++){
       chords[i] @=> stsqs_p[i].steps;
       chords[i] @=> stsqs_e[i].steps;
+    }
+  }
+
+  fun void print2dArray(int array[][]) {
+    for (0=> int i; i < array.size(); i++) {
+      // <<< array[i].size() >>>;
+      <<< array[i][0], array[i][1], array[i][2], array[i][3], array[i][4], array[i][5], array[i][6] >>>;
     }
   }
 }
