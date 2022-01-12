@@ -1,5 +1,5 @@
 Time _time;
-_time.setBpm(80);
+_time.setBpm(100);
 
 MidiNotes _notes;
 MidiScales _scales;
@@ -75,25 +75,33 @@ for (0 => int i; i < stsqs_p.size(); i++){
 ////////
 // CHORDS
 
-_notes.Eb3 => int note;
+_notes.Gs3 => int note;
 _scales.heptoniaPrima @=> int toneSpace[];
-_scales.generateMode(1, note, toneSpace) @=> int scale1[];
-_scales.generateMode(3, note-4, toneSpace) @=> int scale2[];
+_scales.generateMode(0, note, toneSpace) @=> int scale1[];
+_scales.generateMode(5, note+7, toneSpace) @=> int scale2[];
+_scales.generateMode(1, note+2, toneSpace) @=> int scale3[];
 
-// x: time, y: pitch
-int chordProgression1[0][0];
-_lib.getChords(scale1) @=> chordProgression1;
-int chordProgression2[0][0];
-_lib.getChords(scale2) @=> chordProgression2;
+int scales[0][0];
+scales << scale1 << scale2 << scale3;
+
+int chordProgressions[0][0][0];
+for(0 => int i; i < scales.size(); i++){
+  scales[i].popBack();
+  chordProgressions << _lib.getChords(scales[i]);
+}
+
+_lib.print2dArray(chordProgressions[0]);
+
+_time.bar => dur arrangementUnit;
+dur sectionTriggers[0][0];
+[
+  [0::arrangementUnit, 2::arrangementUnit],
+  [2::arrangementUnit, 4::arrangementUnit],
+  [4::arrangementUnit, 6::arrangementUnit]
+] @=> sectionTriggers;
 
 
-0 => int sectionA_start;
-2 => int sectionA_end;
-sectionA_end => int sectionB_start;
-4 => int sectionB_end;
-
-_lib.setSteps(stsqs_p, stsqs_e, chordProgression1);
-_time.currentUnit(_time.bar) => int currentBar;
+0 => int currentBar;
 
 fun int isFinalSampleOf(dur duration){
   duration / samp => float durationSamples;
@@ -103,37 +111,37 @@ fun int isFinalSampleOf(dur duration){
   return currentSample == finalSample;
 }
 
-while ( currentBar >= sectionA_start && currentBar < sectionA_end) {
+////////
+// MAIN ARRANGEMENT LOOP
+for (0 => int i; i < sectionTriggers.size(); i++){
+  sectionTriggers[i][0] => dur start;
+  sectionTriggers[i][1] => dur end;
+  
+  chordProgressions[i]  @=> int chordProgression[][];
+  
+  chordProgressions[i+1]  @=> int nextChordProgression[][];
+  _lib.setSteps(stsqs_p, stsqs_e, chordProgression);
+  while ( now/arrangementUnit >= start/arrangementUnit && now/arrangementUnit < end/arrangementUnit) {
 
-  if (_time.isStartOfUnit(_time.quat)){
-    _time.currentUnit(_time.quat) => int step;
-
-    for (0 => int i; i < stsqs_p.size(); i++){
-      stsqs_p[i].play(step);
-      stsqs_e[i].play(step);
+    if (_time.isStartOfUnit(_time.bar)){
+          <<< now / _time.bar >>>;
+      _time.currentUnit(_time.quat) => int step;
     }
-  }
 
-  _time.currentUnit(_time.bar) => currentBar;
-  if (isFinalSampleOf(sectionA_end::_time.bar)) {
-    _lib.setSteps(stsqs_p, stsqs_e, chordProgression2);
-  }
-  _time.advance();
-}
+    if (_time.isStartOfUnit(_time.quat)){
+      _time.currentUnit(_time.quat) => int step;
 
-while ( currentBar >= sectionB_start && currentBar < sectionB_end) {
-
-  if (_time.isStartOfUnit(_time.quat)){
-    _time.currentUnit(_time.quat) => int step;
-
-    for (0 => int i; i < stsqs_p.size(); i++){
-      stsqs_p[i].play(step);
-      stsqs_e[i].play(step);
+      for (0 => int i; i < stsqs_p.size(); i++){
+        stsqs_p[i].play(step);
+        stsqs_e[i].play(step);
+      }
     }
-  }
 
-  _time.currentUnit(_time.bar) => currentBar;
-  _time.advance();
+    if (isFinalSampleOf(end) && (nextChordProgression != null)) {
+      _lib.setSteps(stsqs_p, stsqs_e, nextChordProgression);
+    }
+    _time.advance();
+  }
 }
 
 // CLOSE OUT
