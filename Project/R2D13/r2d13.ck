@@ -10,5 +10,6 @@ for (0 => int i; i < feature.size(); i++) {
   Machine.add(feature[i]);
 }
 
-// Machine.add("Project/R2D13/lib.ck");
+Machine.add("Project/R2D13/delay_line.ck");
+Machine.add("Project/R2D13/synth.ck");
 Machine.add("Project/R2D13/source.ck");

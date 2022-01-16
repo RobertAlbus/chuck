@@ -8,39 +8,35 @@ _time.setBpm(160);
 MidiNotes _notes;
 MidiScales _scales;
 
-SawOsc osc => ADSR env => Gain g;
-Std.mtof(_notes.D2) => osc.freq;
+Synth synth;
+synth.output => Gain synthChannel => Gain master => dac;
+Gain delayChannel => master;
+synthChannel => delayChannel;
 
-0.25::_time.quat => dur A;
-2::_time.quat => dur D;
-0 => float S;
-0.5::_time.quat => dur R;
-env.set(A,D,S,R);
+DelayLine delayLine1;
+delayLine1.log("1A");
+delayLine1.setTime(3::_time.quat);
+delayLine1.log("1B");
+delayLine1.output => delayChannel;
+delayChannel => delayLine1.input;
 
-Gain d_input => Delay d => LPF d_lpf_filt => HPF d_hpf_filt => Gain d_output;
-3::_time.quat => d.max => d.delay;
-1000 => d_lpf_filt.freq;
-0.9 => d_lpf_filt.Q;
+DelayLine delayLine2;
+delayLine2.log("2A");
+delayLine2.setTime(7::_time.quat);
+delayLine2.log("2B");
+delayLine2.output => delayChannel;
+delayChannel => delayLine2.input;
 
-300 => d_hpf_filt.freq;
-0.9 => d_hpf_filt.Q;
-
-0.85 => d_output.gain;
-
-g => d_input;
-d_output => g;
-
-
-
-Gain master => dac;
-g => master;
+0.42 => float feedbackAmount;
+feedbackAmount => delayLine1.output.gain;
+feedbackAmount => delayLine2.output.gain;
 
 0.05 => master.gain;
 while(true) {
-  env.keyOn();
+  synth.adsr.keyOn();
   _time.advance(1::_time.beat);
-  env.keyOff();
-  _time.advance(3::_time.beat);
+  synth.adsr.keyOff();
+  _time.advance(7::_time.beat);
 
 }
 
