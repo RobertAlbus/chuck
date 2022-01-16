@@ -44,8 +44,8 @@ kickAmp.set(ka_A ,ka_D ,ka_S ,ka_R );
 Step kickPitchBasis => ADSR kickPitchEnvelope => Gain KickModMix => blackhole;
 1 => kickPitchBasis.next;
 
-0.1::_time.quat => dur kp_A;
-2::_time.quat => dur kp_D;
+0::_time.quat => dur kp_A;
+1::_time.quat => dur kp_D;
 0 => float kp_S;
 0.1::_time.quat => dur kp_R;
 kickPitchEnvelope.set(kp_A, kp_D, kp_S, kp_R);
@@ -65,7 +65,7 @@ while(now / _time.bar < 8 )
 
     if (step % 4 == 0) {
       kickPitchEnvelope.keyOn();
-      kickAmp.keyOn();
+      kickAmp.keyOn(1);
     }
     if (step % 4 == 1) {
       kickAmp.keyOff();
@@ -75,6 +75,14 @@ while(now / _time.bar < 8 )
     }
     if (step % 4 == 3) {
       filterAdsr.keyOff();
+      kickPitchEnvelope.keyOff();
+    }
+    if (step % 16 == 13) {
+      kickAmp.keyOn();
+      kickPitchEnvelope.keyOn();
+    }
+    if (step % 16 == 14) {
+      kickAmp.keyOff();
       kickPitchEnvelope.keyOff();
     }
   }
