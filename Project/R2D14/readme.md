@@ -14,5 +14,7 @@
 
 ## Lessons
 - UGen doesn't automatically tick() but Chugen does
-- I need to pipe input into a Chugen for the tick function to receive a non-zero value
-- Clearly I need to learn some maths for DSP now
+- All UGens need to be piped somewhere. use black hole if you want to sink it.
+- I can pipe input to a chugen and that sample's value will be the float that is passed as an arg to tick()
+- Would be good to learn some maths for DSP now
+- This will be useful for wrapping up constructs such as multi-osc synths, delay lines, mixer

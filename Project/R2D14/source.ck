@@ -8,7 +8,7 @@ _time.setBpm(160);
 MidiNotes _notes;
 MidiScales _scales;
 
-SinOsc osc => MyChugen ticker => dac;
+MyChugen ticker => dac;
 
 
 while(true) {
