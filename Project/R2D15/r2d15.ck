@@ -11,4 +11,5 @@ for (0 => int i; i < feature.size(); i++) {
 }
 
 Machine.add("Project/R2D15/echo.ck");
+Machine.add("Project/R2D15/SingleOscSynth.ck");
 Machine.add("Project/R2D15/source.ck");

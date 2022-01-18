@@ -9,7 +9,7 @@ MidiNotes _notes;
 MidiScales _scales;
 
 // Synth Channel
-SawOsc osc => ADSR env => Gain synthChannel => Gain master => dac;
+SingleOscSynth osc => Gain synthChannel => Gain master => dac;
 
 // FX Send
 Gain echoSend => Chorus chorus => ChugenEcho echoer => LPF echoLpf => Gain echoReturn => Gain echoChannel => master;
@@ -22,18 +22,16 @@ echoReturn => Gain FxFeedback => echoSend;
 
 // Link Synth to FX
 synthChannel => Gain echoSendAmount => echoSend;
+
+// Mix
 1 => echoSendAmount.gain;
+0.6 => echoChannel.gain;
+0.6 => synthChannel.gain;
 
-Std.mtof(0.5 + _notes.F2) => osc.freq;
-0.25::_time.quat => dur A;
-1::_time.beat => dur D;
-0 => float S;
-0.5::_time.quat => dur R;
-env.set(A,D,S,R);
-
+// Run
 while(true) {
-  env.keyOn();
+  osc.keyOn();
   _time.advance(1::_time.beat);
-  env.keyOff();
+  osc.keyOff();
   _time.advance(3::_time.beat);
 }
