@@ -11,8 +11,7 @@ public class SingleOscSynth extends Chugen {
   0 => int tune_cent;
 
   // Filter Envelope
-  Step filterBasis => ADSR filt_env => Gain filterModMix => blackhole;
-  1 => filterBasis.next;
+  AdsrController filter_env;
   30 => int filerFreqBase;
   600 => int filterFreqTop;
   filterFreqTop - filerFreqBase => int filterRange;
@@ -23,7 +22,7 @@ public class SingleOscSynth extends Chugen {
   init();
 
   fun float tick( float in ) {
-    (filterRange * filterModMix.last()) + filerFreqBase => lpf.freq;
+    (filterRange * filter_env.last()) + filerFreqBase => lpf.freq;
     return output.last();
   }
 
@@ -54,17 +53,17 @@ public class SingleOscSynth extends Chugen {
 
   fun void keyOn() {
     osc_env.keyOn();
-    filt_env.keyOn();
+    filter_env.keyOn();
   }
   fun void keyOff() {
     osc_env.keyOff();
-    filt_env.keyOff();
+    filter_env.keyOff();
   }
 
   fun void setAdsr_Amp(dur A, dur D, float S, dur R) {
     osc_env.set(A,D,S,R);
   }
   fun void setAdsr_Filt(dur A, dur D, float S, dur R) {
-    filt_env.set(A,D,S,R);
+    filter_env.adsr.set(A,D,S,R);
   }
 }
