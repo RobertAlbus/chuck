@@ -2,25 +2,43 @@ public class SingleOscSynth extends Chugen {
   Time _time;
   MidiNotes _notes;
 
+  // Osc and Amp
   Osc osc;
-  SinOsc sin @=> osc; 
-  osc => ADSR osc_env => Gain output => blackhole;
+  SqrOsc sin @=> osc; 
+  osc => ADSR osc_env;
 
-  0 => int tune_semi;
+  -24 => int tune_semi;
   0 => int tune_cent;
+
+  // Filter Envelope
+  Step filterBasis => ADSR filt_env => Gain filterModMix => blackhole;
+  1 => filterBasis.next;
+  30 => int filerFreqBase;
+  600 => int filterFreqTop;
+  filterFreqTop - filerFreqBase => int filterRange;
+
+
+  osc_env => LPF lpf => Gain output => blackhole;
 
   init();
 
   fun float tick( float in ) {
+    (filterRange * filterModMix.last()) + filerFreqBase => lpf.freq;
     return output.last();
   }
 
   fun void init() {
     note(_notes.F4);
-    setAdsr(
-      1::_time.quat,
-      2::_time.quat,
+    setAdsr_Amp(
+      0.1::_time.quat,
+      4::_time.quat,
       0.5,
+      2::_time.quat
+    );
+    setAdsr_Filt(
+      2::_time.quat,
+      1::_time.quat,
+      0.1,
       2::_time.quat
     );
   }
@@ -36,12 +54,17 @@ public class SingleOscSynth extends Chugen {
 
   fun void keyOn() {
     osc_env.keyOn();
+    filt_env.keyOn();
   }
   fun void keyOff() {
     osc_env.keyOff();
+    filt_env.keyOff();
   }
 
-  fun void setAdsr(dur A, dur D, float S, dur R) {
+  fun void setAdsr_Amp(dur A, dur D, float S, dur R) {
     osc_env.set(A,D,S,R);
+  }
+  fun void setAdsr_Filt(dur A, dur D, float S, dur R) {
+    filt_env.set(A,D,S,R);
   }
 }
