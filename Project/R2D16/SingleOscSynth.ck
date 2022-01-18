@@ -1,4 +1,19 @@
 public class SingleOscSynth extends Chugen {
+  ////////
+  // TODO
+  /*
+  - prefix all member variables with underscore
+  - add getter and setter methods for required member variables
+  - standardize on a variable naming scheme (camel case, underscore, etc)
+  - add methods for changing the Osc type
+  - add pitch ADSR
+  - create LfoController
+    - might want an ADSR over top of the Lfo for more advanced articulation? 
+  - create a base class OscSynth that mono and poly versions can inherit from
+    - can add all the requite methods that print a string with the method name
+    - this will help me see if I haven't implemented a method on a subclass 
+  */
+
   Time _time;
   MidiNotes _notes;
 
