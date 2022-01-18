@@ -28,7 +28,6 @@ public class SingleOscSynth extends Chugen {
   }
 
   fun void init() {
-    note(_notes.F4);
     setAdsr_Amp(
       0.1::_time.quat,
       4::_time.quat,
@@ -36,8 +35,8 @@ public class SingleOscSynth extends Chugen {
       2::_time.quat
     );
     setAdsr_Filt(
-      2::_time.quat,
-      1::_time.quat,
+      0::_time.quat,
+      3::_time.quat,
       0.1,
       2::_time.quat
     );
