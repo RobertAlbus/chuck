@@ -5,10 +5,11 @@ public class SingleOscSynth extends Chugen {
   - add methods for changing the Osc type
   - create LfoController
     - might want an ADSR over top of the Lfo for more advanced articulation? 
-  - create a base class OscSynth that mono and poly versions can inherit from
+  - create a base class OscSynth that Single and Multi versions can inherit from
     - can add all the requite methods that print a string with the method name
     - this will help me see if I haven't implemented a method on a subclass 
-    - should the poly version have master filter/envelopes/etc?
+    - should the Mutli version have master filter/envelopes/etc? - not for now
+    - create polyphonic version of MultiOscSynth
   - create "presets" functionality with memoization
     - create a minimal class called SingleOscSynthPatch for all props
     - create an init function that accepts an arg of this type
