@@ -17,55 +17,61 @@ public class SingleOscSynth extends Chugen {
   Time _time;
   MidiNotes _notes;
 
-  // Osc and Amp
-  Osc osc;
-  SqrOsc sin @=> osc; 
-  osc => ADSR osc_env;
+  // Osc, amplitude, filter
+  Osc _osc;
 
-  _notes.C5 => float _note;
+  SqrOsc sin @=> _osc; 
+  _osc => ADSR _osc_env => LPF _filter => Gain _output => blackhole;
+
+  0 => float _note;
+  
   0 => float _tune_semi;
   0 => float _tune_cent;
 
   // Filter Envelope
-  AdsrController filter_env;
-  30 => int filerFreqBase;
-  600 => int filterFreqTop;
-  filterFreqTop - filerFreqBase => int filterRange;
-
-
-  osc_env => LPF lpf => Gain output => blackhole;
+  AdsrController _filter_env;
+  float _filter_freq_base;
+  float _filter_freq_top;
+  float _filter_freq_range;
 
   init();
 
   fun float tick( float in ) {
-    (filterRange * filter_env.last()) + filerFreqBase => lpf.freq;
-    return output.last();
+    tickFilter();
+    return _output.last();
+  }
+
+  fun void tickFilter() {
+    (_filter_freq_range * _filter_env.last()) + _filter_freq_base => _filter.freq;
   }
 
   fun void init() {
+    note(_notes.C5);
+    20000 => filterFreqBase;
+    20000 => filterFreqTop;
     setAdsr_Amp(
       0.1::_time.quat,
-      4::_time.quat,
-      0.5,
-      2::_time.quat
+      0::_time.quat,
+      1,
+      0.1::_time.quat
     );
     setAdsr_Filt(
+      0.1::_time.quat,
       0::_time.quat,
-      3::_time.quat,
-      0.1,
-      2::_time.quat
+      1,
+      0.1::_time.quat
     );
   }
 
   // NOTE
   fun float note() {
-    return Std.ftom(osc.freq());
+    return Std.ftom(_osc.freq());
   }
 
   fun float note(float midiNote) {
     midiNote => _note;
     _setFreq();
-    return Std.ftom(osc.freq());
+    return Std.ftom(_osc.freq());
   }
 
   // TUNING
@@ -81,36 +87,36 @@ public class SingleOscSynth extends Chugen {
   fun float tuneCent() {
     return _tune_cent;
   }
-  fun float tuneSemi(float semitones) {
+  fun float tuneCent(float semitones) {
     semitones => _tune_cent;
     _setFreq();
     return _tune_cent;
   }
 
   fun void _setFreq() {
-    Std.mtof(_note + _tune_semi + (_tune_cent / 100)) => osc.freq;
+    Std.mtof(_note + _tune_semi + (_tune_cent / 100)) => _osc.freq;
   }
 
   // KEY CONTROL
   fun void keyOn() {
-    osc_env.keyOn();
-    filter_env.keyOn();
+    _osc_env.keyOn();
+    _filter_env.keyOn();
   }
   fun void keyOn(int midiNote) {
     note(midiNote);
-    osc_env.keyOn();
-    filter_env.keyOn();
+    _osc_env.keyOn();
+    _filter_env.keyOn();
   }
   fun void keyOff() {
-    osc_env.keyOff();
-    filter_env.keyOff();
+    _osc_env.keyOff();
+    _filter_env.keyOff();
   }
 
   // SET ADSRs
   fun void setAdsr_Amp(dur A, dur D, float S, dur R) {
-    osc_env.set(A,D,S,R);
+    _osc_env.set(A,D,S,R);
   }
   fun void setAdsr_Filt(dur A, dur D, float S, dur R) {
-    filter_env.adsr.set(A,D,S,R);
+    _filter_env.adsr.set(A,D,S,R);
   }
 }
