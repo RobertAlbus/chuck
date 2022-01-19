@@ -15,7 +15,6 @@ osc.tuneSemi(-12);
 // FX Send
 Gain echoSend => Chorus chorus => ChugenEcho echoer => LPF echoLpf => Gain echoReturn => Gain echoChannel => master;
 echoReturn => Gain FxFeedback => echoSend;
-0.9 => FxFeedback.gain;
 0.2 => chorus.mix;
 0 => echoer.feedback;
 2000 => echoLpf.freq;
@@ -26,26 +25,27 @@ synthChannel => Gain echoSendAmount => echoSend;
 
 // Mix
 0.9 => echoSendAmount.gain;
+0.9 => FxFeedback.gain;
+
 0.5 => echoChannel.gain;
 0.4 => synthChannel.gain;
 0.5 => master.gain;
 
+[
+  _notes.F5,
+  _notes.Ab4,
+  _notes.C5,
+  _notes.Eb5,
+  _notes.G5,
+  _notes.Eb5
+] @=> int arp[];
+
 // Run
 while(true) {
-  osc.keyOn(_notes.F5);
-  _time.advance(1::_time.quat);
-  osc.keyOff();
-  _time.advance(1::_time.quat);
-  osc.keyOn(_notes.Ab4);
-  _time.advance(1::_time.quat);
-  osc.keyOff();
-  _time.advance(1::_time.quat);
-  osc.keyOn(_notes.C5);
-  _time.advance(1::_time.quat);
-  osc.keyOff();
-  _time.advance(1::_time.quat);
-  osc.keyOn(_notes.Eb5);
-  _time.advance(1::_time.quat);
-  osc.keyOff();
-  _time.advance(1::_time.quat);
+  for (0 => int i; i < arp.size(); i++ ) {
+    osc.keyOn(arp[i]);
+    _time.advance(1::_time.quat);
+    osc.keyOff();
+    _time.advance(1::_time.quat);
+  }
 }
