@@ -27,9 +27,8 @@ public class SingleOscSynth extends Chugen {
 
   // Filter Envelope
   AdsrController _filterEnv;
-  float _filterFreqBase;
-  float _filterFreqTop;
-  float _filterFreqRange;
+  float _filterCutoff;
+  float _filterEnvAmount;
 
   init();
 
@@ -39,13 +38,13 @@ public class SingleOscSynth extends Chugen {
   }
 
   fun void tickFilter() {
-    (_filterFreqRange * _filterEnv.last()) + _filterFreqBase => _filter.freq;
+    (_filterEnvAmount * _filterEnv.last()) + _filterCutoff => _filter.freq;
   }
 
   fun void init() {
     note(_notes.C5);
-    20000 => _filterFreqBase;
-    20000 => _filterFreqTop;
+    20000 => _filterCutoff;
+    0 => _filterEnvAmount;
     setAdsr_Amp(
       0.1::_time.quat,
       0::_time.quat,
