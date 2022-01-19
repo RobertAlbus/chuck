@@ -8,6 +8,10 @@ public class SingleOscSynth extends Chugen {
   - create a base class OscSynth that mono and poly versions can inherit from
     - can add all the requite methods that print a string with the method name
     - this will help me see if I haven't implemented a method on a subclass 
+    - should the poly version have master filter/envelopes/etc?
+  - create "presets" functionality with memoization
+    - create a minimal class called SingleOscSynthPatch for all props
+    - create an init function that accepts an arg of this type
   */
 
   Time _time;
