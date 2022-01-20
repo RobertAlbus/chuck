@@ -2,7 +2,6 @@ public class SingleOscSynth extends Chugen {
   ////////
   // TODO
   /*
-  - add methods for changing the Osc type
   - create LfoController
     - might want an ADSR over top of the Lfo for more advanced articulation? 
   - create a base class OscSynth that Single and Multi versions can inherit from
@@ -20,9 +19,9 @@ public class SingleOscSynth extends Chugen {
 
   // Osc, amplitude, filter
   Osc _osc;
+  string _oscType;
 
-  SqrOsc sin @=> _osc; 
-  _osc => ADSR _oscEnv => LPF _filter => Gain _output => blackhole;
+  ADSR _oscEnv => LPF _filter => Gain _output => blackhole;
 
   // Pitch 
   AdsrController _pitchEnv;
@@ -54,6 +53,8 @@ public class SingleOscSynth extends Chugen {
   }
 
   fun void init() {
+    oscType("sin");
+    _connectOsc();
     note(_notes.C5);
     20000 => _filterCutoff;
     0 => _filterEnvAmount;
@@ -133,5 +134,38 @@ public class SingleOscSynth extends Chugen {
   }
   fun void setAdsr_Pitch(dur A, dur D, float S, dur R) {
     _pitchEnv.adsr.set(A,D,S,R);
+  }
+
+  fun string oscType(string oscType) {
+    _osc @=> Osc _oldOsc;
+    _disconnectOsc();
+    oscType.lower() => _oscType;
+    if (oscType == "sine" || oscType == "sin") {
+      new SinOsc @=> _osc;
+    }
+    else if (oscType == "saw") {
+      new SawOsc @=> _osc;
+    }
+    else if (oscType == "square" || oscType == "sqr") {
+      new SqrOsc @=> _osc;
+    }
+    else if (oscType == "triangle" || oscType == "tri") {
+      new TriOsc @=> _osc;
+    }
+    else {
+      _oldOsc @=> _osc;
+    }
+    _connectOsc();
+  }
+
+  fun string oscType() {
+    return _oscType;
+  }
+
+  fun void _disconnectOsc() {
+    _osc =< _oscEnv;
+  }
+  fun void _connectOsc() {
+    _osc => _oscEnv;
   }
 }
