@@ -15,5 +15,5 @@ Machine.add("Project/R2D18/AdsrController.ck");
 Machine.add("Project/R2D18/OscSynthMemento.ck");
 Machine.add("Project/R2D18/OscSynth.ck");
 Machine.add("Project/R2D18/OscSynthMementos.ck");
-Machine.add("Project/R2D18/SingleOscSynth.ck");
+Machine.add("Project/R2D18/OscSynthSingle.ck");
 Machine.add("Project/R2D18/source.ck");

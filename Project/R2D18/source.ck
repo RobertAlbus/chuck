@@ -9,7 +9,7 @@ MidiNotes _notes;
 MidiScales _scales;
 
 // Synth Channel
-SingleOscSynth osc => Gain synthChannel => Gain master => dac;
+OscSynthSingle osc => Gain synthChannel => Gain master => dac;
 
 osc.tuneSemi(-12);
 // FX Send

@@ -1,4 +1,4 @@
-public class SingleOscSynth extends OscSynth {
+public class OscSynthSingle extends OscSynth {
   ////////
   // TODO
   /*
