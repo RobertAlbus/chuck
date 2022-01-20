@@ -3,6 +3,7 @@ public class OscSynthBase extends Chugen {
 
   fun float tick( float in ) {
     <<< "OscSynth: tick" >>>;
+    return 0.0;
   }
 
   fun void tickFilter() {
