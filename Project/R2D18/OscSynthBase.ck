@@ -1,4 +1,4 @@
-public class OscSynth extends Chugen {
+public class OscSynthBase extends Chugen {
 
 
   fun float tick( float in ) {
