@@ -1,4 +1,4 @@
-public class SingleOscSynth extends Chugen {
+public class SingleOscSynth extends OscSynth {
   ////////
   // TODO
   /*
@@ -9,13 +9,12 @@ public class SingleOscSynth extends Chugen {
     - this will help me see if I haven't implemented a method on a subclass 
     - should the Mutli version have master filter/envelopes/etc? - not for now
     - create polyphonic version of MultiOscSynth
-  - create "presets" functionality with memoization
-    - create a minimal class called SingleOscSynthPatch for all props
-    - create an init function that accepts an arg of this type
+  - Add serialization and string parsing to memoization
   */
 
   Time _time;
   MidiNotes _notes;
+  OscSynthMementos _mementos;
 
   // Osc, amplitude, filter
   Osc _osc;
@@ -53,30 +52,7 @@ public class SingleOscSynth extends Chugen {
   }
 
   fun void init() {
-    oscType("sin");
-    _connectOsc();
-    note(_notes.C5);
-    20000 => _filterCutoff;
-    0 => _filterEnvAmount;
-    0 => _pitchEnvAmount;
-    setAdsr_Amp(
-      0.01::_time.quat,
-      2::_time.quat,
-      0.8,
-      0.1::_time.quat
-    );
-    setAdsr_Filt(
-      0::_time.quat,
-      2::_time.quat,
-      0.4,
-      0.1::_time.quat
-    );
-    setAdsr_Pitch(
-      0::_time.quat,
-      0.5::_time.quat,
-      0,
-      0::_time.quat
-    );
+    memento(_mementos.default);
   }
 
   // NOTE
@@ -105,7 +81,6 @@ public class SingleOscSynth extends Chugen {
     semitones => _tuneCent;
     return _tuneCent;
   }
-
 
   // KEY CONTROL
   fun void keyOn() {
@@ -167,5 +142,74 @@ public class SingleOscSynth extends Chugen {
   }
   fun void _connectOsc() {
     _osc => _oscEnv;
+  }
+
+  fun OscSynthMemento memento() {
+    OscSynthMemento memo;
+    
+    _oscType        => memo.oscType;
+    _note           => memo.note;
+    _tuneSemi       => memo.tuneSemi;
+    _tuneCent       => memo.tuneCent;
+    _filterCutoff   => memo.filterCutoff;
+
+    _pitchEnvAmount   => memo.pitchEnvAmount;
+    _filterEnvAmount  => memo.filterEnvAmount;
+
+    _oscEnv.attackTime()    => memo.amp_A;
+    _oscEnv.decayTime()     => memo.amp_D;
+    _oscEnv.sustainLevel()  => memo.amp_S;
+    _oscEnv.releaseTime()   => memo.amp_R;
+
+    _filterEnv.adsr.attackTime()    => memo.filt_A;
+    _filterEnv.adsr.decayTime()     => memo.filt_D;
+    _filterEnv.adsr.sustainLevel()  => memo.filt_S;
+    _filterEnv.adsr.releaseTime()   => memo.filt_R;
+
+    _pitchEnv.adsr.attackTime()   => memo.pitch_A;
+    _pitchEnv.adsr.decayTime()    => memo.pitch_D;
+    _pitchEnv.adsr.sustainLevel() => memo.pitch_S;
+    _pitchEnv.adsr.releaseTime()  => memo.pitch_R;
+
+    return memo;
+  }
+  fun OscSynthMemento memento(OscSynthMemento memo) {
+    memo.oscType      => _oscType;
+    oscType(_oscType);
+
+    memo.note         => _note;
+    memo.tuneSemi     => _tuneSemi;
+    memo.tuneCent     => _tuneCent;
+    memo.filterCutoff => _filterCutoff;
+
+    memo.pitchEnvAmount  => _pitchEnvAmount;
+    memo.filterEnvAmount => _filterEnvAmount;
+
+    memo.amp_A => _oscEnv.attackTime;
+    memo.amp_D => _oscEnv.decayTime;
+    memo.amp_S => _oscEnv.sustainLevel;
+    memo.amp_R => _oscEnv.releaseTime;
+
+    _oscEnv.set(
+      memo.amp_A,
+      memo.amp_D,
+      memo.amp_S,
+      memo.amp_R
+    );
+
+    _filterEnv.adsr.set(
+      memo.filt_A,
+      memo.filt_D,
+      memo.filt_S,
+      memo.filt_R
+    );
+
+    _pitchEnv.adsr.set(
+      memo.pitch_A,
+      memo.pitch_D,
+      memo.pitch_S,
+      memo.pitch_R
+    );
+
   }
 }
