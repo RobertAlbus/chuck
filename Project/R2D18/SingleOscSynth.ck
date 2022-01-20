@@ -4,11 +4,6 @@ public class SingleOscSynth extends OscSynth {
   /*
   - create LfoController
     - might want an ADSR over top of the Lfo for more advanced articulation? 
-  - create a base class OscSynth that Single and Multi versions can inherit from
-    - can add all the requite methods that print a string with the method name
-    - this will help me see if I haven't implemented a method on a subclass 
-    - should the Mutli version have master filter/envelopes/etc? - not for now
-    - create polyphonic version of MultiOscSynth
   - Add serialization and string parsing to memoization
   */
 
