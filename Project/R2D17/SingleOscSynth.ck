@@ -55,8 +55,8 @@ public class SingleOscSynth extends Chugen {
 
   fun void init() {
     note(_notes.C5);
-    200 => _filterCutoff;
-    2000 => _filterEnvAmount;
+    20000 => _filterCutoff;
+    0 => _filterEnvAmount;
     0 => _pitchEnvAmount;
     setAdsr_Amp(
       0.01::_time.quat,
@@ -72,9 +72,9 @@ public class SingleOscSynth extends Chugen {
     );
     setAdsr_Pitch(
       0::_time.quat,
-      0::_time.quat,
+      0.5::_time.quat,
       0,
-      0.1::_time.quat
+      0::_time.quat
     );
   }
 
