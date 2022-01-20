@@ -16,4 +16,5 @@ Machine.add("Project/R2D18/OscSynthMemento.ck");
 Machine.add("Project/R2D18/OscSynthBase.ck");
 Machine.add("Project/R2D18/OscSynthMementos.ck");
 Machine.add("Project/R2D18/OscSynthSingle.ck");
+Machine.add("Project/R2D18/OscSynthMulti.ck");
 Machine.add("Project/R2D18/source.ck");

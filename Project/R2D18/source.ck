@@ -9,9 +9,14 @@ MidiNotes _notes;
 MidiScales _scales;
 
 // Synth Channel
-OscSynthSingle osc => Gain synthChannel => Gain master => dac;
+OscSynthMulti osc => Gain synthChannel => Gain master => dac;
 
-osc.tuneSemi(-12);
+osc._oscs[0].tuneSemi(-12);
+osc._oscs[0].oscType("saw");
+
+osc._oscs[1].tuneSemi(0);
+osc._oscs[1].oscType("saw");
+
 // FX Send
 Gain echoSend => Chorus chorus => ChugenEcho echoer => LPF echoLpf => Gain echoReturn => Gain echoChannel => master;
 echoReturn => Gain FxFeedback => echoSend;
