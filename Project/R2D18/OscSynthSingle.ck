@@ -9,7 +9,7 @@ public class OscSynthSingle extends OscSynthBase {
 
   Time _time;
   MidiNotes _notes;
-  OscSynthMementos _mementos;
+  OscSynthMementos _presets;
 
   // Osc, amplitude, filter
   Osc _osc;
@@ -47,7 +47,7 @@ public class OscSynthSingle extends OscSynthBase {
   }
 
   fun void init() {
-    memento(_mementos.default);
+    memento(_presets.get("default"));
   }
 
   // NOTE

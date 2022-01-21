@@ -2,7 +2,13 @@ public class OscSynthMementos {
   MidiNotes _notes;
   Time _time;
 
-  OscSynthMemento default;
+  OscSynthMemento mementos[0];
+
+  fun OscSynthMemento get(string presetName) {
+    return mementos[presetName];
+  }
+
+  OscSynthMemento default @=> mementos["default"]; 
   "sine"    => default.oscType;
   _notes.C5 => default.note;
   0         => default.tuneSemi;
