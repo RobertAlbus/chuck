@@ -52,11 +52,4 @@ public class OscSynthBase extends Chugen {
     <<< "OscSynth: set key off" >>>;
   }
 
-  fun OscSynthMemento memento() {
-    <<< "OscSynth: get memento" >>>;
-  }
-  fun OscSynthMemento memento(OscSynthMemento memo) {
-    <<< "OscSynth: set from memento" >>>;
-  }
-
 }
