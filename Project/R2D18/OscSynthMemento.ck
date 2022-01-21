@@ -17,8 +17,8 @@ public class OscSynthMemento {
   float tuneCent;
 
   float filterCutoff;
-  float pitchEnvAmount; 
   float filterEnvAmount;
+  float pitchEnvAmount; 
 
   dur amp_A;
   dur amp_D;

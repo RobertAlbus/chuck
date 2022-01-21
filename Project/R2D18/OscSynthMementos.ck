@@ -14,8 +14,8 @@ public class OscSynthMementos {
   0         => default.tuneSemi;
   0         => default.tuneCent;
   20000     => default.filterCutoff;
-  0         => default.pitchEnvAmount;
   0         => default.filterEnvAmount;
+  0         => default.pitchEnvAmount;
   0::_time.quat => default.amp_A;
   0::_time.quat => default.amp_D;
   1             => default.amp_S;
