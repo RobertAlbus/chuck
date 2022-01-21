@@ -5,6 +5,7 @@ public class OscSynthSingle extends OscSynthBase {
   - create LfoController
     - might want an ADSR over top of the Lfo for more advanced articulation? 
   - Add serialization and string parsing to memoization
+  - Add gain control for each Osc
   */
 
   Time _time;
@@ -179,11 +180,6 @@ public class OscSynthSingle extends OscSynthBase {
 
     memo.pitchEnvAmount  => _pitchEnvAmount;
     memo.filterEnvAmount => _filterEnvAmount;
-
-    memo.amp_A => _oscEnv.attackTime;
-    memo.amp_D => _oscEnv.decayTime;
-    memo.amp_S => _oscEnv.sustainLevel;
-    memo.amp_R => _oscEnv.releaseTime;
 
     _oscEnv.set(
       memo.amp_A,
