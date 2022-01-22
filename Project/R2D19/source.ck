@@ -58,24 +58,8 @@ synthChannel => Gain echoSendAmount => echoSend;
   _notes.Eb5
 ] @=> int arp[];
 
-"" => string myVar;
-// "       " +=> myVar;
-// ";" +=> myVar;
-// "      " +=> myVar;
-// 4500.000000 +=> myVar;
-// ";" +=> myVar;
-// 1::samp/samp +=> myVar;
-// ";" +=> myVar;
-// <<< myVar.length() >>>;
-// <<< myVar.substring(8, 8).toFloat()::samp == 9::samp >>>;
-
-1::_time.quat/samp +=> myVar;
-<<< myVar >>>;
-<<< _time.quat >>>;
-
 
 osc._oscs[0].memento().serialize() => string preset;
-<<< preset >>>;
 
 // Run
 while(true) {
