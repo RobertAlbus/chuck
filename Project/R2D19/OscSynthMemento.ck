@@ -65,26 +65,26 @@ public class OscSynthMemento {
     }
     amp_R/samp +=> serial;
     ";" +=> serial;
+
     filt_A/samp +=> serial;
     ";" +=> serial;
     filt_D/samp +=> serial;
     ";" +=> serial;
     filt_S +=> serial;
-    if (Math.isnan(filt_R/samp)){
+    if (Math.isnan(filt_R/samp)) {
       0.0000 +=> serial;
     } else {
       filt_R/samp +=> serial;
     }
     ";" +=> serial;
-    filt_R/samp +=> serial;
-    ";" +=> serial;
+    
     pitch_A/samp +=> serial;
     ";" +=> serial;
     pitch_D/samp +=> serial;
     ";" +=> serial;
     pitch_S +=> serial;
     ";" +=> serial;
-    if (Math.isnan(filt_R/samp)){
+    if (Math.isnan(pitch_R/samp)){
       0.0000 +=> serial;
     } else {
       pitch_R/samp +=> serial;
