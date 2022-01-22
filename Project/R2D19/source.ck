@@ -11,7 +11,7 @@ MidiScales _scales;
 // Synth Channel
 OscSynthMulti osc => Gain synthChannel => Gain master => dac;
 
-osc._oscs[0].tuneSemi(-36);
+osc._oscs[0].tuneSemi(-48);
 osc._oscs[0].oscType("saw");
 osc._oscs[0].setAdsr_Amp(0::_time.quat, 1::_time.quat, 0.7, 2::_time.quat);
 osc._oscs[0].setAdsr_Filt(0::_time.quat, 1::_time.quat, 0, 2::_time.quat);
@@ -20,8 +20,8 @@ osc._oscs[0].setAdsr_Pitch(0::_time.quat, 0.1::_time.quat, 0, 0::_time.quat);
 3000  => osc._oscs[0]._filterEnvAmount;
 1000  => osc._oscs[0]._pitchEnvAmount;
 
-osc._oscs[1].tuneSemi(-36);
-osc._oscs[1].oscType("sqr");
+osc._oscs[1].tuneSemi(-48);
+osc._oscs[1].oscType("saw");
 osc._oscs[1].setAdsr_Amp(2::_time.quat, 0::_time.quat, 1, 4::_time.quat);
 osc._oscs[1].setAdsr_Filt(2::_time.quat, 0::_time.quat, 1, 2::_time.quat);
 osc._oscs[1].setAdsr_Pitch(0::_time.quat, 0::_time.quat, 0, 1::_time.quat);
@@ -51,8 +51,8 @@ synthChannel => Gain echoSendAmount => echoSend;
 
 [
   _notes.F5,
-  _notes.Ab4,
-  _notes.C5,
+  _notes.Ab5,
+  _notes.C6,
   _notes.Eb5,
   _notes.G5,
   _notes.Eb5
