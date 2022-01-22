@@ -47,7 +47,7 @@ synthChannel => Gain echoSendAmount => echoSend;
 
 0.5 => echoChannel.gain;
 0.4 => synthChannel.gain;
-0.5 => master.gain;
+3.5 => master.gain;
 
 [
   _notes.F5,
