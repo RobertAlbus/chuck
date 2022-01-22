@@ -7,9 +7,80 @@ public class OscSynthMemento {
     - I don't like the conditional check. It's lossy, we have no R value now even if it was set.
     - when creating the memento, we should hold the old S value, switch it to 1, record Release, swap back
     - does this work?
-  
-  */ 
 
+    fixed this by just checking for nan
+  */
+
+  ////////
+  // NEW VERSION
+  string _propNames[0];
+  string _properties[0];
+
+  fun void set(string key, string value) {
+    _propNames << key;
+    value => _properties[key];
+  }
+
+  fun void set(string key, float value) {
+    string stringifiedValue;
+    value +=> stringifiedValue;
+    set(key, stringifiedValue);
+  }
+
+  fun void set(string key, dur value) {
+    string stringifiedValue;
+    value/samp => float samples; 
+
+    if (Math.isnan(samples)) {
+      0.0000 +=> stringifiedValue;
+    } else {
+      samples +=> stringifiedValue;
+    }
+    set(key, stringifiedValue);
+  }
+
+  fun string get(string key) {
+    return _properties[key];
+  }
+  fun float getF(string key) {
+    return get(key).toFloat();
+  }
+  fun int getI(string key) {
+    return get(key).toInt();
+  }
+  fun dur getD(string key) {
+    return get(key).toFloat()::samp;
+  }
+
+  fun string serialize2() {
+    ";" => string preset;
+    for (0 => int i; i < _propNames.size(); i++) {
+      _propNames[i] => string key;
+      _properties[key] => string value;
+
+      key +=> preset;
+      "=" +=> preset;
+      value +=> preset;
+      ";" +=> preset;
+    }
+    return preset;
+  }
+
+  fun void deserialize(string preset) {
+    // ;gain=0.5000;cutoff=200.0000;name=Ruthless;for=OscSynthSingle;
+
+    // split on delimiters ';';
+    // split on assigner '='
+
+    //  split(myPreset, ";") @=> string settings[];
+    //  settings.foreach=>  split(setting, "=")[0] => string key;
+    //                      split(setting, "=")[1] => string value;
+    //                      value => _properties[key];
+
+  }
+
+  ////////
+  // OLD VERSION (IN USE BY OscSynthSingle)
   string oscType;
 
   float note;

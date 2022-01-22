@@ -18,3 +18,4 @@ Machine.add("Project/R2D19/OscSynthMementos.ck");
 Machine.add("Project/R2D19/OscSynthSingle.ck");
 Machine.add("Project/R2D19/OscSynthMulti.ck");
 Machine.add("Project/R2D19/source.ck");
+Machine.add("Project/R2D19/preset.ck");
