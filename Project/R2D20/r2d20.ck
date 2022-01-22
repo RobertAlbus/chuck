@@ -10,4 +10,5 @@ for (0 => int i; i < feature.size(); i++) {
   Machine.add(feature[i]);
 }
 
+Machine.add("Project/R2D20/StringUtils.ck");
 Machine.add("Project/R2D20/source.ck");
