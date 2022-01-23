@@ -26,7 +26,10 @@ public class KeyValueStore {
   }
 
   fun string get(string key) {
-    return _properties[key];
+    if (_properties[key] != null) {
+      return _properties[key];
+    }
+    return "";
   }
   fun float getF(string key) {
     return get(key).toFloat();
