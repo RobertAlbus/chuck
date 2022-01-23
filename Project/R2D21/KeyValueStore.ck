@@ -1,4 +1,5 @@
 public class KeyValueStore {
+  StringUtils _string;
   string _properties[0];
 
   fun void set(string key, string value) {
@@ -38,7 +39,7 @@ public class KeyValueStore {
   }
 
   fun string serialize() {
-    ";" => string preset;
+    "" => string preset;
     for (0 => int i; i < _properties.size(); i++) {
       _properties[i] => string key;
       _properties[key] => string value;
@@ -46,7 +47,9 @@ public class KeyValueStore {
       key +=> preset;
       "=" +=> preset;
       value +=> preset;
-      ";" +=> preset;
+      if ( i != _properties.size() - 1 ) {
+        ";" +=> preset;
+      }
     }
     return preset;
   }
