@@ -43,14 +43,14 @@ public class OscSynthMulti extends OscSynthBase {
     _connectOscs();
   }
 
-  fun OscSynthMemento[] memento() {
-    OscSynthMemento mementos[0];
+  fun KeyValueStore[] memento() {
+    KeyValueStore mementos[0];
     for (0 => int i; i < _oscs.size(); i++) {
       mementos << _oscs[i].memento();
     }
 
   }
-  fun OscSynthMemento[] memento(OscSynthMemento mementos[]) {
+  fun KeyValueStore[] memento(KeyValueStore mementos[]) {
     _disconnectOscs();
     createOscs(0);
     for (0 => int i; i < mementos.size(); i++) {

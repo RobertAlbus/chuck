@@ -147,8 +147,8 @@ public class OscSynthSingle extends OscSynthBase {
     _osc => _oscEnv;
   }
 
-  fun OscSynthMemento memento() {
-    OscSynthMemento memo;
+  fun KeyValueStore memento() {
+    KeyValueStore memo;
     
     _oscType        => memo.oscType;
     _note           => memo.note;
@@ -176,7 +176,7 @@ public class OscSynthSingle extends OscSynthBase {
 
     return memo;
   }
-  fun OscSynthMemento memento(OscSynthMemento memo) {
+  fun KeyValueStore memento(KeyValueStore memo) {
     memo.oscType      => _oscType;
     oscType(_oscType);
 

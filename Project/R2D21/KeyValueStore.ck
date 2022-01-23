@@ -1,4 +1,4 @@
-public class OscSynthMemento {
+public class KeyValueStore {
   string _properties[0];
 
   fun void set(string key, string value) {
