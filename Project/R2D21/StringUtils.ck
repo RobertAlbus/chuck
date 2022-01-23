@@ -1,32 +1,33 @@
 public class StringUtils {
   fun string[] split(string input, string delimiter) {
+    input => string _input;
 
     string array[0];
 
     // get the number of delimiters
     int numberOfDelimiters;
-    for(0=> int i; i < (input.length() - delimiter.length() + 1); i++) {
-      if (input.substring(i, delimiter.length()) == delimiter) {
+    for(0=> int i; i < (_input.length() - delimiter.length() + 1); i++) {
+      if (_input.substring(i, delimiter.length()) == delimiter) {
         numberOfDelimiters++;
       }
     }
 
     // get substrings
     0 => int currentPosition;
-    input.find(delimiter) => int nextDelimiter;
+    _input.find(delimiter) => int nextDelimiter;
     
     for (0 => int i; i < numberOfDelimiters; i++ ) {
-      input.substring(currentPosition, nextDelimiter) => string section;
+      _input.substring(currentPosition, nextDelimiter) => string section;
       array << section;
       // don't walk off the end
-      if (section.length() + delimiter.length() < input.length()) {
-        input.substring(section.length() + delimiter.length()) => input;
+      if (section.length() + delimiter.length() < _input.length()) {
+        _input.substring(section.length() + delimiter.length()) => _input;
       }
 
-      input.find(delimiter, currentPosition) => nextDelimiter;
+      _input.find(delimiter, currentPosition) => nextDelimiter;
     }
     // final substring
-    array << input;
+    array << _input;
 
     return array;
   }
@@ -46,7 +47,4 @@ public class StringUtils {
 
     return array;
   }
-
-
-  
 }
