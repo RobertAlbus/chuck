@@ -1,7 +1,6 @@
 public class OscSynthMulti extends OscSynthBase {
   Time _time;
   MidiNotes _notes;
-  OscSynthMementos _mementos;
   Gain _output => blackhole;
 
   OscSynthSingle _oscs[0];
@@ -43,19 +42,19 @@ public class OscSynthMulti extends OscSynthBase {
     _connectOscs();
   }
 
-  fun KeyValueStore[] memento() {
+  fun KeyValueStore[] preset() {
     KeyValueStore mementos[0];
     for (0 => int i; i < _oscs.size(); i++) {
-      mementos << _oscs[i].memento();
+      mementos << _oscs[i].preset();
     }
 
   }
-  fun KeyValueStore[] memento(KeyValueStore mementos[]) {
+  fun KeyValueStore[] preset(KeyValueStore mementos[]) {
     _disconnectOscs();
     createOscs(0);
     for (0 => int i; i < mementos.size(); i++) {
       OscSynthSingle newOsc;
-      newOsc.memento(mementos[i]);
+      newOsc.preset(mementos[i]);
       _oscs << newOsc;
     }
     _connectOscs();
