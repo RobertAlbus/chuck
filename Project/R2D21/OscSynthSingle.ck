@@ -13,11 +13,16 @@ public class OscSynthSingle extends OscSynthBase {
   - Add ADSR for filter resonance
   - can I add delay/offset to an ADSR?
     - probably yeah, with a Delay ugen
+
+  -- NEW:
+    - add name to preset
   */
 
   Time _time;
   MidiNotes _notes;
-  OscSynthMementos _presets;
+  "OscSynthSingle" => string _constructName;
+  string _presetName;
+  //OscSynthSinglePresets _presets;
 
   // Osc, amplitude, filter
   Osc _osc;
@@ -115,9 +120,11 @@ public class OscSynthSingle extends OscSynthBase {
   }
 
   fun string oscType(string oscType) {
+    oscType.lower() => oscType;
+    oscType.lower() => _oscType;
+
     _osc @=> Osc _oldOsc;
     _disconnectOsc();
-    oscType.lower() => _oscType;
     if (oscType == "sine" || oscType == "sin") {
       new SinOsc @=> _osc;
     }
@@ -149,7 +156,7 @@ public class OscSynthSingle extends OscSynthBase {
 
   fun KeyValueStore preset() {
     KeyValueStore preset;
-    
+
     preset.set("oscType", _oscType);
 
     preset.set("note", _note);
@@ -176,6 +183,8 @@ public class OscSynthSingle extends OscSynthBase {
     preset.set("pitchEnv_S", _pitchEnv.adsr.sustainLevel());
     preset.set("pitchEnv_R", _pitchEnv.adsr.releaseTime());
 
+    preset.set("for", _constructName);
+
     return preset;
   }
 
@@ -186,6 +195,12 @@ public class OscSynthSingle extends OscSynthBase {
   }
   
   fun KeyValueStore preset(KeyValueStore preset) {
+
+    if ( preset.get("for") != _constructName ) {
+      <<< "Cannot open preset for", _constructName, "because it does not have a \"for\" property that matches " >>>;
+      me.exit();
+    }
+
 
     preset.get("oscType") =>  _oscType;
     oscType(_oscType);
