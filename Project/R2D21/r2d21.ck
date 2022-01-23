@@ -11,4 +11,8 @@ for (0 => int i; i < feature.size(); i++) {
 }
 
 Machine.add("Project/R2D21/StringUtils.ck");
+Machine.add("Project/R2D21/OscSynthBase.ck");
+Machine.add("Project/R2D21/OscSynthMemento.ck");
+Machine.add("Project/R2D21/OscSynthSingle.ck");
+Machine.add("Project/R2D21/OscSynthMulti.ck");
 Machine.add("Project/R2D21/source.ck");
