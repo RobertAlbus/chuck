@@ -60,7 +60,7 @@ public class OscSynthSingle extends OscSynthBase {
   }
 
   fun void init() {
-    memento(_presets.get("default"));
+    // TODO: add default preset and initialize with it
   }
 
   // NOTE

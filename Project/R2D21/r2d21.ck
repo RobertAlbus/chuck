@@ -14,6 +14,7 @@ Machine.add("Project/R2D21/StringUtils.ck");
 Machine.add("Project/R2D21/AdsrController.ck");
 Machine.add("Project/R2D21/OscSynthBase.ck");
 Machine.add("Project/R2D21/KeyValueStore.ck");
+Machine.add("Project/R2D21/OscSynthSinglePresets.ck");
 Machine.add("Project/R2D21/OscSynthSingle.ck");
 Machine.add("Project/R2D21/OscSynthMulti.ck");
 Machine.add("Project/R2D21/source.ck");
