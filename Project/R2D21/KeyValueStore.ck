@@ -52,6 +52,6 @@ public class KeyValueStore {
   }
 
   fun void deserialize(string preset) {
-    
+    _string.parseAndAssociate(preset, ";", "=") @=> _properties;
   }
 }
