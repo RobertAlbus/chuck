@@ -147,67 +147,78 @@ public class OscSynthSingle extends OscSynthBase {
     _osc => _oscEnv;
   }
 
-  fun KeyValueStore memento() {
-    KeyValueStore memo;
+  fun KeyValueStore preset() {
+    KeyValueStore preset;
     
-    _oscType        => memo.oscType;
-    _note           => memo.note;
-    _tuneSemi       => memo.tuneSemi;
-    _tuneCent       => memo.tuneCent;
-    _filterCutoff   => memo.filterCutoff;
+    preset.set("oscType", _oscType);
 
-    _pitchEnvAmount   => memo.pitchEnvAmount;
-    _filterEnvAmount  => memo.filterEnvAmount;
+    preset.set("note", _note);
+    preset.set("tuneSemi", _tuneSemi);
+    preset.set("tuneCent", _tuneCent);
 
-    _oscEnv.attackTime()    => memo.amp_A;
-    _oscEnv.decayTime()     => memo.amp_D;
-    _oscEnv.sustainLevel()  => memo.amp_S;
-    _oscEnv.releaseTime()   => memo.amp_R;
+    preset.set("filterCutoff", _filterCutoff);
 
-    _filterEnv.adsr.attackTime()    => memo.filt_A;
-    _filterEnv.adsr.decayTime()     => memo.filt_D;
-    _filterEnv.adsr.sustainLevel()  => memo.filt_S;
-    _filterEnv.adsr.releaseTime()   => memo.filt_R;
+    preset.set("filterEnvAmount", _filterEnvAmount);
+    preset.set("pitchEnvAmount", _pitchEnvAmount);
 
-    _pitchEnv.adsr.attackTime()   => memo.pitch_A;
-    _pitchEnv.adsr.decayTime()    => memo.pitch_D;
-    _pitchEnv.adsr.sustainLevel() => memo.pitch_S;
-    _pitchEnv.adsr.releaseTime()  => memo.pitch_R;
+    preset.set("ampEnv_A", _oscEnv.attackTime());
+    preset.set("ampEnv_D", _oscEnv.decayTime());
+    preset.set("ampEnv_S", _oscEnv.sustainLevel());
+    preset.set("ampEnv_R", _oscEnv.releaseTime());
 
-    return memo;
+    preset.set("filterEnv_A", _filterEnv.adsr.attackTime());
+    preset.set("filterEnv_D", _filterEnv.adsr.decayTime());
+    preset.set("filterEnv_S", _filterEnv.adsr.sustainLevel());
+    preset.set("filterEnv_R", _filterEnv.adsr.releaseTime());    
+
+    preset.set("pitchEnv_A", _pitchEnv.adsr.attackTime());
+    preset.set("pitchEnv_D", _pitchEnv.adsr.decayTime());
+    preset.set("pitchEnv_S", _pitchEnv.adsr.sustainLevel());
+    preset.set("pitchEnv_R", _pitchEnv.adsr.releaseTime());
+
+    return preset;
   }
-  fun KeyValueStore memento(KeyValueStore memo) {
-    memo.oscType      => _oscType;
+
+  fun KeyValueStore preset(string presetString) {
+    KeyValueStore presetObject;
+    presetObject.deserialize(presetString);
+    preset(presetObject);
+  }
+  
+  fun KeyValueStore preset(KeyValueStore preset) {
+
+    preset.get("oscType") =>  _oscType;
     oscType(_oscType);
 
-    memo.note         => _note;
-    memo.tuneSemi     => _tuneSemi;
-    memo.tuneCent     => _tuneCent;
-    memo.filterCutoff => _filterCutoff;
+    preset.getF("note") =>  _note;
+    preset.getF("tuneSemi") =>  _tuneSemi;
+    preset.getF("tuneCent") =>  _tuneCent;
 
-    memo.pitchEnvAmount  => _pitchEnvAmount;
-    memo.filterEnvAmount => _filterEnvAmount;
+    preset.getF("filterCutoff") =>  _filterCutoff;
+
+    preset.getF("filterEnvAmount") =>  _filterEnvAmount;
+    preset.getF("pitchEnvAmount") =>  _pitchEnvAmount;
 
     _oscEnv.set(
-      memo.amp_A,
-      memo.amp_D,
-      memo.amp_S,
-      memo.amp_R
+      preset.getD("ampEnv_A"),
+      preset.getD("ampEnv_D"),
+      preset.getF("ampEnv_S"),
+      preset.getD("ampEnv_R")
     );
 
     _filterEnv.adsr.set(
-      memo.filt_A,
-      memo.filt_D,
-      memo.filt_S,
-      memo.filt_R
+      preset.getD("filterEnv_A"),
+      preset.getD("filterEnv_D"),
+      preset.getF("filterEnv_S"),
+      preset.getD("filterEnv_R")
     );
 
     _pitchEnv.adsr.set(
-      memo.pitch_A,
-      memo.pitch_D,
-      memo.pitch_S,
-      memo.pitch_R
+      preset.getD("pitchEnv_A"),
+      preset.getD("pitchEnv_D"),
+      preset.getF("pitchEnv_S"),
+      preset.getD("pitchEnv_R")
     );
-
   }
+
 }
