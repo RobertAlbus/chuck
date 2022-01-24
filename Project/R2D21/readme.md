@@ -18,3 +18,4 @@
 ## Lessons
 - There is probably a case for a ListStore to compliment the KeyValueStore. This would hold a list of homogenous items whose order and key do not matter. This would be useful for OscSynthMulti wherein the preset consists multiple unordered sets of OscSynthSingle Presets
 - the substring() function apparently mutates the object it's called on, rather than returning a new string. WHAT WHY!?
+- the method `gain()` on Chubgraph might be reserved or in use, because calling my own `gain` method segfaults. 

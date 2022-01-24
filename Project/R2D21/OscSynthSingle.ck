@@ -9,7 +9,6 @@ public class OscSynthSingle extends OscSynthBase {
     - should maybe use an associative array and stringify each prop
     - Preset class should have get(string propname) and set(string propname, string value)
     - should create a string-to-array parser 
-  - Add gain control for each Osc
   - Add ADSR for filter resonance
   - can I add delay/offset to an ADSR?
     - probably yeah, with a Delay ugen
@@ -90,6 +89,14 @@ public class OscSynthSingle extends OscSynthBase {
     return _tuneCent;
   }
 
+  fun float output() {
+    return _output.gain();  
+  }
+  fun float output(float g) {
+    _output.gain(g);
+    return _output.gain();  
+  }
+
   // KEY CONTROL
   fun void keyOn() {
     _oscEnv.keyOn();
@@ -158,6 +165,7 @@ public class OscSynthSingle extends OscSynthBase {
     KeyValueStore preset;
 
     preset.set("oscType", _oscType);
+    preset.set("gain", output());
 
     preset.set("note", _note);
     preset.set("tuneSemi", _tuneSemi);
@@ -204,6 +212,7 @@ public class OscSynthSingle extends OscSynthBase {
 
     preset.get("oscType") =>  _oscType;
     oscType(_oscType);
+    preset.getF("gain") => output;
 
     preset.getF("note") =>  _note;
     preset.getF("tuneSemi") =>  _tuneSemi;
