@@ -16,5 +16,5 @@ Machine.add("Project/R2D22/OscSynthBase.ck");
 Machine.add("Project/R2D22/KeyValueStore.ck");
 Machine.add("Project/R2D22/OscSynthSinglePresets.ck");
 Machine.add("Project/R2D22/OscSynthSingle.ck");
-// Machine.add("Project/R2D22/OscSynthMulti.ck");
+Machine.add("Project/R2D22/OscSynthMulti.ck");
 Machine.add("Project/R2D22/source.ck");

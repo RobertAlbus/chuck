@@ -42,19 +42,33 @@ public class OscSynthMulti extends OscSynthBase {
     _connectOscs();
   }
 
-  fun KeyValueStore[] preset() {
-    KeyValueStore mementos[0];
+  fun KeyValueStore preset() {
+    KeyValueStore preset;
+    preset.configure("|", ":");
+
     for (0 => int i; i < _oscs.size(); i++) {
-      mementos << _oscs[i].preset();
+      "" => string key;
+      i +=> key;
+      preset.set(key, _oscs[i].preset().serialize()) ;
     }
 
+    return preset;
   }
-  fun KeyValueStore[] preset(KeyValueStore mementos[]) {
+
+  fun KeyValueStore preset(string presetString) {
+    KeyValueStore presetObject;
+    presetObject.configure("|", ":");
+    presetObject.deserialize(presetString);
+    preset(presetObject);
+  }
+
+  fun KeyValueStore preset(KeyValueStore presetObject) {
     _disconnectOscs();
     createOscs(0);
-    for (0 => int i; i < mementos.size(); i++) {
+    presetObject.configure("|", ":");
+    for (0 => int i; i < presetObject.size(); i++) {
       OscSynthSingle newOsc;
-      newOsc.preset(mementos[i]);
+      newOsc.preset(presetObject.get(i));
       _oscs << newOsc;
     }
     _connectOscs();

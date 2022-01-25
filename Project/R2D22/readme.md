@@ -2,7 +2,8 @@
 
 ## Today's goals
 
-### Combine multiple OscSynthSingle into OscSynthMulti (the new way)
+### Combine multiple OscSynthSingle presets
+My OscSynthMulti class is an aggregate of OscSynthSingles. The child items can read and write presets, so I need to manage to do this for the parent aggregator.
 
 ### Try out the Chubgraph class
 
@@ -11,9 +12,10 @@
 - this should mean that we don't have to push the incoming tick value onto a Step or Impulse
 
 ## Today's outcomes
-
-- Added existing patch and default patch to the preset class
+- added existing patch and default patch to the OscSynthSingle preset class
+- built the preset de/serialization for OscSynthMulti
+- didn't get around to touching Chubgraph
 
 ## Lessons
-
--
+- there are function in the Std namespace that I should be using for value conversion when serializing
+- need setter and getter that take ints as keys in KeyValueStore, then uses the stringified int as a key in the conventional K:V strategy

@@ -2,29 +2,51 @@ public class KeyValueStore {
   StringUtils _string;
   string _properties[0];
 
+  ";" => string _seperator;
+  "=" => string _associator;
+  5 => int ftoaPrecision;
+
+  fun void configure(string seperator, string associator) {
+    seperator => _seperator;
+    associator => _associator;
+  }
+
+  fun int size() {
+    return _properties.size();
+  }
+
+  // string keys
   fun void set(string key, string value) {
     _properties << key;
     value => _properties[key];
   }
-
   fun void set(string key, float value) {
-    string stringifiedValue;
-    value +=> stringifiedValue;
-    set(key, stringifiedValue);
+    set(key, Std.ftoa(value, ftoaPrecision));
   }
-
   fun void set(string key, dur value) {
-    string stringifiedValue;
     value/samp => float samples; 
 
     if (Math.isnan(samples)) {
-      0.0000 +=> stringifiedValue;
+      set(key, Std.ftoa(0, ftoaPrecision));
     } else {
-      samples +=> stringifiedValue;
+      set(key, Std.ftoa(samples, ftoaPrecision));
     }
-    set(key, stringifiedValue);
   }
 
+  // int keys
+  fun void set(int key, string value) {
+    set(Std.itoa(key), value);
+  }
+  fun void set(int key, float value) {
+    set(Std.itoa(key), value);
+  }
+  fun void set(int key, dur value) {
+    set(Std.itoa(key), value);
+  }
+
+  fun string get(int keyIndex) {
+    return get(_properties[keyIndex]);
+  }
   fun string get(string key) {
     if (_properties[key] != null) {
       return _properties[key];
@@ -38,7 +60,7 @@ public class KeyValueStore {
     return get(key).toInt();
   }
   fun dur getD(string key) {
-    return get(key).toFloat()::samp;
+    return getF(key)::samp;
   }
 
   fun string serialize() {
@@ -48,16 +70,16 @@ public class KeyValueStore {
       _properties[key] => string value;
 
       key +=> preset;
-      "=" +=> preset;
+      _associator +=> preset;
       value +=> preset;
       if ( i != _properties.size() - 1 ) {
-        ";" +=> preset;
+        _seperator +=> preset;
       }
     }
     return preset;
   }
 
   fun void deserialize(string preset) {
-    _string.parseAndAssociate(preset, ";", "=") @=> _properties;
+    _string.parseAndAssociate(preset, _seperator, _associator) @=> _properties;
   }
 }
