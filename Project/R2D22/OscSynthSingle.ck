@@ -30,9 +30,9 @@ public class OscSynthSingle extends OscSynthBase {
   float _tuneCent;
 
   // Filter Envelope
-  AdsrController _filterEnv;
+  AdsrController _filterCutoffEnv;
   float _filterCutoff;
-  float _filterEnvAmount;
+  float _filterCutoffEnvAmount;
 
   init();
 
@@ -43,7 +43,7 @@ public class OscSynthSingle extends OscSynthBase {
   }
 
   fun void tickFilter() {
-    (_filterEnvAmount * _filterEnv.last()) + _filterCutoff => _filter.freq;
+    (_filterCutoffEnvAmount * _filterCutoffEnv.last()) + _filterCutoff => _filter.freq;
   }
   fun void tickPitch() {
     _note + _tuneSemi + (_tuneCent / 100) => float tunedNote;
@@ -93,18 +93,18 @@ public class OscSynthSingle extends OscSynthBase {
   // KEY CONTROL
   fun void keyOn() {
     _oscEnv.keyOn();
-    _filterEnv.keyOn();
+    _filterCutoffEnv.keyOn();
     _pitchEnv.keyOn();
   }
   fun void keyOn(int midiNote) {
     note(midiNote);
     _oscEnv.keyOn();
-    _filterEnv.keyOn();
+    _filterCutoffEnv.keyOn();
     _pitchEnv.keyOn();
   }
   fun void keyOff() {
     _oscEnv.keyOff();
-    _filterEnv.keyOff();
+    _filterCutoffEnv.keyOff();
     _pitchEnv.keyOff();
   }
 
@@ -113,7 +113,7 @@ public class OscSynthSingle extends OscSynthBase {
     _oscEnv.set(A,D,S,R);
   }
   fun void setAdsr_Filt(dur A, dur D, float S, dur R) {
-    _filterEnv.adsr.set(A,D,S,R);
+    _filterCutoffEnv.adsr.set(A,D,S,R);
   }
   fun void setAdsr_Pitch(dur A, dur D, float S, dur R) {
     _pitchEnv.adsr.set(A,D,S,R);
@@ -169,7 +169,7 @@ public class OscSynthSingle extends OscSynthBase {
 
     preset.set("filterCutoff", _filterCutoff);
 
-    preset.set("filterEnvAmount", _filterEnvAmount);
+    preset.set("filterEnvAmount", _filterCutoffEnvAmount);
     preset.set("pitchEnvAmount", _pitchEnvAmount);
 
     preset.set("ampEnv_A", _oscEnv.attackTime());
@@ -177,10 +177,10 @@ public class OscSynthSingle extends OscSynthBase {
     preset.set("ampEnv_S", _oscEnv.sustainLevel());
     preset.set("ampEnv_R", _oscEnv.releaseTime());
 
-    preset.set("filterEnv_A", _filterEnv.adsr.attackTime());
-    preset.set("filterEnv_D", _filterEnv.adsr.decayTime());
-    preset.set("filterEnv_S", _filterEnv.adsr.sustainLevel());
-    preset.set("filterEnv_R", _filterEnv.adsr.releaseTime());    
+    preset.set("filterEnv_A", _filterCutoffEnv.adsr.attackTime());
+    preset.set("filterEnv_D", _filterCutoffEnv.adsr.decayTime());
+    preset.set("filterEnv_S", _filterCutoffEnv.adsr.sustainLevel());
+    preset.set("filterEnv_R", _filterCutoffEnv.adsr.releaseTime());    
 
     preset.set("pitchEnv_A", _pitchEnv.adsr.attackTime());
     preset.set("pitchEnv_D", _pitchEnv.adsr.decayTime());
@@ -215,7 +215,7 @@ public class OscSynthSingle extends OscSynthBase {
 
     preset.getF("filterCutoff") =>  _filterCutoff;
 
-    preset.getF("filterEnvAmount") =>  _filterEnvAmount;
+    preset.getF("filterEnvAmount") =>  _filterCutoffEnvAmount;
     preset.getF("pitchEnvAmount") =>  _pitchEnvAmount;
 
     _oscEnv.set(
@@ -225,7 +225,7 @@ public class OscSynthSingle extends OscSynthBase {
       preset.getD("ampEnv_R")
     );
 
-    _filterEnv.adsr.set(
+    _filterCutoffEnv.adsr.set(
       preset.getD("filterEnv_A"),
       preset.getD("filterEnv_D"),
       preset.getF("filterEnv_S"),
