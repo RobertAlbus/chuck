@@ -13,17 +13,20 @@ OscSynthSingle osc => Gain synthChannel => Gain master => dac;
 
 osc.preset(preset);
 
-// osc.tuneSemi(0);
-// osc.oscType("sine");
-// osc.setAdsr_Amp(0.01::_time.quat, 0::_time.quat, 1, 0.05::_time.quat);
-// osc.setAdsr_Filt(0::_time.quat, 0::_time.quat, 1, 0.05::_time.quat);
-// osc.setAdsr_Pitch(0::_time.quat, 0::_time.quat, 0, 0.05::_time.quat);
-// 22000   => osc._filterCutoff;
-// 0  => osc._filterEnvAmount;
-// 0  => osc._pitchEnvAmount;
-// "default" => osc.patchName;
+osc.tuneSemi(-36);
+osc.oscType("saw");
+osc.setAdsr_Amp(0.01::_time.quat, 1::_time.quat, 0.7, 2::_time.quat);
+osc.setAdsr_FiltCutoff(0::_time.quat, 1::_time.quat, 0, 0.05::_time.quat);
+osc.setAdsr_FiltQ(0::_time.quat, 0.2::_time.quat, 1, 1::_time.quat);
+osc.setAdsr_Pitch(0::_time.quat, 0.1::_time.quat, 0, 0.05::_time.quat);
+200   => osc._filterCutoff;
+1000  => osc._filterCutoffEnvAmount;
+1  => osc._filterQ;
+2  => osc._filterQEnvAmount;
+200  => osc._pitchEnvAmount;
+"default" => osc.patchName;
 
-// <<<osc.preset().serialize()>>>;
+<<<osc.preset().serialize()>>>;
 
 [
   _notes.F5,

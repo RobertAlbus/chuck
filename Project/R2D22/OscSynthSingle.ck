@@ -4,7 +4,6 @@ public class OscSynthSingle extends OscSynthBase {
   /*
   - create LfoController
     - might want an ADSR over top of the Lfo for more advanced articulation? 
-  - Add ADSR for filter resonance
   - can I add delay/offset to an ADSR?
     - probably yeah, with a Delay ugen
 
@@ -34,6 +33,10 @@ public class OscSynthSingle extends OscSynthBase {
   float _filterCutoff;
   float _filterCutoffEnvAmount;
 
+  AdsrController _filterQEnv;
+  1 => float _filterQ;
+  float _filterQEnvAmount;
+
   init();
 
   fun float tick( float in ) {
@@ -43,7 +46,8 @@ public class OscSynthSingle extends OscSynthBase {
   }
 
   fun void tickFilter() {
-    (_filterCutoffEnvAmount * _filterCutoffEnv.last()) + _filterCutoff => _filter.freq;
+    (_filterCutoffEnvAmount * _filterCutoffEnv.last()) + _filterCutoff => _filter.freq;    
+    (_filterQEnvAmount * _filterQEnv.last()) + _filterQ => _filter.Q;
   }
   fun void tickPitch() {
     _note + _tuneSemi + (_tuneCent / 100) => float tunedNote;
@@ -94,17 +98,20 @@ public class OscSynthSingle extends OscSynthBase {
   fun void keyOn() {
     _oscEnv.keyOn();
     _filterCutoffEnv.keyOn();
+    _filterQEnv.keyOn();
     _pitchEnv.keyOn();
   }
   fun void keyOn(int midiNote) {
     note(midiNote);
     _oscEnv.keyOn();
     _filterCutoffEnv.keyOn();
+    _filterQEnv.keyOn();
     _pitchEnv.keyOn();
   }
   fun void keyOff() {
     _oscEnv.keyOff();
     _filterCutoffEnv.keyOff();
+    _filterQEnv.keyOff();
     _pitchEnv.keyOff();
   }
 
@@ -112,8 +119,11 @@ public class OscSynthSingle extends OscSynthBase {
   fun void setAdsr_Amp(dur A, dur D, float S, dur R) {
     _oscEnv.set(A,D,S,R);
   }
-  fun void setAdsr_Filt(dur A, dur D, float S, dur R) {
+  fun void setAdsr_FiltCutoff(dur A, dur D, float S, dur R) {
     _filterCutoffEnv.adsr.set(A,D,S,R);
+  }
+  fun void setAdsr_FiltQ(dur A, dur D, float S, dur R) {
+    _filterQEnv.adsr.set(A,D,S,R);
   }
   fun void setAdsr_Pitch(dur A, dur D, float S, dur R) {
     _pitchEnv.adsr.set(A,D,S,R);
@@ -177,10 +187,15 @@ public class OscSynthSingle extends OscSynthBase {
     preset.set("ampEnv_S", _oscEnv.sustainLevel());
     preset.set("ampEnv_R", _oscEnv.releaseTime());
 
-    preset.set("filterEnv_A", _filterCutoffEnv.adsr.attackTime());
-    preset.set("filterEnv_D", _filterCutoffEnv.adsr.decayTime());
-    preset.set("filterEnv_S", _filterCutoffEnv.adsr.sustainLevel());
-    preset.set("filterEnv_R", _filterCutoffEnv.adsr.releaseTime());    
+    preset.set("filterCutoffEnv_A", _filterCutoffEnv.adsr.attackTime());
+    preset.set("filterCutoffEnv_D", _filterCutoffEnv.adsr.decayTime());
+    preset.set("filterCutoffEnv_S", _filterCutoffEnv.adsr.sustainLevel());
+    preset.set("filterCutoffEnv_R", _filterCutoffEnv.adsr.releaseTime());    
+
+    preset.set("filterQEnv_A", _filterQEnv.adsr.attackTime());
+    preset.set("filterQEnv_D", _filterQEnv.adsr.decayTime());
+    preset.set("filterQEnv_S", _filterQEnv.adsr.sustainLevel());
+    preset.set("filterQEnv_R", _filterQEnv.adsr.releaseTime());    
 
     preset.set("pitchEnv_A", _pitchEnv.adsr.attackTime());
     preset.set("pitchEnv_D", _pitchEnv.adsr.decayTime());
@@ -226,10 +241,17 @@ public class OscSynthSingle extends OscSynthBase {
     );
 
     _filterCutoffEnv.adsr.set(
-      preset.getD("filterEnv_A"),
-      preset.getD("filterEnv_D"),
-      preset.getF("filterEnv_S"),
-      preset.getD("filterEnv_R")
+      preset.getD("filterCutoffEnv_A"),
+      preset.getD("filterCutoffEnv_D"),
+      preset.getF("filterCutoffEnv_S"),
+      preset.getD("filterCutoffEnv_R")
+    );
+
+    _filterQEnv.adsr.set(
+      preset.getD("filterQEnv_A"),
+      preset.getD("filterQEnv_D"),
+      preset.getF("filterQEnv_S"),
+      preset.getD("filterQEnv_R")
     );
 
     _pitchEnv.adsr.set(
