@@ -13,6 +13,16 @@ To run these files:
 - prefer the jack version of chuck when possible
 - run `chuck r2d4_main.ck`
 
+## Notable projects
+
+- R2D1-R2D10
+  - Step sequencer, MIDI/scale/chord utils, time utils
+- R2D19
+  - Nice Chugen for a delay plugin
+  - ADSR controller
+- R2D21
+  - OscSynthSingle mementos can be serialized and deserialzed (presets)
+
 ## Project Architecture
 
 The repo is set up in accordance with Helix 3-layer architecture principles.
