@@ -7,11 +7,23 @@ MidiScales _scales;
 
 OscSynthSinglePresets _presets;
 KeyValueStore preset;
-preset.deserialize(_presets.BrutalSawPluck);
+preset.deserialize(_presets.default);
 
 OscSynthSingle osc => Gain synthChannel => Gain master => dac;
 
 osc.preset(preset);
+
+// osc.tuneSemi(0);
+// osc.oscType("sine");
+// osc.setAdsr_Amp(0.01::_time.quat, 0::_time.quat, 1, 0.05::_time.quat);
+// osc.setAdsr_Filt(0::_time.quat, 0::_time.quat, 1, 0.05::_time.quat);
+// osc.setAdsr_Pitch(0::_time.quat, 0::_time.quat, 0, 0.05::_time.quat);
+// 22000   => osc._filterCutoff;
+// 0  => osc._filterEnvAmount;
+// 0  => osc._pitchEnvAmount;
+// "default" => osc.patchName;
+
+// <<<osc.preset().serialize()>>>;
 
 [
   _notes.F5,

@@ -20,7 +20,7 @@ public class OscSynthSingle extends OscSynthBase {
   Time _time;
   MidiNotes _notes;
   "OscSynthSingle" => string _constructName;
-  string _presetName;
+  string patchName;
   //OscSynthSinglePresets _presets;
 
   // Osc, amplitude, filter
@@ -164,6 +164,9 @@ public class OscSynthSingle extends OscSynthBase {
   fun KeyValueStore preset() {
     KeyValueStore preset;
 
+    preset.set("patchName", patchName);
+    preset.set("for", _constructName);
+
     preset.set("oscType", _oscType);
     preset.set("gain", output());
 
@@ -191,8 +194,6 @@ public class OscSynthSingle extends OscSynthBase {
     preset.set("pitchEnv_S", _pitchEnv.adsr.sustainLevel());
     preset.set("pitchEnv_R", _pitchEnv.adsr.releaseTime());
 
-    preset.set("for", _constructName);
-
     return preset;
   }
 
@@ -209,6 +210,7 @@ public class OscSynthSingle extends OscSynthBase {
       me.exit();
     }
 
+    preset.get("patchName") => patchName;
 
     preset.get("oscType") =>  _oscType;
     oscType(_oscType);
