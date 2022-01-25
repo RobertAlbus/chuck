@@ -4,17 +4,10 @@ public class OscSynthSingle extends OscSynthBase {
   /*
   - create LfoController
     - might want an ADSR over top of the Lfo for more advanced articulation? 
-  - Add serialization and string parsing to memoization
-    - is there a better way of storing props instead as member vars?
-    - should maybe use an associative array and stringify each prop
-    - Preset class should have get(string propname) and set(string propname, string value)
-    - should create a string-to-array parser 
   - Add ADSR for filter resonance
   - can I add delay/offset to an ADSR?
     - probably yeah, with a Delay ugen
 
-  -- NEW:
-    - add name to preset
   */
 
   Time _time;
