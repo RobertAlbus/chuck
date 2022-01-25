@@ -19,3 +19,7 @@ My OscSynthMulti class is an aggregate of OscSynthSingles. The child items can r
 ## Lessons
 - there are function in the Std namespace that I should be using for value conversion when serializing
 - need setter and getter that take ints as keys in KeyValueStore, then uses the stringified int as a key in the conventional K:V strategy
+
+
+## Plans For Tomorrow
+- add libs to Foundation and Feature as appropriate
