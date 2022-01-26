@@ -1,4 +1,7 @@
 class FoundationModule {
+  "Foundation/Controller/adsr_controller.ck" => string controller_adsr;
+
+  "Foundation/String/string_utils.ck" => string string_utils;
   "Foundation/Array/rotate.ck" => string array_rotate;
   "Foundation/Time/time.ck" => string time_module;
 
@@ -7,12 +10,17 @@ class FoundationModule {
   "Foundation/Midi/midi_notes.ck"     => string midi_notes;
   "Foundation/Midi/midi_scales.ck"    => string midi_scales;
 
+  "Foundation/Store/key_value_store.ck" => string kv_store; // depends on string_utils.ck
+
   [
+    controller_adsr,
+    string_utils,
     array_rotate,
     time_module, 
     midi_intervals,
     midi_notes,
-    midi_scales
+    midi_scales,
+    kv_store
   ] @=> string all[];
 }
 

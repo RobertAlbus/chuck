@@ -10,10 +10,7 @@ for (0 => int i; i < feature.size(); i++) {
   Machine.add(feature[i]);
 }
 
-Machine.add("Project/R2D23/StringUtils.ck");
-Machine.add("Project/R2D23/AdsrController.ck");
 Machine.add("Project/R2D23/OscSynthBase.ck");
-Machine.add("Project/R2D23/KeyValueStore.ck");
 Machine.add("Project/R2D23/OscSynthSinglePresets.ck");
 Machine.add("Project/R2D23/OscSynthSingle.ck");
 Machine.add("Project/R2D23/OscSynthMulti.ck");
