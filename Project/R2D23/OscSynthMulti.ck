@@ -4,6 +4,10 @@ public class OscSynthMulti extends OscSynthBase {
   Gain _output => blackhole;
 
   OscSynthSingle _oscs[0];
+
+  float _tuneSemi;
+  float _tuneCent;
+
   init();
 
   fun float tick(float in) {
@@ -12,6 +16,9 @@ public class OscSynthMulti extends OscSynthBase {
 
   fun void init() {
     createOscs(3);
+    _oscs[0].tuneSemi(0);
+    _oscs[1].tuneSemi(-12);
+    _oscs[2].tuneSemi(-24);
   }
 
   fun void keyOn() {
@@ -21,7 +28,7 @@ public class OscSynthMulti extends OscSynthBase {
   }
   fun void keyOn(int midiNote) {
     for (0 => int i; i < _oscs.size(); i++) {
-      _oscs[i].keyOn(midiNote);
+      _oscs[i].keyOn(midiNote + _tuneSemi + (_tuneCent / 100));
     }
   }
   fun void keyOff() {
@@ -40,6 +47,22 @@ public class OscSynthMulti extends OscSynthBase {
       _oscs.size(quantity);
     }
     _connectOscs();
+  }
+
+  fun float tuneSemi() {
+    return _tuneSemi;
+  }
+  fun float tuneSemi(int semitones) {
+    semitones => _tuneSemi;
+    return _tuneSemi;
+  }
+
+  fun float tuneCent() {
+    return _tuneCent;
+  }
+  fun float tuneCent(float semitones) {
+    semitones => _tuneCent;
+    return _tuneCent;
   }
 
   fun KeyValueStore preset() {

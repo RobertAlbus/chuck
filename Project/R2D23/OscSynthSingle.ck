@@ -101,7 +101,7 @@ public class OscSynthSingle extends OscSynthBase {
     _filterQEnv.keyOn();
     _pitchEnv.keyOn();
   }
-  fun void keyOn(int midiNote) {
+  fun void keyOn(float midiNote) {
     note(midiNote);
     _oscEnv.keyOn();
     _filterCutoffEnv.keyOn();

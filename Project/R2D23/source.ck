@@ -32,8 +32,11 @@ for ( 0 => int i; i < 3; i++ ) {
   osc2._oscs[i].setAdsr_FiltCutoff( 0::samp,   1::_time.quat, 0,    2::_time.quat);
   osc2._oscs[i].setAdsr_Pitch(      0::samp, 0.5::_time.quat, 0,    0::samp);
 }
+osc1.tuneSemi(0);
+osc2.tuneSemi(-24);
 
 0.15 => master.gain;
+0.5 => synthChannel1.gain;
 0.5 => synthChannel2.gain;
 
 [
