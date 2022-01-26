@@ -6,13 +6,12 @@
 
 The string utils, ADSR controller, and key/value store seem like they are probably stable and won't see breaking changes for a good while (if ever)
 
-### Try out the Chubgraph class
-- This is looks like the right thing to use for input=>output based modules
-- start by validating the concept, then consider some nice multi-effects or waveshaping
-
-### Consider APIs for polyphonic interaction
-- I might want to spork a shred for each note instance, and then progress time by the specified amount
-- I should probabyl watch the Kadenze tutorials on shreds/events/etc
+### Ponder the following
+- Try out the Chubgraph class
+  - This is looks like the right thing to use for input=>output based modules
+- Consider APIs for polyphonic interaction
+  - I might want to spork a shred for each note instance, and then progress time in the shred by the specified amount
+  - I should probably watch the Kadenze tutorials on shreds/events/etc
 
 ## Today's outcomes
 - Moved some lib files to Foundation
