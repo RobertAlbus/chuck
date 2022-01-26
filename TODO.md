@@ -21,10 +21,8 @@
   - filter for unique
 
 ## 2022 Jan 19
-
 - high value
-
-  - MultiOscSynth, a monophonic aggregate of SingleOscSynth
+  - ~~MultiOscSynth, a monophonic aggregate of SingleOscSynth~~
   - polyphonic version of MultiOscSynth
   - LFO controller (have ADSR controller already)
   - Arrangement facilities would be very high milage
@@ -33,8 +31,9 @@
     - swing and time mods
   - polyphonic StepSequencer
   - MIDI timeline so that notes don't have to fall on the step
-  - base classes that can be used to make interop possible
-    - such as Keyable (keyOn, keyOff) for OscSynth and StepSequencers
+  - ~~base classes that can be used to make interop possible~~
+    - ~~such as Keyable (keyOn, keyOff) for OscSynth and StepSequencers~~
+    - INVALIDATED: no multiple inheritance
   - mixer!
 
 - Complex envelope controller of some kind? lower priority
