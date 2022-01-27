@@ -45,7 +45,7 @@ public class OscSynthBase extends Chugen {
   fun void keyOn() {
     <<< "OscSynth: set key on" >>>;
   }
-  fun void keyOn(int midiNote) {
+  fun void keyOn(float midiNote) {
     <<< "OscSynth: set key on with note" >>>;
   }
   fun void keyOff() {

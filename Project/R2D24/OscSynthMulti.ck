@@ -26,7 +26,7 @@ public class OscSynthMulti extends OscSynthBase {
       _oscs[i].keyOn();
     }
   }
-  fun void keyOn(int midiNote) {
+  fun void keyOn(float midiNote) {
     for (0 => int i; i < _oscs.size(); i++) {
       _oscs[i].keyOn(midiNote + _tuneSemi + (_tuneCent / 100));
     }
