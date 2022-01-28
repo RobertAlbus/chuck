@@ -10,12 +10,21 @@ KeyValueStore preset;
 preset.deserialize(_presets.default);
 
 OscSynthMulti osc1 => Gain synthChannel => Gain master => dac;
-osc1._oscs[0].preset(preset);
-osc1._oscs[1].preset(preset);
-osc1._oscs[2].preset(preset);
 osc1._oscs[0].tuneSemi(0);
 osc1._oscs[1].tuneSemi(-12);
 osc1._oscs[2].tuneSemi(-24);
+for( 0=> int i; i < 3; i++) {
+  osc1._oscs[i].preset(preset);
+  osc1._oscs[i].oscType("saw");
+  200 => osc1._oscs[i]._filterCutoff;
+  2000 => osc1._oscs[i]._filterCutoffEnvAmount;
+  2 => osc1._oscs[i]._filterQ;
+  osc1._oscs[i].setAdsr_Amp       (0::samp, 1::_time.quat, 0.8, 2::_time.quat);
+  osc1._oscs[i].setAdsr_FiltCutoff(0::samp, 1::_time.quat, 0.1, 2::_time.quat);
+  osc1._oscs[i].setAdsr_Pitch     (0::samp, 0.1::_time.quat, 0.0, 2::_time.quat);
+  200 => osc1._oscs[i]._pitchEnvAmount;
+}
+osc1.tuneSemi(-36);
 
 
 0.15 => master.gain;
