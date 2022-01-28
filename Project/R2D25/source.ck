@@ -39,8 +39,32 @@ osc1.tuneSemi(-36);
   _notes.Eb5
 ] @=> int arp[];
 
+Hid hid;
+HidMsg msg;
+
+hid.printerr(1);
+if (hid.openMouse(0) == false) me.exit();
+<<< "mouse:", hid.name(), "ready" >>>;
+
+
 // Run
 while(true) {
+  if(hid.recv(msg)) {
+    if(msg.isMouseMotion()){
+      osc1._oscs[1]._filterCutoff * -1 => float minimumEnvAmount;
+      osc1._oscs[1]._filterCutoffEnvAmount + (msg.x * 10 ) => float newCutoffAmount;
+      if (newCutoffAmount < minimumEnvAmount){
+        minimumEnvAmount => newCutoffAmount;
+      } else if (newCutoffAmount > 20000) {
+        20000=>newCutoffAmount;
+      }
+      for( 0=> int i; i < 3; i++) {
+        newCutoffAmount => osc1._oscs[i]._filterCutoffEnvAmount;
+      }
+      <<< osc1._oscs[1]._filterCutoff + newCutoffAmount >>>;
+    }
+  }
+
   (now/2::_time.quat) % arp.size() => float currentStep;
 
   if( currentStep == 0) {
@@ -67,6 +91,6 @@ while(true) {
     osc1.keyOff();
     osc1.keyOn(arp[currentStep $int]);
   }
-  
+
     _time.advance(1::samp);
 }
