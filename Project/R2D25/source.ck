@@ -32,11 +32,32 @@ osc1._oscs[2].tuneSemi(-24);
 
 // Run
 while(true) {
-  for (0 => int i; i < arp.size(); i++ ) {
-    // spork ~ playDuration(arp[i], 4::_time.quat);
-    osc1.keyOn(arp[i]);
-    _time.advance(1::_time.quat);
+  (now/2::_time.quat) % arp.size() => float currentStep;
+
+  if( currentStep == 0) {
     osc1.keyOff();
-    _time.advance(1::_time.quat);
+    osc1.keyOn(arp[currentStep $int]);
   }
+  if( currentStep == 1) {
+    osc1.keyOff();
+    osc1.keyOn(arp[currentStep $int]);
+  }
+  if( currentStep == 2) {
+    osc1.keyOff();
+    osc1.keyOn(arp[currentStep $int]);
+  }
+  if( currentStep == 3) {
+    osc1.keyOff();
+    osc1.keyOn(arp[currentStep $int]);
+  }
+  if( currentStep == 4) {
+    osc1.keyOff();
+    osc1.keyOn(arp[currentStep $int]);
+  }
+  if( currentStep == 5) {
+    osc1.keyOff();
+    osc1.keyOn(arp[currentStep $int]);
+  }
+  
+    _time.advance(1::samp);
 }
