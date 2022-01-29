@@ -11,7 +11,7 @@ public class OscSynthMulti extends OscSynthBase {
   init();
 
   fun float tick(float in) {
-    return _output.last();
+    return _output.last() / _oscs.size();
   }
 
   fun void init() {
