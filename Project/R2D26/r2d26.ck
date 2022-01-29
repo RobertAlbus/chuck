@@ -14,4 +14,5 @@ Machine.add("Project/R2D26/OscSynthBase.ck");
 Machine.add("Project/R2D26/OscSynthSinglePresets.ck");
 Machine.add("Project/R2D26/OscSynthSingle.ck");
 Machine.add("Project/R2D26/OscSynthMulti.ck");
+Machine.add("Project/R2D26/clipper.ck");
 Machine.add("Project/R2D26/source.ck");

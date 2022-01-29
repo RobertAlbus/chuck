@@ -9,10 +9,15 @@ OscSynthSinglePresets _presets;
 KeyValueStore preset;
 preset.deserialize(_presets.default);
 
-OscSynthMulti osc1 => Gain synthChannel => Gain master => dac;
+OscSynthMulti osc1 => Gain synthChannel => LPF lpf => Gain synthChannelOut => Gain master => dac;
+300 => lpf.freq;
+1 => lpf.Q;
+0.2 => synthChannelOut.gain;
+
 osc1._oscs[0].tuneSemi(0);
 osc1._oscs[1].tuneSemi(-12);
 osc1._oscs[2].tuneSemi(-24);
+
 for( 0=> int i; i < 3; i++) {
   osc1._oscs[i].preset(preset);
   osc1._oscs[i].oscType("saw");
@@ -27,8 +32,17 @@ for( 0=> int i; i < 3; i++) {
 osc1.tuneSemi(-36);
 
 
-0.15 => master.gain;
-1.0 => synthChannel.gain;
+synthChannel => ChugenClipper clip => HPF hpf => Gain clipChannel => master;
+0.5 => clip.thresh;
+0.4 => clip.pregain;
+0.5 => clip.postgain;
+500 => hpf.freq;
+1 => hpf.Q;
+1 => clipChannel.gain;
+
+
+1 => master.gain;
+0.3 => synthChannel.gain;
 
 [
   _notes.F5,
@@ -42,27 +56,27 @@ osc1.tuneSemi(-36);
 Hid hid;
 HidMsg msg;
 
-hid.printerr(1);
-if (hid.openMouse(1) == false) me.exit();
-<<< "mouse:", hid.name(), "ready" >>>;
+// hid.printerr(1);
+// if (hid.openMouse(1) == false) me.exit();
+// <<< "mouse:", hid.name(), "ready" >>>;
 
 // Run
 while(true) {
-  if(hid.recv(msg)) {
-    if(msg.isMouseMotion()){
-      osc1._oscs[1]._filterCutoff * -1 => float minimumEnvAmount;
-      osc1._oscs[1]._filterCutoffEnvAmount + (msg.x * 100 ) => float newCutoffAmount;
-      if (newCutoffAmount < minimumEnvAmount){
-        minimumEnvAmount => newCutoffAmount;
-      } else if (newCutoffAmount > 20000) {
-        20000=>newCutoffAmount;
-      }
-      for( 0=> int i; i < 3; i++) {
-        newCutoffAmount => osc1._oscs[i]._filterCutoffEnvAmount;
-      }
-      // <<< osc1._oscs[1]._filterCutoff + newCutoffAmount >>>;
-    }
-  }
+  // if(hid.recv(msg)) {
+  //   if(msg.isMouseMotion()){
+  //     osc1._oscs[1]._filterCutoff * -1 => float minimumEnvAmount;
+  //     osc1._oscs[1]._filterCutoffEnvAmount + (msg.x * 100 ) => float newCutoffAmount;
+  //     if (newCutoffAmount < minimumEnvAmount){
+  //       minimumEnvAmount => newCutoffAmount;
+  //     } else if (newCutoffAmount > 20000) {
+  //       20000=>newCutoffAmount;
+  //     }
+  //     for( 0=> int i; i < 3; i++) {
+  //       newCutoffAmount => osc1._oscs[i]._filterCutoffEnvAmount;
+  //     }
+  //     // <<< osc1._oscs[1]._filterCutoff + newCutoffAmount >>>;
+  //   }
+  // }
 
   (now/2::_time.quat) % arp.size() => float currentStep;
 
