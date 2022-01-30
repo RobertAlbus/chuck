@@ -21,7 +21,11 @@ freqs[0] => wacko.osc2.freq;
 // RANGES
 
 KnobSet filtFmFreq;
+KnobSet filtFmModRange;
+KnobSet filtFmModOffset;
 filtFmFreq.set(5, 127, 1, 1, 40);
+filtFmModRange.set(   6, 127,   2, 127,   300 );
+filtFmModOffset.set(  7, 127,   3, 127,   200 );
 
 
 
@@ -29,10 +33,10 @@ filtFmFreq.set(5, 127, 1, 1, 40);
 while(true) {
 
   midi.recv(msg);
-  // <<< msg.data1, msg.data2, msg.data3>>>;
 
   filtFmFreq.getVal(msg) => wacko.filterFM.freq;
-  <<<filtFmFreq.getVal(msg)>>>;
+  filtFmModRange.getValMult(msg) => wacko.filtFmRange;
+  filtFmModOffset.getValMult(msg) => wacko.filtFmOffset;
   1::samp => now;
 
 }
