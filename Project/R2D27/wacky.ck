@@ -3,20 +3,23 @@ public class Wacko extends Chugen {
   SinOsc selector => blackhole;
   SinOsc filterFM => blackhole;
 
-  800 => float filtFmRange;
+  300 => float filtFmRange;
   200 => float filtFmBottom;
 
-  LPF lpf;
-  SinOsc osc1 => lpf => Gain output1 => blackhole;
-  SawOsc osc2 => lpf => Gain output2 => blackhole;
+  LPF lpf ;
+  Gain output;
+  SinOsc osc1 => Gain oscChannel1 => lpf => output => blackhole; 
+  SawOsc osc2 => Gain oscChannel2 => lpf => output => blackhole;
 
   0.2 => float lowerBound;
   0.4 => float upperBound;
 
   320 => selector.freq;
-  160 => osc1.freq;
+  120 => osc1.freq;
   40 => osc2.freq;
-  126 => filterFM.freq;
+  41 => filterFM.freq;
+
+  1.4 => lpf.Q;
 
   fun float tick( float in ) {
     selector.last() => float selectorPos;
@@ -25,10 +28,14 @@ public class Wacko extends Chugen {
     filtCut => lpf.freq;
 
     if(selectorPos > lowerBound && selectorPos < upperBound) {
-      return output1.last();
+      1 => oscChannel1.gain;
+      0 => oscChannel2.gain;
     } else {
-      return output2.last();
+      0 => oscChannel1.gain;
+      1 => oscChannel2.gain;
     }
+
+    return output.last();
 
   }
 
