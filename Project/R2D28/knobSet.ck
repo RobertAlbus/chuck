@@ -1,22 +1,22 @@
 public class KnobSet {
-  KnobScaled coarse;
-  KnobScaled fine;
+  KnobScaled carrier;
+  KnobScaled modulator;
 
   0 => float offset;
 
   fun void set(
     int _midiChannelCoarse,
-    float _coarseRange,
+    float _carrierRange,
     int _midiChannelFine,
-    float _fineRange,
+    float _modulatorRange,
     float _offset
   ) {
-    coarse.set(_midiChannelCoarse, _coarseRange);
-    fine.set(_midiChannelFine, _fineRange);
+    carrier.set(_midiChannelCoarse, _carrierRange);
+    modulator.set(_midiChannelFine, _modulatorRange);
     _offset => offset;
   }
 
   fun float getVal(MidiMsg msg) {
-    return coarse.getVal(msg) + fine.getVal(msg) + offset; 
+    return carrier.getVal(msg) + modulator.getVal(msg) + offset; 
   }
 }
