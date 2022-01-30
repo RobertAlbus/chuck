@@ -25,6 +25,10 @@ To run these files:
 - R2D23
   - The readme has a key insight into a modification I should make to the project architecture
   - proposes that I add a `Bedrock` layer to accomodate core utils with no dependencies. This might include string/array utils or things the language and std lib is missing
+- R2D27
+  - really cool UGen
+- R2D28
+  - First MIDI!
 
 ## Project Architecture
 
