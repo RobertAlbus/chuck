@@ -10,4 +10,5 @@ for (0 => int i; i < feature.size(); i++) {
   Machine.add(feature[i]);
 }
 
+Machine.add("Project/R2D28/wacky.ck");
 Machine.add("Project/R2D28/source.ck");
