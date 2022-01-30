@@ -21,7 +21,7 @@ freqs[0] => wacko.osc2.freq;
 // RANGES
 
 KnobSet filtFmFreq;
-filtFmFreq.set(1, 127, 40, 1, 5);
+filtFmFreq.set(5, 127, 1, 1, 40);
 
 
 

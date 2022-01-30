@@ -5,11 +5,11 @@ public class KnobSet {
   0 => float offset;
 
   fun void set(
-    float _fineRange,
+    int _midiChannelCoarse,
     float _coarseRange,
-    float _offset,
     int _midiChannelFine,
-    int _midiChannelCoarse
+    float _fineRange,
+    float _offset
   ) {
     coarse.set(_midiChannelCoarse, _coarseRange);
     fine.set(_midiChannelFine, _fineRange);
