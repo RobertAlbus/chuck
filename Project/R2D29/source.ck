@@ -1,11 +1,16 @@
 Time _time;
 _time.setBpm(160);
 
-MidiIn midi;
-MidiMsg msg;
+MidiIn midi1;
+MidiIn midi2;
+MidiMsg msg1;
+MidiMsg msg2;
 
-if (midi.open(1) == false) me.exit();
-<<< "midi device", midi.name(), "ready" >>>;
+if (midi1.open(1) == false) me.exit();
+<<< "midi1 device", midi1.name(), "ready" >>>;
+
+if (midi2.open(1) == false) me.exit();
+<<< "midi2 device", midi2.name(), "ready" >>>;
 
 Wacko wacko => LPF lpf => Gain master => dac;
 0.5 => master.gain;
@@ -34,12 +39,15 @@ filtCut.set(8, 127, 4, 127, 60);
 
 while(true) {
 
-  midi.recv(msg);
+  midi1.recv(msg1);
+  midi2.recv(msg2);
 
-  filtFmFreq.getValMult(msg) => wacko.filterFM.freq;
-  filtFmModRange.getValMult(msg) => wacko.filtFmRange;
-  filtFmModOffset.getValMult(msg) => wacko.filtFmOffset;
-  filtCut.getValMult(msg) => lpf.freq;
+  <<<msg1.data2, msg2.data2>>>;
+
+  filtFmFreq.getValMult(msg1) => wacko.filterFmFreq;
+  filtFmModRange.getValMult(msg1) => wacko.filtFmRange;
+  filtFmModOffset.getValMult(msg1) => wacko.filtFmOffset;
+  filtCut.getValMult(msg1) => lpf.freq;
   1::samp => now;
 
 }
