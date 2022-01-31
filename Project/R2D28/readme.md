@@ -12,4 +12,5 @@ I can use MIDI knobs to control the various parameters of yesterday's patch. It 
 - `aconnect -l` lists all MIDI devices on the system
 - chucking `input device` to `now` progresses time by "some amount" (?.. way more than 1 sample, but idk) for every midi event.
 - have a hunch that ChucK's MIDI interpretation is way less sophisticated than that used by a DAW
+- MIDI's 7 bit resolution isn't fine enough for a nice glissando through values of 0-20k. Even with exponentiation the steps are these audible and leave significant sections of the spectrum unable to be articulated.
 
