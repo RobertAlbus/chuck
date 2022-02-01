@@ -21,6 +21,10 @@ public class Wacko extends Chugen {
 
   1.4 => lpf.Q;
 
+  fun void filterFmFreq(float ratio) {
+    osc2.freq() * ratio => filterFM.freq;
+  }
+
   fun float tick( float in ) {
     selector.last() => float selectorPos;
     (((filterFM.last() + 1) / 2) * filtFmRange) + filtFmOffset => float filtCut;
