@@ -1,0 +1,12 @@
+# R2D32
+
+## Today's goals
+### Make a ring mod
+Read about the math, want to try implementing a Chugen that does it.
+
+## Today's outcomes
+- Made a ring mod synth
+
+## Lessons
+- More MIDI knobs would be great
+- OSC (Open Sound Control) is probably in my future
