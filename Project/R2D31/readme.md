@@ -1,4 +1,4 @@
-# R2D30
+# R2D31
 
 ## Today's goals
 
@@ -6,7 +6,7 @@
 Just want to play some more
 
 ## Today's outcomes
-- Amde a fun UGen
+- Made a fun UGen
 
 ## Lessons
 - More MIDI knobs would be great
