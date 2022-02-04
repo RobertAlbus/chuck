@@ -1,5 +1,5 @@
 Time _time;
-_time.setBpm(160);
+_time.setBpm(120);
 
 MidiNotes _notes;
 
@@ -37,12 +37,30 @@ adsr.set(0::samp,40::ms, 0.2, 4::ms);
 2 => master.gain;
 
 while(true) {
-  (now/0.5::_time.quat) => float currentStep;
+  (now/1::_time.beat) => float currentBeat;
 
-  if(currentStep % 2.0 == 0) {
+  if(currentBeat % 4.0 == 0) {
+
+    Math.random2f(8000,12000)           => float bpfCut => bpf.freq;
+    Math.random2f(2,3)                  => float bpfRes => bpf.Q;
+
+    Math.random2f(8000,12000)           => float hpfCut => hpf.freq;
+    Math.random2f(2,3)                  => float hpfRes => hpf.Q;
+
+    Math.random2f( 2, 9 ) * fundamental => float osc1Freq => osc1.freq;
+    Math.random2f( 2, 9 ) * fundamental => float osc2Freq => osc2.freq;
+    Math.random2f( 2, 9 ) * fundamental => float osc3Freq => osc3.freq;
+    Math.random2f( 2, 9 ) * fundamental => float osc4Freq => osc4.freq;
+    Math.random2f( 2, 9 ) * fundamental => float osc5Freq => osc5.freq;
+    Math.random2f( 2, 9 ) * fundamental => float osc6Freq => osc6.freq;
+
+  }
+
+  if(currentBeat % 1.0 == 0) {
     adsr.keyOn();
-    20::ms=> now;
+    3::_time.quat => now;
     adsr.keyOff();
+    _time.quat-samp => now;
   }
 
   samp=>now;
