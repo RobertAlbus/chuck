@@ -16,12 +16,12 @@ _time.setBpm(80);
 
 MidiNotes _notes;
 
-// MidiIn midi;
-// MidiMsg msg;
-// "Midi Through Port-0" => string midiThrough;
-// "Axiom A.I.R. Mini32" => string axiom;
-// if (midi.open(axiom) == false) me.exit();
-// <<< "midi device", midi.name(), "ready" >>>;
+MidiIn midi;
+MidiMsg msg;
+"Midi Through Port-0" => string midiThrough;
+"Axiom A.I.R. Mini32" => string axiom;
+if (midi.open(axiom) == false) me.exit();
+<<< "midi device", midi.name(), "ready" >>>;
 
 // OSC AND MOD
 Gain oscSum;
@@ -64,18 +64,19 @@ fun void randomize() {
     }
 }
 
+randomize();
 while(true) {
-  (now/1::_time.beat) => float currentBeat;
-
-  if(currentBeat % 4.0 == 0) {
+  midi.recv(msg);
+  if(msg.data2 == 40 && msg.data3 > 0) {
     randomize();
   }
 
+  (now/1::_time.beat) => float currentBeat;
   if(currentBeat % 1.0 == 0) {
     keyOn();
-    3::_time.quat => now;
+  }
+  if(currentBeat % 1.0 == 0.75) {
     keyOff();
-    _time.quat-samp => now;
   }
 
   samp=>now;
