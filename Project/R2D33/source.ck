@@ -47,12 +47,25 @@ while(true) {
     Math.random2f(8000,12000)           => float hpfCut => hpf.freq;
     Math.random2f(2,3)                  => float hpfRes => hpf.Q;
 
-    Math.random2f( 2, 9 ) * fundamental => float osc1Freq => osc1.freq;
-    Math.random2f( 2, 9 ) * fundamental => float osc2Freq => osc2.freq;
-    Math.random2f( 2, 9 ) * fundamental => float osc3Freq => osc3.freq;
-    Math.random2f( 2, 9 ) * fundamental => float osc4Freq => osc4.freq;
-    Math.random2f( 2, 9 ) * fundamental => float osc5Freq => osc5.freq;
-    Math.random2f( 2, 9 ) * fundamental => float osc6Freq => osc6.freq;
+    // 16 => float maxRatio; // Cym styled
+    9 => float maxRatio; // HH styled
+    Math.random2f( 2, maxRatio ) * fundamental => float osc1Freq => osc1.freq;
+    Math.random2f( 2, maxRatio ) * fundamental => float osc2Freq => osc2.freq;
+    Math.random2f( 2, maxRatio ) * fundamental => float osc3Freq => osc3.freq;
+    Math.random2f( 2, maxRatio ) * fundamental => float osc4Freq => osc4.freq;
+    Math.random2f( 2, maxRatio ) * fundamental => float osc5Freq => osc5.freq;
+    Math.random2f( 2, maxRatio ) * fundamental => float osc6Freq => osc6.freq;
+    <<<
+    "bpfCut: ", bpfCut, "  |  ",
+    "bpfRes: ", bpfRes, "  |  ",
+    "hpfCut: ", hpfCut, "  |  ",
+    "hpfRes: ", hpfRes, "  |  ",
+    "osc1Freq: ", osc1Freq, "  |  ",
+    "osc2Freq: ", osc2Freq, "  |  ",
+    "osc3Freq: ", osc3Freq, "  |  ",
+    "osc4Freq: ", osc4Freq, "  |  ",
+    "osc5Freq: ", osc5Freq, "  |  ",
+    "osc6Freq: ", osc6Freq, "  |  ">>>;
 
   }
 
