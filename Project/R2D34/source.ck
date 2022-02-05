@@ -1,5 +1,18 @@
 Time _time;
-_time.setBpm(120);
+_time.setBpm(80);
+
+6::_time.quat/samp => float maxDur;
+0.5::_time.quat/samp => float minDur;
+6 => int oscQuantity;
+400 => float fundamental;
+16 => float maxRatio;
+4 => float minRatio;
+
+12000 => float maxCut;
+8000 => float minCut;
+1 => float maxReso;
+3 => float minReso;
+
 
 MidiNotes _notes;
 
@@ -12,67 +25,56 @@ MidiNotes _notes;
 
 // OSC AND MOD
 Gain oscSum;
-1.0/6.0 => oscSum.gain;
-SqrOsc osc1 => oscSum;
-SqrOsc osc2 => oscSum;
-SqrOsc osc3 => oscSum;
-SqrOsc osc4 => oscSum;
-SqrOsc osc5 => oscSum;
-SqrOsc osc6 => oscSum;
-
-40 => float fundamental;
-2 * fundamental => osc1.freq;
-3 * fundamental => osc2.freq;
-4.16 * fundamental => osc3.freq;
-5.43 * fundamental => osc4.freq;
-6.79 * fundamental => osc5.freq;
-8.21 * fundamental => osc6.freq;
+RingMod oscs[oscQuantity];
+for (0 => int i; i < oscs.size(); i++ ){
+  oscs[i] => oscSum;
+  (0::ms, 0::ms, 1, 0::ms) => oscs[i].adsr.set;
+}
+1.0/(oscs.size() $float) => oscSum.gain;
 
 oscSum => ADSR adsr => BPF bpf => HPF hpf => Gain master => dac;
 adsr.set(0::samp,40::ms, 0.2, 4::ms);
-(10000, 1.5) => bpf.set;
-(7000, 1) => hpf.set;
+1 => master.gain;
 
-// PROGRAM
-2 => master.gain;
+fun void keyOn() {
+  for (0 => int i; i < oscs.size(); i++ ){
+    oscs[i].keyOn(_notes.F2);
+  }
+  adsr.keyOn();
+}
+fun void keyOff() {
+  for (0 => int i; i < oscs.size(); i++ ){
+    oscs[i].keyOff();
+  }
+  adsr.keyOff();
+}
+fun void randomize() {
+    Math.random2f(minCut,maxCut)   => float bpfCut => bpf.freq;
+    Math.random2f(minReso,maxReso) => float bpfRes => bpf.Q;
+
+    Math.random2f(minCut,maxCut)   => float hpfCut => hpf.freq;
+    Math.random2f(minReso,maxReso) => float hpfRes => hpf.Q;
+
+    for (0 => int i; i < oscs.size(); i++ ){
+      Math.random2f( minRatio, maxRatio ) * fundamental => oscs[i].setRatio_Osc;
+      Math.random2f( minRatio, maxRatio ) * fundamental => oscs[i].setRatio_Mod;
+
+      Math.random2f( minDur, maxDur )::samp => dur decay;
+      (0::ms, decay, 0, 20::ms) => oscs[i].adsr.set;
+    }
+}
 
 while(true) {
   (now/1::_time.beat) => float currentBeat;
 
   if(currentBeat % 4.0 == 0) {
-
-    Math.random2f(8000,12000)           => float bpfCut => bpf.freq;
-    Math.random2f(2,3)                  => float bpfRes => bpf.Q;
-
-    Math.random2f(8000,12000)           => float hpfCut => hpf.freq;
-    Math.random2f(2,3)                  => float hpfRes => hpf.Q;
-
-    // 16 => float maxRatio; // Cym styled
-    9 => float maxRatio; // HH styled
-    Math.random2f( 2, maxRatio ) * fundamental => float osc1Freq => osc1.freq;
-    Math.random2f( 2, maxRatio ) * fundamental => float osc2Freq => osc2.freq;
-    Math.random2f( 2, maxRatio ) * fundamental => float osc3Freq => osc3.freq;
-    Math.random2f( 2, maxRatio ) * fundamental => float osc4Freq => osc4.freq;
-    Math.random2f( 2, maxRatio ) * fundamental => float osc5Freq => osc5.freq;
-    Math.random2f( 2, maxRatio ) * fundamental => float osc6Freq => osc6.freq;
-    <<<
-    "bpfCut: ", bpfCut, "  |  ",
-    "bpfRes: ", bpfRes, "  |  ",
-    "hpfCut: ", hpfCut, "  |  ",
-    "hpfRes: ", hpfRes, "  |  ",
-    "osc1Freq: ", osc1Freq, "  |  ",
-    "osc2Freq: ", osc2Freq, "  |  ",
-    "osc3Freq: ", osc3Freq, "  |  ",
-    "osc4Freq: ", osc4Freq, "  |  ",
-    "osc5Freq: ", osc5Freq, "  |  ",
-    "osc6Freq: ", osc6Freq, "  |  ">>>;
-
+    randomize();
   }
 
   if(currentBeat % 1.0 == 0) {
-    adsr.keyOn();
+    keyOn();
     3::_time.quat => now;
-    adsr.keyOff();
+    keyOff();
     _time.quat-samp => now;
   }
 
