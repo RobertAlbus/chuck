@@ -5,11 +5,11 @@ _time.setBpm(80);
 0.5::_time.quat/samp => float minDur;
 6 => int oscQuantity;
 400 => float fundamental;
-16 => float maxRatio;
-4 => float minRatio;
+0.4 => float maxRatio;
+0.1 => float minRatio;
 
 12000 => float maxCut;
-8000 => float minCut;
+4000 => float minCut;
 1 => float maxReso;
 3 => float minReso;
 
@@ -33,7 +33,7 @@ for (0 => int i; i < oscs.size(); i++ ){
 1.0/(oscs.size() $float) => oscSum.gain;
 
 oscSum => ADSR adsr => BPF bpf => HPF hpf => Gain master => dac;
-adsr.set(0::samp,40::ms, 0.2, 4::ms);
+adsr.set(0::samp,40::ms, 0.6, 4::ms);
 1 => master.gain;
 
 fun void keyOn() {
