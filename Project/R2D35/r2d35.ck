@@ -14,4 +14,6 @@ Machine.add("Project/R2D35/knobScaled.ck");
 Machine.add("Project/R2D35/knobSet.ck");
 Machine.add("Project/R2D35/inverter.ck");
 Machine.add("Project/R2D35/plucker.ck");
+Machine.add("Project/R2D35/verb.ck");
+Machine.add("Project/R2D35/verbNetwork.ck");
 Machine.add("Project/R2D35/source.ck");

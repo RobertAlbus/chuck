@@ -24,7 +24,8 @@ if (midi.open(axiom) == false) me.exit();
 <<< "midi device", midi.name(), "ready" >>>;
 
 
-Plucker plucker => Gain master => dac;
+Plucker plucker => VerbNet reverb => Gain master => dac;
+0 => reverb.dry.gain;
 1 => master.gain;
 
 while(true) {
