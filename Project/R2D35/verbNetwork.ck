@@ -1,9 +1,10 @@
 public class VerbNet extends Chubgraph {
-  3 => int quantity;
+  30 => int quantity;
 
   inlet => Gain dry => Gain sum => outlet;
   Gain network => Gain wet => sum;
   Verb verbs[quantity];
+  8.0 / (quantity $ float) => network.gain;
 
   for( 0=> int i; i < verbs.size(); i++ ) {
     inlet => verbs[i] => network;
