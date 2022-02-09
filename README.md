@@ -25,10 +25,16 @@ To run these files:
 - R2D23
   - The readme has a key insight into a modification I should make to the project architecture
   - proposes that I add a `Bedrock` layer to accomodate core utils with no dependencies. This might include string/array utils or things the language and std lib is missing
-- R2D27
+- R2D27, R2D29, R2D32
   - really cool UGen
 - R2D28
   - First MIDI!
+- R2D32
+  - Ring Mod Ugen
+- R2D33, R2D34, R2D36
+  - Synthesize an 808-style hi hat
+  - D34 converts from square waves to Ring Mod
+  - D36 converts patch to Chugen
 
 ## Project Architecture
 
