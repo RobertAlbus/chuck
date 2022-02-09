@@ -13,4 +13,8 @@ public class AdsrController {
   fun void keyOff() {
     adsr.keyOff();
   }
+
+  fun void set(dur A, dur D, float S, dur R){
+    (A,D,S,R) => adsr.set;
+  }
 }
