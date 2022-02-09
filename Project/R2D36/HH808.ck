@@ -10,8 +10,8 @@ public class HH808 extends Chugen {
 
   12000 => float maxCut;
   4000 => float minCut;
-  1 => float maxReso;
-  3 => float minReso;
+  2 => float maxReso;
+  4 => float minReso;
 
   RingMod oscs[0];
   Gain oscSum => ADSR adsr => BPF bpf => HPF hpf => Gain output => blackhole;
@@ -24,7 +24,7 @@ public class HH808 extends Chugen {
 
   fun void init() {
     6 => setOscQuantity;
-    adsr.set(0::samp,40::ms, 0.6, 4::ms);
+    adsr.set(0::samp,40::ms, 0.4, 4::ms);
     randomize();
   }
 
