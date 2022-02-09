@@ -1,5 +1,5 @@
 Time _time;
-_time.setBpm(80);
+_time.setBpm(160);
 
 MidiNotes _notes;
 
@@ -10,7 +10,9 @@ MidiMsg msg;
 if (midi.open(axiom) == false) me.exit();
 <<< "midi device", midi.name(), "ready" >>>;
 
-HH808 hats => Gain master => dac;
+Gain master => dac;
+HH808 hats => Gain hatChannel => master; 
+Kick kick => Gain kickChannel => master; 
 1 => master.gain;
 hats.randomize();
 
@@ -23,10 +25,17 @@ while(true) {
 
   (now/1::_time.beat) => float currentBeat;
   if(currentBeat % 1.0 == 0) {
+    kick.keyOn(_notes.F4);
+    hats.keyOff();
+  }
+  if(currentBeat % 1.0 == 0.5) {
     hats.keyOn();
   }
+  if(currentBeat % 8.0 == 7.5) {
+    kick.keyOn();
+  }
   if(currentBeat % 1.0 == 0.75) {
-    hats.keyOff();
+    kick.keyOff();
   }
 
   samp=>now;
