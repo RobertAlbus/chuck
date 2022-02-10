@@ -1,4 +1,4 @@
-public class Smoothy extends Chugen {
+public class Highpassy extends Chugen {
 
   SqrOsc osc => Gain out => blackhole;
   float previous;
@@ -18,12 +18,12 @@ public class Smoothy extends Chugen {
       if (isMovingUp){
         previous + smoothingRange => val;
       } else {
-        previous - smoothingRange => val;
+        previous + smoothingRange => val;
       }
     }
     
     val => previous;
-    return val;
+    return val * osc.last();
   }
 
 }

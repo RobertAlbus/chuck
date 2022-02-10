@@ -12,4 +12,5 @@ for (0 => int i; i < feature.size(); i++) {
 
 Machine.add("Project/R2D39/knobScaled.ck");
 Machine.add("Project/R2D39/smoothy.ck");
+Machine.add("Project/R2D39/highpassy.ck");
 Machine.add("Project/R2D39/source.ck");

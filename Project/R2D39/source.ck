@@ -12,9 +12,9 @@ if (midi.open(axiom) == false) me.exit();
 
 KnobScaled smoothAmount;
 
-smoothAmount.set(5, 0.3, 0.01);
+smoothAmount.set(5, .1, 0);
 
-Smoothy smoothy => Gain master => dac;
+Highpassy smoothy => Gain master => dac;
 40 => smoothy.osc.freq;
 1 => master.gain;
 
@@ -22,7 +22,6 @@ while(true) {
   midi.recv(msg);
   smoothAmount.getVal(msg) => smoothy.smoothingRange;
   <<<smoothAmount.getVal(msg)>>>;
-
 
   (now/1::_time.beat) => float currentBeat;
   if(currentBeat % 1.0 == 0) {
