@@ -1,4 +1,4 @@
-public class HH808 extends Chugen {
+public class HH808 extends Chugen implements Keyable {
   MidiNotes _notes;
 
   10000::ms/ms=> float maxDur;

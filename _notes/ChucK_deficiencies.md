@@ -7,11 +7,11 @@
   - might be able to work around it with a closure-y class definition
   - https://lists.cs.princeton.edu/pipermail/chuck-users/2020-August/008891.html
   - probably advisable to avoid this pattern
-- left-to-right assignment
+- right associative assignment
 - atypical assignment operators
 - no generics
-- no string concatenation!! wtf
-
+- no templates
+- single inheritance (would be excusable with templates)
 ## Dependencies
 
 - due to an idiosyncrasy with the ChucK interpretter, you cannot import a dependency and immediately use it in the same file

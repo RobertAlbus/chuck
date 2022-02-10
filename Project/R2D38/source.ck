@@ -15,6 +15,9 @@ HH808 hats => Gain hatChannel => master;
 Kick kick => Gain kickChannel => master; 
 1 => master.gain;
 hats.randomize();
+// hats $ Keyable @=> Keyable k_hat; // invalid casting
+hats $ Object $ Keyable @=> Keyable k_hat; // questionable casting
+kick $ Object $ Keyable @=> Keyable k_kick;// questionable casting
 
 while(true) {
   midi.recv(msg);
@@ -25,17 +28,18 @@ while(true) {
 
   (now/1::_time.beat) => float currentBeat;
   if(currentBeat % 1.0 == 0) {
-    kick.keyOn(_notes.F4);
-    hats.keyOff();
+    // segfaults here, presumably due to the questionable casting above
+    k_kick.keyOn(_notes.F4);
+    k_hat.keyOff();
   }
   if(currentBeat % 1.0 == 0.5) {
-    hats.keyOn();
+    k_hat.keyOn();
   }
   if(currentBeat % 8.0 == 7.5) {
-    kick.keyOn();
+    k_kick.keyOn();
   }
   if(currentBeat % 1.0 == 0.75) {
-    kick.keyOff();
+    k_kick.keyOff();
   }
 
   samp=>now;

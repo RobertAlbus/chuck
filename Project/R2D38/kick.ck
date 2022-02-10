@@ -1,4 +1,4 @@
-public class Kick extends Chugen {
+public class Kick extends Chugen implements Keyable {
 
   OscSynthSingle synths[2];
   Gain synthBus => ADSR adsr => Gain out => blackhole;

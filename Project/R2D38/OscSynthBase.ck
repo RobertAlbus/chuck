@@ -1,4 +1,4 @@
-public class OscSynthBase extends Chugen {
+public class OscSynthBase extends Chugen implements Keyable {
 
 
   fun float tick( float in ) {

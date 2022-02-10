@@ -10,6 +10,7 @@ for (0 => int i; i < feature.size(); i++) {
   Machine.add(feature[i]);
 }
 
+Machine.add("Project/R2D38/keyable.ck");
 Machine.add("Project/R2D38/ringmod.ck");
 Machine.add("Project/R2D38/HH808.ck");
 Machine.add("Project/R2D38/OscSynthBase.ck");
