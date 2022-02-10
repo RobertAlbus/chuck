@@ -15,11 +15,7 @@ public class Highpassy extends Chugen {
     if (isWithinRange) {
       current => val;
     } else {
-      if (isMovingUp){
-        previous + smoothingRange => val;
-      } else {
-        previous + smoothingRange => val;
-      }
+      previous + smoothingRange => val;
     }
     
     val => previous;
