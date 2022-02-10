@@ -10,7 +10,7 @@ MidiNotes _notes;
 // if (midi.open(axiom) == false) me.exit();
 // <<< "midi device", midi.name(), "ready" >>>;
 
-Gain master => dac;
+Smoothy smoothy => Gain master => dac;
 1 => master.gain;
 
 while(true) {
@@ -22,7 +22,6 @@ while(true) {
 
   (now/1::_time.beat) => float currentBeat;
   if(currentBeat % 1.0 == 0) {
-    <<<"running">>>;
   }
   if(currentBeat % 1.0 == 0.5) {
   }
