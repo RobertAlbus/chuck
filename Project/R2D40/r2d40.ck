@@ -10,4 +10,9 @@ for (0 => int i; i < feature.size(); i++) {
   Machine.add(feature[i]);
 }
 
+Machine.add("Project/R2D40/instrument.ck");
+Machine.add("Project/R2D40/ringmod.ck");
+Machine.add("Project/R2D40/HH808.ck");
+Machine.add("Project/R2D40/OscSynthSingle.ck");
+Machine.add("Project/R2D40/kick.ck");
 Machine.add("Project/R2D40/source.ck");
