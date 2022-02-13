@@ -20,6 +20,10 @@ hats.randomize();
 hats $ Instrument @=> Instrument i_hat;
 kick $ Instrument @=> Instrument i_kick;
 
+if (0) {
+  <<<"truthy">>>;
+}
+
 while(true) {
   // midi.recv(msg);
   // if(msg.data2 == 40 && msg.data3 > 0) {
