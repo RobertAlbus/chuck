@@ -28,13 +28,11 @@ public class StepSequencer {
         keyOn();
       }
     } else if (triggerStep == SUS) {
-    <<<"7">>>;
 
       if (noteStep) { // should be "if nan/null/etc"
         note(noteStep);
       }
     } else if (triggerStep == OFF) {
-    <<<"8">>>;
 
       keyOff();
     } else {
