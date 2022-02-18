@@ -13,6 +13,7 @@ for (0 => int i; i < foundation.size(); i++) {
 // }
 
 Machine.add("Project/R2D47/time2.ck");
+Machine.add("Project/R2D47/knob_scaled.ck");
 Machine.add("Project/R2D47/midi_chords.ck");
 Machine.add("Project/R2D47/instrument.ck");
 Machine.add("Project/R2D47/step_sequencer.ck");

@@ -13,12 +13,10 @@ if (midi.open(axiom) == false) me.exit();
 <<< "midi device", midi.name(), "ready" >>>;
 
 Gain master => dac;
-0.8 => master.gain;
 
 HH808 hats => Gain hatChannel => Gain hatToggle => master;
-0.3 => hatChannel.gain;
-Kick kick => Gain kickChannel => Gain kickToggle => master;
-OscSynthSingle bass => Gain bassChannel => Gain bassToggle => master;
+Kick kick => HPF kickHpf => Gain kickChannel => Gain kickToggle => master;
+OscSynthSingle bass => HPF bassHpf => Gain bassChannel => Gain bassToggle => master;
 OscSynthSingle lead => Gain leadChannel => Gain leadToggle => master;
 [
   new OscSynthSingle,
@@ -32,7 +30,24 @@ for (0 => int i; i < chordVoices.size(); i++) {
   chordVoices[i] => chordSum;
 }
 1.0 / chordVoices.size() => chordSum.gain;
+
+// FILTERS
+30 => float hpfMin;
+hpfMin => kickHpf.freq;
+hpfMin => bassHpf.freq;
+
+KnobScaled kickHpfKnob;
+KnobScaled bassHpfKnob;
+kickHpfKnob.set(5, 400, hpfMin);
+bassHpfKnob.set(6, 400, hpfMin);
+
+// MIXER GAIN
+1 => kickChannel.gain;
+1 => bassChannel.gain;
+0.25 => hatChannel.gain;
 0.4 => chordChannel.gain;
+
+0.8 => master.gain;
 
 ////////
 // PATCHES
@@ -217,6 +232,9 @@ while(true) {
     toggleChord();
     0 => msg.data3;
   }
+
+  kickHpfKnob.getVal(msg) => kickHpf.freq;
+  bassHpfKnob.getVal(msg) => bassHpf.freq;
 
   (now/1::_time.quat) => float currentStep;
   if (currentStep % 1.00 == 0) {
