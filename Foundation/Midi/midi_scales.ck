@@ -10,17 +10,37 @@ public class MidiScales {
     _i.whole,
     _i.whole,
     _i.semi
-  ] @=> int heptoniaPrima[];
+  ] @=> float heptoniaPrima[];
 
-  fun int[] generateMode(int start, int tonic, int scale[]) {
+  [
+    _i.whole,
+    _i.semi,
+    _i.whole,
+    _i.whole,
+    _i.whole,
+    _i.whole,
+    _i.semi
+  ] @=> float minorMelodic[];
+
+  [
+    _i.whole,
+    _i.semi,
+    _i.whole,
+    _i.whole,
+    _i.semi
+    _i.whole,
+    _i.semi,
+  ] @=> float minorHarmonic[];
+
+  fun float[] generateMode(float start, float tonic, float scale[]) {
     _array.rotateI(scale, start) @=> scale;
     return createPitchSet(tonic, scale);
   }
 
-  fun int[] createPitchSet(int tonic, int scale[]) {
-    tonic => int currentPitch;
-    [currentPitch] @=> int pitchSet[];
-    for ( 0 => int i; i < scale.size(); i++ ) {
+  fun float[] createPitchSet(float tonic, float scale[]) {
+    tonic => float currentPitch;
+    [currentPitch] @=> float pitchSet[];
+    for ( 0 => float i; i < scale.size(); i++ ) {
       scale[i] +=> currentPitch;
       pitchSet << currentPitch;
     }
@@ -28,32 +48,36 @@ public class MidiScales {
     return pitchSet;
   }
 
-  fun int[] ionian(int tonic) {
-    return generateMode(0, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] ionian(float tonic) {
+    return generateMode(0, tonic, heptoniaPrima) @=> float floatervals[];
   }
 
-  fun int[] dorian(int tonic) {
-    return generateMode(1, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] dorian(float tonic) {
+    return generateMode(1, tonic, heptoniaPrima) @=> float floatervals[];
   }
 
-  fun int[] phrygian(int tonic) {
-    return generateMode(2, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] phrygian(float tonic) {
+    return generateMode(2, tonic, heptoniaPrima) @=> float floatervals[];
   }
 
-  fun int[] lydian(int tonic) {
-    return generateMode(3, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] lydian(float tonic) {
+    return generateMode(3, tonic, heptoniaPrima) @=> float floatervals[];
   }
 
-  fun int[] mixolydian(int tonic) {
-    return generateMode(4, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] mixolydian(float tonic) {
+    return generateMode(4, tonic, heptoniaPrima) @=> float floatervals[];
   }
 
-  fun int[] aeolian(int tonic) {
-    return generateMode(5, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] aeolian(float tonic) {
+    return generateMode(5, tonic, heptoniaPrima) @=> float floatervals[];
   }
 
-  fun int[] locrian(int tonic) {
-    return generateMode(6, tonic, heptoniaPrima) @=> int intervals[];
+  fun float[] locrian(float tonic) {
+    return generateMode(6, tonic, heptoniaPrima) @=> float floatervals[];
+  }
+
+  fun float[] minorMelodic(float tonic) {
+    return createPitchSet(tonic, minorMelodic);
   }
 
 }
