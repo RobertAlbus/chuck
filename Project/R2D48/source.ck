@@ -242,6 +242,28 @@ while(true) {
       0 => msg.data3;
     }
 
+    if(msg.data2 == 53 && msg.data3 > 0) {
+      bassNotePatterns[0] @=> stsq_bass.noteSteps;
+      0 => msg.data3;
+    }
+    if(msg.data2 == 55 && msg.data3 > 0) {
+      bassNotePatterns[1] @=> stsq_bass.noteSteps;
+      0 => msg.data3;
+    }
+
+    if(msg.data2 == 60 && msg.data3 > 0) {
+      hatTriggerPatterns[0] @=> stsq_hh.triggerSteps;
+      0 => msg.data3;
+    }
+    if(msg.data2 == 62 && msg.data3 > 0) {
+      hatTriggerPatterns[1] @=> stsq_hh.triggerSteps;
+      0 => msg.data3;
+    }
+    if(msg.data2 == 64 && msg.data3 > 0) {
+      hatTriggerPatterns[2] @=> stsq_hh.triggerSteps;
+      0 => msg.data3;
+    }
+
     kickHpfKnob.getVal(msg) => kickHpf.freq;
     bassHpfKnob.getVal(msg) => bassHpf.freq;
 
