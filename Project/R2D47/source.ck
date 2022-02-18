@@ -5,21 +5,21 @@ MidiNotes _notes;
 MidiScales _scales;
 MidiChords _chords;
 
-// MidiIn midi;
-// MidiMsg msg;
-// "Midi Through Port-0" => string midiThrough;
-// "Axiom A.I.R. Mini32" => string axiom;
-// if (midi.open(axiom) == false) me.exit();
-// <<< "midi device", midi.name(), "ready" >>>;
+MidiIn midi;
+MidiMsg msg;
+"Midi Through Port-0" => string midiThrough;
+"Axiom A.I.R. Mini32" => string axiom;
+if (midi.open(axiom) == false) me.exit();
+<<< "midi device", midi.name(), "ready" >>>;
 
 Gain master => dac;
 0.8 => master.gain;
 
-HH808 hats => Gain hatChannel => master;
+HH808 hats => Gain hatChannel => Gain hatToggle => master;
 0.3 => hatChannel.gain;
-Kick kick => Gain kickChannel => master;
-OscSynthSingle bass => Gain bassChannel => master;
-OscSynthSingle lead => Gain leadChannel => master;
+Kick kick => Gain kickChannel => Gain kickToggle => master;
+OscSynthSingle bass => Gain bassChannel => Gain bassToggle => master;
+OscSynthSingle lead => Gain leadChannel => Gain leadToggle => master;
 [
   new OscSynthSingle,
   new OscSynthSingle,
@@ -27,7 +27,7 @@ OscSynthSingle lead => Gain leadChannel => master;
   new OscSynthSingle
 ] @=> OscSynthSingle chordVoices[];
 
-Gain chordSum => Gain chordChannel => master;
+Gain chordSum => Gain chordChannel => Gain chordToggle => master;
 for (0 => int i; i < chordVoices.size(); i++) {
   chordVoices[i] => chordSum;
 }
@@ -171,11 +171,53 @@ for (0 => int i; i < chordProgression.size(); i ++) {
   }
 }
 
+////////
+// ARRANGEMENT TOOLS
+
+fun void toggleInstrument(Gain toggler) {
+  if (toggler.gain() == 0 ) {
+    1 => toggler.gain;
+  } else {
+    0 => toggler.gain;
+  }
+}
+
+fun void toggleKick() {
+  toggleInstrument(kickToggle);
+}
+fun void toggleHat() {
+  toggleInstrument(hatToggle);
+}
+fun void toggleBass() {
+  toggleInstrument(bassToggle);
+}
+fun void toggleChord() {
+  toggleInstrument(chordToggle);
+}
+
 
 ////////
 // PLAY
 
 while(true) {
+  midi.recv(msg);
+  if(msg.data2 == 40 && msg.data3 > 0) {
+    toggleKick();
+    0 => msg.data3;
+  }
+  if(msg.data2 == 41 && msg.data3 > 0) {
+    toggleBass();
+    0 => msg.data3;
+  }
+  if(msg.data2 == 42 && msg.data3 > 0) {
+    toggleHat();
+    0 => msg.data3;
+  }
+  if(msg.data2 == 43 && msg.data3 > 0) {
+    toggleChord();
+    0 => msg.data3;
+  }
+
   (now/1::_time.quat) => float currentStep;
   if (currentStep % 1.00 == 0) {
     stsq_hh.play(currentStep $int);
