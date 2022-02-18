@@ -8,4 +8,6 @@ Add toggles to instruments that can be triggered with MIDI. This allows me to ja
 - 
 
 ## Lessons / Thoughts
-- 
+- I was hoping to split `source.ck` across multiple files
+  - didn't work, importing in `r2d46.ck` or in `source.ck`
+  - global variables from one file are not available in another
