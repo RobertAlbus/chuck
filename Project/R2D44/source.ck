@@ -1,5 +1,5 @@
 Time2 _time;
-Time2.setBpm(160);
+Time2.setBpm(144);
 
 MidiNotes _notes;
 
@@ -23,7 +23,7 @@ OscSynthSingle bass => Gain bassChannel => master;
 100 => bass.lpfCutoff;
 1000 => bass.adsrLpfCutoffAmount;
 (0::_time.quat, 1::_time.quat, 0.2, 0::samp) => bass.adsrLpfCutoff.set;
-
+2.1 => bass.lpf.Q;
 
 Std.srand(4896);
 hats.randomize();
