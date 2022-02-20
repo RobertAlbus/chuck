@@ -9,10 +9,16 @@ class FoundationModule {
   "Foundation/Midi/midi_intervals.ck" => string midi_intervals;
   "Foundation/Midi/midi_notes.ck"     => string midi_notes;
   "Foundation/Midi/midi_scales.ck"    => string midi_scales;
+  
+  
+  "Foundation/Array2D/array2d_validate.ck"     => string Array2DValidate;
+  "Foundation/Array2D/array2d.ck"           => string Array2D;
 
   "Foundation/Store/key_value_store.ck" => string kv_store; // depends on string_utils.ck
 
   [
+    Array2DValidate,
+    Array2D,
     controller_adsr,
     string_utils,
     array_rotate,
