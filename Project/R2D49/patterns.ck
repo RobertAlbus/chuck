@@ -1,4 +1,3 @@
-// 
 /* 
 This class should be re-implemented on a per-composition basis
 

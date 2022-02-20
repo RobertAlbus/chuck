@@ -16,6 +16,7 @@ Some areas of the code are very verbose and ther emight be a way to reduce that
 
 ## Today's outcomes
 - move step sequencer patterns into their own class
+- move presets into their own class
 
 ## Lessons / Thoughts
-- the pattern aggregator class is intended to be an "implement once per composition" class, rather than a generalized reusable class. 
+- these classes (pattern aggregator, preset aggregator, etc) are intended to be "implement once per composition" classwa, rather than generalized reusable classes. 

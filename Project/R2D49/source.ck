@@ -52,38 +52,16 @@ bassLpfEnvAmount.set(6, 4000, 0);
 0.8 => master.gain;
 
 ////////
-// PATCHES
+// SYNTH PATCHES
+PresetsR2D49 presets; 
 
-// PLUCK PATCH
-fun void setPluckPatch(OscSynthSingle oscSynth){
-  "saw" => oscSynth.oscType;
-  100 => oscSynth.lpfCutoff;
-  1000 => oscSynth.adsrLpfCutoffAmount;
-  (0::_time.quat, 1::_time.quat, 0.2, 0::samp) => oscSynth.adsrLpfCutoff.set;
-  3.1 => oscSynth.lpf.Q;
-}
-
-bass => setPluckPatch;
-lead => setPluckPatch;
-
-// PAD PATCH
-fun void setPadPatch(OscSynthSingle oscSynth){
-  "saw" => oscSynth.oscType;
-  500 => oscSynth.lpfCutoff;
-  500 => oscSynth.adsrLpfCutoffAmount;
-  (2::_time.quat, 12::_time.beat, 0, 0::_time.beat) => oscSynth.adsrLpfCutoff.set;
-  (0::_time.quat, 12::_time.beat, 0, 0::_time.beat) => oscSynth.adsrAmp.set;
-  2.1 => oscSynth.lpf.Q;
-}
+hats => presets.hats;
+bass => presets.pluck;
+lead => presets.pluck;
 
 for (0 => int i; i < chordVoices.size(); i++) {
-  chordVoices[i] => setPadPatch;
+  chordVoices[i] => presets.pad;
 }
-
-// HAT PATCH
-Std.srand(4896);
-hats.randomize();
-
 
 ////////
 // STSQ
@@ -148,7 +126,6 @@ fun void toggleChord() {
 
 ////////
 // PLAY
-
 0 => int isMidiTestMode;
 while(true) {
   midi.recv(msg);

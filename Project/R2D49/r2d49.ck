@@ -22,4 +22,5 @@ Machine.add("Project/R2D49/HH808.ck");
 Machine.add("Project/R2D49/OscSynthSingle.ck");
 Machine.add("Project/R2D49/kick.ck");
 Machine.add("Project/R2D49/patterns.ck");
+Machine.add("Project/R2D49/presets.ck");
 Machine.add("Project/R2D49/source.ck");
