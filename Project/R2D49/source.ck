@@ -42,7 +42,7 @@ KnobScaled bassHpfKnob;
 KnobScaled bassLpfEnvAmount;
 kickHpfKnob.set(5, 1000, hpfMin);
 bassHpfKnob.set(2, 400, hpfMin);
-bassLpfEnvAmount.set(6, 4000, 0);
+bassLpfEnvAmount.set(6, 4000, 100);
 
 // MIXER GAIN
 1 => kickChannel.gain;
