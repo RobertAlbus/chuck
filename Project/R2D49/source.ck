@@ -4,6 +4,7 @@ Time2.setBpm(144);
 
 MidiScales _scales;
 MidiChords _chords;
+Array2D _array2d;
 
 MidiIn midi;
 MidiMsg msg;
@@ -92,13 +93,11 @@ pattern.hatNotePatterns[0] @=> stsq_hh.noteSteps;
 pattern.bassNotePatterns[0] @=> stsq_bass.noteSteps;
 
 // chords[] axis change
-// TODO: generalize into a Foundation.Array.AxisChange
-// changes the base array from individual chords, to voices for each chord
-for (0 => int i; i < pattern.chordProgression.size(); i ++) {
-  for ( 0 => int j; j < stsq_chord.size(); j++) {
-    stsq_chord[j].noteSteps << pattern.chordProgression[i][j];
-    pattern.chordTriggerPatterns[0] @=> stsq_chord[j].triggerSteps;
-  }
+pattern.chordProgression => _array2d.transpose @=> pattern.chordProgression;
+
+for ( 0 => int i; i < pattern.chordProgression.size(); i++) {
+  pattern.chordProgression[i] @=> stsq_chord[i].noteSteps;
+  pattern.chordTriggerPatterns[0] @=> stsq_chord[i].triggerSteps;
 }
 
 ////////
