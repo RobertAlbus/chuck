@@ -58,6 +58,7 @@ public class PatternsR2D49 {
   [
   //[1|_|_|_|2|_|_|_|3|_|_|_|4|_|_|_]
     [t,u,v,t,u,v,s,t,u,v,t,u,v,s,s,s],
+    [t,u,v,t,u,v,s,t,u,v,t,u,v,s,s,s,t,u,v,t,u,v,s,t,u,v,t,u,v,R,S,S],
     [t,u,v,T,u,v,S,t,u,v,T,u,t,R,S,S]
   ] @=> float bassNotePatterns[][];
 
