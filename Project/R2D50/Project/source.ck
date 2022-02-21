@@ -3,7 +3,6 @@ _time.setBpm(144);
 
 MidiScales _scales;
 MidiChords _chords;
-Array2D _array2d;
 PatternsR2D49 _patterns;
 PresetsR2D49 _presets; 
 
@@ -86,20 +85,26 @@ stsq_bass.init(
 // will have to find a convenient way to chain each voice's stsq together
 // could add a method "chain" that takes an array of of StepSequencerPatternManagers
 // and keeps a copy of the references locally then pass all calls through to all chained instances
-StepSequencer stsq_chord[0];
-stsq_chord << new StepSequencer << new StepSequencer << new StepSequencer << new StepSequencer;
+[
+  new StepSequencerPatternManager,
+  new StepSequencerPatternManager,
+  new StepSequencerPatternManager,
+  new StepSequencerPatternManager
+] @=> StepSequencerPatternManager stsq_chords[];
 
-for(0 => int i; i < stsq_chord.size(); i++) {
-  [chordVoices[i] $ Instrument] @=> stsq_chord[i].instruments;
+for(0 => int i; i < stsq_chords.size(); i++) {
+  stsq_chords[i].init(
+    [chordVoices[i] $ Instrument],
+    [60.0, 63], 0, _patterns.chordTriggerPatterns,
+    [61.0],     0, [_patterns.chordProgression[i]]
+  );
 }
-
-// chords[] axis change
-_patterns.chordProgression => _array2d.transpose @=> _patterns.chordProgression;
-
-for ( 0 => int i; i < _patterns.chordProgression.size(); i++) {
-  _patterns.chordProgression[i] @=> stsq_chord[i].noteSteps;
-  _patterns.chordTriggerPatterns[0] @=> stsq_chord[i].triggerSteps;
-}
+stsq_chords[0].chain([
+  stsq_chords[1] $ Object,
+  stsq_chords[2] $ Object,
+  stsq_chords[3] $ Object
+]);
+stsq_chords[0] @=> StepSequencerPatternManager stsq_chord;
 
 
 ////////
@@ -117,13 +122,13 @@ bassLpfEnvAmount.set(6, 4000, 100);
 [
 //[       T N   T N   T N   T N]
 //[msr    Kick  Bass  Hat   Pad]
-  [0.0,    _,_,  _,_,  3,_,  _,_],
+  [0.0,    _,_,  _,_,  3,_,  1,_],
   [2.0,    _,_,  _,_,  0,_,  _,_],
   [5.0,    _,_,  _,1,  _,_,  _,_],
   [6.0,    _,_,  _,_,  1,_,  _,_],
   [7.0,    _,_,  _,_,  2,_,  _,_],
-  [8.0,    _,_,  _,2,  0,_,  _,_],
-  [16.0,   3,_,  2,_,  3,_,  _,_]
+  [8.0,    _,_,  _,2,  0,_,  0,_],
+  [12.0,   3,_,  2,_,  3,_,  1,_]
 ] @=> float arrangement[][];
 
 ////////
@@ -169,6 +174,12 @@ while(_time.currentMeasure() < finalMeasure) {
           if (arrangement[i][6] >= 0) {
             stsq_hat .setNotePattern   (arrangement[i][6] $ int);
           }
+          if (arrangement[i][7] >= 0) {
+            stsq_chord.setTriggerPattern(arrangement[i][7] $ int);
+          }
+          if (arrangement[i][8] >= 0) {
+            stsq_chord.setNotePattern   (arrangement[i][8] $ int);
+          }
         }
       }
 
@@ -183,10 +194,7 @@ while(_time.currentMeasure() < finalMeasure) {
       stsq_hat.play(currentStep $int);
       stsq_kick.play(currentStep $int);
       stsq_bass.play(currentStep $int);
-
-      for(0 => int i; i < stsq_chord.size(); i++) {
-        stsq_chord[i].play(currentStep $int);
-      }
+      stsq_chord.play(currentStep $int);
     }
 
     samp=>now;

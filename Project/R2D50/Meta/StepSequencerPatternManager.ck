@@ -1,5 +1,7 @@
 public class StepSequencerPatternManager {
   StepSequencer stsq;
+
+  Object chainedStsqPMs[0];
   
   KeyIndexer triggerIndexer;
   float triggerPatterns[][];
@@ -28,17 +30,15 @@ public class StepSequencerPatternManager {
     _notePatterns @=> notePatterns;
   }
 
-  fun void setTriggerPattern(int patternIndex) {
-    triggerIndexer.set(patternIndex);
-  }
-  fun void setNotePattern(int patternIndex) {
-    noteIndexer.set(patternIndex);
-  }
-
   fun void update(MidiMsg msg) {
     triggerIndexer.getVal(msg);
     noteIndexer.getVal(msg);
     update();
+    if (chainedStsqPMs.size() != 0){
+      for(0 => int i; i < chainedStsqPMs.size(); i++) {
+        (chainedStsqPMs[i] $StepSequencerPatternManager).update(msg);
+      }
+    }
   }
 
   fun void update() {
@@ -55,13 +55,23 @@ public class StepSequencerPatternManager {
     }
   }
 
-  fun void setTriggerPattern(int index){
+  fun void setTriggerPattern(int index) {
     triggerIndexer.set(index);
     update();
+    if (chainedStsqPMs.size() != 0){
+      for(0 => int i; i < chainedStsqPMs.size(); i++) {
+        (chainedStsqPMs[i] $StepSequencerPatternManager).setTriggerPattern(index);
+      }
+    }
   }
   fun void setNotePattern(int index){
     noteIndexer.set(index);
     update();
+    if (chainedStsqPMs.size() != 0){
+      for(0 => int i; i < chainedStsqPMs.size(); i++) {
+        (chainedStsqPMs[i] $StepSequencerPatternManager).setNotePattern(index);
+      }
+    }
   }
 
   // how can I get rid of this?
@@ -69,5 +79,15 @@ public class StepSequencerPatternManager {
   // in update: stsq.play(now/playbackrate) 
   fun void play(int step) {
     stsq.play(step);
+    if (chainedStsqPMs.size() != 0){
+      for(0 => int i; i < chainedStsqPMs.size(); i++) {
+        (chainedStsqPMs[i] $StepSequencerPatternManager).play(step);
+      }
+    }
+  }
+
+  fun void chain(Object stsqPMs[]) {
+    // MUST be StepSequencerPatternMannager[] cast to Object []
+    stsqPMs @=> chainedStsqPMs;
   }
 }

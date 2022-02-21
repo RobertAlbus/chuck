@@ -80,9 +80,12 @@ public class PatternsR2D49 {
     12.0 -=> chordProgression[0][i];
   }
 
+  Array2D _array2d;
+  chordProgression => _array2d.transpose @=> chordProgression;
+
   [
   //[1|_|_|_|2|_|_|_|3|_|_|_|4|_|_|_|5|_|_|_|6|_|_|_|7|_|_|_|8|_|_|_]
-    [X],
-    [X,_,_,_,_,_,I,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_]
+    [X,_,_,_,_,_,I,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
+    [X]
   ] @=> float chordTriggerPatterns[][];
 }
