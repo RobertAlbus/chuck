@@ -117,6 +117,7 @@ while(true) {
   midi.recv(msg);
 
   if(isMidiTestMode) {
+    <<<"MIDI test mode">>>;
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
