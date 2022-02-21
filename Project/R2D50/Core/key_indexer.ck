@@ -12,7 +12,7 @@ public class KeyIndexer {
 
   fun int getVal(MidiMsg msg) {
     for (0 => int i; i < keys.size(); i++) {
-      if(msg.data2 == keys[i] && msg.data3 > 0) {
+      if(msg.data2 == keys[i]) {
         i => value;
         return value;
       }
