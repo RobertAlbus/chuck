@@ -49,6 +49,7 @@ hpfMin => bassHpf.freq;
 // SYNTH PATCHES
 PresetsR2D49 presets; 
 
+kick => presets.kick;
 hats => presets.hats;
 bass => presets.pluck;
 lead => presets.pluck;

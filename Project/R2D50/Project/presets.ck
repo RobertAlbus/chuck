@@ -32,4 +32,28 @@ public class PresetsR2D49 {
     Std.srand(4896);
     hats.randomize();
   }
+
+  fun void kick(Kick kickDrum) {
+    (0::ms, 200::ms, 1, 20::ms) => kickDrum.adsr.set;
+
+    (0::ms, 200::ms, 0, 20::ms) => kickDrum.synths[0].adsrAmp.set;
+    (0::ms, 40::ms, 0, 20::ms)  => kickDrum.synths[0].adsrLpfCutoff.set;
+    (0::ms, 10::ms, 0, 20::ms)  => kickDrum.synths[0].adsrPitch.set;
+    1000  => kickDrum.synths[0].adsrPitchAmount;
+    -24   => kickDrum.synths[0].tuneSemi;
+    100   => kickDrum.synths[0].lpfCutoff;
+    500   => kickDrum.synths[0].adsrLpfCutoffAmount;
+    "sqr" => kickDrum.synths[0].oscType;
+
+    (0::ms, 30::ms, 0, 20::ms)  => kickDrum.synths[1].adsrAmp.set;
+    (0::ms, 40::ms, 0, 20::ms)  => kickDrum.synths[1].adsrLpfCutoff.set;
+    (10::ms, 10::ms, 0, 20::ms) => kickDrum.synths[1].adsrPitch.set;
+    10000  => kickDrum.synths[1].adsrPitchAmount;
+    -28   => kickDrum.synths[1].tuneSemi;
+    250   => kickDrum.synths[1].lpfCutoff;
+    500   => kickDrum.synths[1].adsrLpfCutoffAmount;
+    "saw" => kickDrum.synths[1].oscType;
+
+    0.8 => kickDrum.out.gain;
+  }
 }
