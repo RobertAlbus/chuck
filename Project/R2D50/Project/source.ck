@@ -81,6 +81,10 @@ stsq_bass.init(
   [53.0,55,57], 0, _patterns.bassNotePatterns
 );
 
+// TODO convert to new meta step sequencer
+// will have to find a convenient way to chain each voice's stsq together
+// could add a method "chain" that takes an array of of StepSequencerPatternManagers
+// and keeps a copy of the references locally then pass all calls through to all chained instances
 StepSequencer stsq_chord[0];
 stsq_chord << new StepSequencer << new StepSequencer << new StepSequencer << new StepSequencer;
 
