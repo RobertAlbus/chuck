@@ -18,9 +18,16 @@ I plan to sort the libs in this Project into subfolders. This way I can refactor
   - give it a list of possible keys
   - when a key is pressed, return the index of that key in it's key list
   - helpful in reducing verbosity of the main arrangement file when toggling StepSequencer patterns by key press
+- added currentUnit helper function to Time2
+  - created a naive arrangement to test it
+- added playbackOffset to Time2 for starting part way through a song
 
 ## Lessons / Thoughts
 - I should've focused on sandboxing my decisions into Projects from the beginning.
   - Foundation and Feature layers focused on code re-use and deduplication, but that wasn't the correct thing to focus on so early in my ChucK learning.
   - Projects are meant to be a snapshot in time without having to heavily rely on Git tags and branchs
   - copying files forward from previous projects has proven to be a great way to refine
+- If I further encapsulate the KeyIndexer I could
+  - wrap the patterns and StepSequencer into the abstraction
+  - optimize to reduce writing the selected pattern to the step sequencer EVERY SAMPLE
+  

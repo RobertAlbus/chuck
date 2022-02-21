@@ -1,5 +1,5 @@
 Time2 _time;
-Time2.setBpm(144);
+_time.setBpm(144);
 
 MidiScales _scales;
 MidiChords _chords;
@@ -115,6 +115,7 @@ hatNotePatternSelector.set([66.0], 0);
 ////////
 // PLAY
 0 => int isMidiTestMode;
+0::_time.measure => _time.playbackOffset;
 while(true) {
   midi.recv(msg);
 
@@ -122,6 +123,27 @@ while(true) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
+
+
+    if (_time.currentMeasure() == 0.0) {
+      hatTriggerPatternSelector.set(3);
+    }
+    if (_time.currentMeasure() == 2.0) {
+      hatTriggerPatternSelector.set(0);
+    }
+    if (_time.currentMeasure() == 4.0) {
+      bassNotePatternSelector.set(1);
+    }
+    if (_time.currentMeasure() == 6.0) {
+      hatTriggerPatternSelector.set(1);
+    }
+    if (_time.currentMeasure() == 7.0) {
+      hatTriggerPatternSelector.set(2);
+    }
+    if (_time.currentMeasure() == 8.0) {
+      hatTriggerPatternSelector.set(0);
+      bassNotePatternSelector.set(2);
+    }
 
     kickTriggerPatternSelector.getVal(msg) => int kickTriggerPatternIndex;
     _pattern.kickTriggerPatterns[kickTriggerPatternIndex] @=> stsq_kick.triggerSteps;
