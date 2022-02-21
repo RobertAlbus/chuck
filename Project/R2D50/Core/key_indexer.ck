@@ -9,12 +9,10 @@ public class KeyIndexer {
   ) {
     _keys @=> keys;
     _keys.size() => maxValue;
-    _initialValue => value;
+    set(_initialValue);
   }
 
-  fun void set(
-    int _value
-  ) {
+  fun void set(int _value) {
     _value => value;
   }
 
