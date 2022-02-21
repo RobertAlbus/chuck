@@ -13,6 +13,9 @@ There are a lot of lib files in use at this point. I want to organize them bette
 
 I plan to sort the libs in this Project into subfolders. This way I can refactor lib files and explore alternative project architectures while keeping my decisions sandboxed to the current Project.
 
+### Figure out how to write to a file
+self explanatory.
+
 ## Today's outcomes
 - refactored Project structure
 - created KeyIndexer
@@ -24,6 +27,7 @@ I plan to sort the libs in this Project into subfolders. This way I can refactor
 - added playbackOffset to Time2 for starting part way through a song
 - created a declarative solution for composition arrangement
   - needs further refining with custom classes
+- wrote some audio out to a file!!!
 
 ## Lessons / Thoughts
 - I should've focused on sandboxing my decisions into Projects from the beginning.
@@ -33,4 +37,5 @@ I plan to sort the libs in this Project into subfolders. This way I can refactor
 - If I further encapsulate the KeyIndexer I could
   - wrap the patterns and StepSequencer into the abstraction
   - optimize to reduce writing the selected pattern to the step sequencer EVERY SAMPLE
+- the audio file I wrote to disk is clipping. I would benefit a lot from streamlined mixing utilities.
   

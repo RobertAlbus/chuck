@@ -15,7 +15,8 @@ MidiMsg msg;
 if (midi.open(axiom) == false) me.exit();
 <<< "midi device", midi.name(), "ready" >>>;
 
-Gain master => dac;
+Gain master => WvOut wvOut => dac;
+me.dir() + "../bin/r2D50" => wvOut.wavFilename;
 
 HH808 hats => Gain hatChannel => Gain hatToggle => master;
 Kick kick => HPF kickHpf => Gain kickChannel => master;
@@ -161,15 +162,15 @@ while(_time.currentMeasure() < finalMeasure) {
           }
           if (arrangement[i][4] >= 0) {
             stsq_bass.setNotePattern   (arrangement[i][4] $ int);
-    }
+          }
           if (arrangement[i][5] >= 0) {
             stsq_hat .setTriggerPattern(arrangement[i][5] $ int);
-    }
+          }
           if (arrangement[i][6] >= 0) {
             stsq_hat .setNotePattern   (arrangement[i][6] $ int);
-    }
-    }
-    }
+          }
+        }
+      }
 
     }
 
@@ -192,3 +193,5 @@ while(_time.currentMeasure() < finalMeasure) {
   }
 
 }
+_time.measure => now;
+wvOut.closeFile();
