@@ -4,7 +4,9 @@ _time.setBpm(144);
 MidiScales _scales;
 MidiChords _chords;
 Array2D _array2d;
-PatternsR2D49 _pattern;
+PatternsR2D49 _patterns;
+PresetsR2D49 _presets; 
+
 
 MidiIn midi;
 MidiMsg msg;
@@ -47,15 +49,13 @@ hpfMin => bassHpf.freq;
 
 ////////
 // SYNTH PATCHES
-PresetsR2D49 presets; 
-
-kick => presets.kick;
-hats => presets.hats;
-bass => presets.pluck;
-lead => presets.pluck;
+kick => _presets.kick;
+hats => _presets.hats;
+bass => _presets.pluck;
+lead => _presets.pluck;
 
 for (0 => int i; i < chordVoices.size(); i++) {
-  chordVoices[i] => presets.pad;
+  chordVoices[i] => _presets.pad;
 }
 
 ////////
@@ -76,11 +76,11 @@ for(0 => int i; i < stsq_chord.size(); i++) {
 }
 
 // chords[] axis change
-_pattern.chordProgression => _array2d.transpose @=> _pattern.chordProgression;
+_patterns.chordProgression => _array2d.transpose @=> _patterns.chordProgression;
 
-for ( 0 => int i; i < _pattern.chordProgression.size(); i++) {
-  _pattern.chordProgression[i] @=> stsq_chord[i].noteSteps;
-  _pattern.chordTriggerPatterns[0] @=> stsq_chord[i].triggerSteps;
+for ( 0 => int i; i < _patterns.chordProgression.size(); i++) {
+  _patterns.chordProgression[i] @=> stsq_chord[i].noteSteps;
+  _patterns.chordTriggerPatterns[0] @=> stsq_chord[i].triggerSteps;
 }
 
 
