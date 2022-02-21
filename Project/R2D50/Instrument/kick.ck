@@ -21,7 +21,7 @@ public class Kick extends Instrument {
     (0::ms, 40::ms, 0, 20::ms)  => synths[0].adsrLpfCutoff.set;
     (0::ms, 10::ms, 0, 20::ms)  => synths[0].adsrPitch.set;
     1000  => synths[0].adsrPitchAmount;
-    -36   => synths[0].tuneSemi;
+    -24   => synths[0].tuneSemi;
     100   => synths[0].lpfCutoff;
     500   => synths[0].adsrLpfCutoffAmount;
     "sqr" => synths[0].oscType;
