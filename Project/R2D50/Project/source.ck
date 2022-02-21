@@ -43,6 +43,10 @@ kickHpfKnob.set(5, 1000, hpfMin);
 bassHpfKnob.set(2, 400, hpfMin);
 bassLpfEnvAmount.set(6, 4000, 100);
 
+// PATTERN TOGGLERS
+KeyIndexer bassNotePatternSelector;
+bassNotePatternSelector.set([53$float,55,57], 0);
+
 // MIXER GAIN
 1 => kickChannel.gain;
 1 => bassChannel.gain;
@@ -157,26 +161,9 @@ while(true) {
       0 => msg.data3;
     }
 
-    // this could be turned into a class
-    // some sort of midi interpretter
-    if(midiNote >= 53  && midiNote <= 59 && hasVelocity) {
-      midiNote - 53 => int index;
-      index % 2 == 0 => int isNoteStepChange;
-      !isNoteStepChange => int isTriggerStepChange;
-      Math.floor((Math.max(1,index) / 2)) $ int => index;
+    bassNotePatternSelector.getVal(msg) => int bassNotePatternIndex;
+    pattern.bassNotePatterns[bassNotePatternIndex] @=> stsq_bass.noteSteps;
 
-      if (isTriggerStepChange) {
-        if (index < pattern.bassTriggerPatterns.size()) {
-          pattern.bassTriggerPatterns[index] @=> stsq_bass.triggerSteps;
-        }
-
-      } else if (isNoteStepChange) {
-        if (index < pattern.bassNotePatterns.size()) {
-          pattern.bassNotePatterns[index] @=> stsq_bass.noteSteps;
-        }
-      }
-      0 => msg.data3;
-    }
 
     if(midiNote == 60 && hasVelocity) {
       pattern.hatTriggerPatterns[0] @=> stsq_hh.triggerSteps;

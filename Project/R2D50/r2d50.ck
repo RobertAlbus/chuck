@@ -14,6 +14,7 @@ for (0 => int i; i < foundation.size(); i++) {
 
 // CORE
 Machine.add("Project/R2D50/Core/time2.ck");
+Machine.add("Project/R2D50/Core/key_indexer.ck");
 Machine.add("Project/R2D50/Core/knob_scaled.ck");
 Machine.add("Project/R2D50/Core/midi_chords.ck");
 

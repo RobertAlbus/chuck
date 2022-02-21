@@ -1,6 +1,9 @@
 # R2D50
 
 ## Today's goals
+
+### Reduce verbosity further
+The StepSequencer pattern toggle via MIDI is hugely verbose. Make a class that can handle this.
 ### Remove the gain-toggle in favour of a single-note noteOff pattern in a step sequencer
 Gain toggle can lead to clicks and unnatural sound. Using a single-note noteOff pattern allows the synth to complete the envelope for the current note.
 
@@ -10,7 +13,11 @@ There are a lot of lib files in use at this point. I want to organize them bette
 I plan to sort the libs in this Project into subfolders. This way I can refactor lib files and explore alternative project architectures while keeping my decisions sandboxed to the current Project.
 
 ## Today's outcomes
-- 
+- refactored Project structure
+- created KeyIndexer
+  - give it a list of possible keys
+  - when a key is pressed, return the index of that key in it's key list
+  - helpful in reducing verbosity of the main arrangement file when toggling StepSequencer patterns by key press
 
 ## Lessons / Thoughts
 - I should've focused on sandboxing my decisions into Projects from the beginning.
