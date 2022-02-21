@@ -61,12 +61,25 @@ for (0 => int i; i < chordVoices.size(); i++) {
 ////////
 // STSQ
 
-StepSequencer stsq_kick;
-StepSequencer stsq_hat;
-StepSequencer stsq_bass;
-[kick $ Instrument] @=> stsq_kick.instruments;
-[hats $ Instrument] @=> stsq_hat.instruments;
-[bass $ Instrument] @=> stsq_bass.instruments;
+StepSequencerPatternManager stsq_kick;
+StepSequencerPatternManager stsq_hat;
+StepSequencerPatternManager stsq_bass;
+
+stsq_kick.init(
+  [kick $ Instrument],
+  [48.0,50,52,51], 0, _patterns.kickTriggerPatterns,
+  [49.0], 0, _patterns.kickNotePatterns
+);
+stsq_hat.init(
+  [hats $ Instrument],
+  [65.0,67,69,71], 0, _patterns.hatTriggerPatterns,
+  [66.0], 0, _patterns.hatNotePatterns
+);
+stsq_bass.init(
+  [bass $ Instrument],
+  [54.0,56,58], 0, _patterns.bassTriggerPatterns,
+  [53.0,55,57], 0, _patterns.bassNotePatterns
+);
 
 StepSequencer stsq_chord[0];
 stsq_chord << new StepSequencer << new StepSequencer << new StepSequencer << new StepSequencer;
@@ -95,23 +108,6 @@ kickHpfKnob.set(5, 1000, hpfMin);
 bassHpfKnob.set(2, 400, hpfMin);
 bassLpfEnvAmount.set(6, 4000, 100);
 
-// PATTERN TOGGLERS
-KeyIndexer kickTriggerPatternSelector;
-KeyIndexer kickNotePatternSelector;
-KeyIndexer bassTriggerPatternSelector;
-KeyIndexer bassNotePatternSelector;
-KeyIndexer hatTriggerPatternSelector;
-KeyIndexer hatNotePatternSelector;
-
-kickTriggerPatternSelector.set([48.0,50,52, 51], 0);
-kickNotePatternSelector.set([49.0], 0);
-
-bassTriggerPatternSelector.set([54.0,56,58], 0);
-bassNotePatternSelector.set([53.0,55,57], 0);
-
-hatTriggerPatternSelector.set([65.0,67,69,71], 0);
-hatNotePatternSelector.set([66.0], 0);
-
 
 ////////
 // PLAY
@@ -124,42 +120,29 @@ while(true) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
-
+    stsq_kick.update(msg);
+    stsq_hat.update(msg);
+    stsq_bass.update(msg);
 
     if (_time.currentMeasure() == 0.0) {
-      hatTriggerPatternSelector.set(3);
+      stsq_hat.setTriggerPattern(3);
     }
     if (_time.currentMeasure() == 2.0) {
-      hatTriggerPatternSelector.set(0);
+      stsq_hat.setTriggerPattern(0);
     }
     if (_time.currentMeasure() == 4.0) {
-      bassNotePatternSelector.set(1);
+      stsq_bass.setNotePattern(1);
     }
     if (_time.currentMeasure() == 6.0) {
-      hatTriggerPatternSelector.set(1);
+      stsq_hat.setTriggerPattern(1);
     }
     if (_time.currentMeasure() == 7.0) {
-      hatTriggerPatternSelector.set(2);
+      stsq_hat.setTriggerPattern(2);
     }
     if (_time.currentMeasure() == 8.0) {
-      hatTriggerPatternSelector.set(0);
-      bassNotePatternSelector.set(2);
+      stsq_hat.setTriggerPattern(0);
+      stsq_bass.setNotePattern(2);
     }
-
-    kickTriggerPatternSelector.getVal(msg) => int kickTriggerPatternIndex;
-    _pattern.kickTriggerPatterns[kickTriggerPatternIndex] @=> stsq_kick.triggerSteps;
-    kickNotePatternSelector.getVal(msg) => int kickNotePatternIndex;
-    _pattern.kickNotePatterns[kickNotePatternIndex] @=> stsq_kick.noteSteps;
-
-    bassTriggerPatternSelector.getVal(msg) => int bassTriggerPatternIndex;
-    _pattern.bassTriggerPatterns[bassTriggerPatternIndex] @=> stsq_bass.triggerSteps;
-    bassNotePatternSelector.getVal(msg) => int bassNotePatternIndex;
-    _pattern.bassNotePatterns[bassNotePatternIndex] @=> stsq_bass.noteSteps;
-
-    hatTriggerPatternSelector.getVal(msg) => int hatTriggerPatternIndex;
-    _pattern.hatTriggerPatterns[hatTriggerPatternIndex] @=> stsq_hat.triggerSteps;
-    hatNotePatternSelector.getVal(msg) => int hatNotePatternIndex;
-    _pattern.hatNotePatterns[hatNotePatternIndex] @=> stsq_hat.noteSteps;
 
     kickHpfKnob.getVal(msg) => kickHpf.freq;
     bassHpfKnob.getVal(msg) => bassHpf.freq;

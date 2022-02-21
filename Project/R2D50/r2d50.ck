@@ -28,6 +28,9 @@ Machine.add("Project/R2D50/Instrument/OscSynthSingle.ck");
 Machine.add("Project/R2D50/Instrument/kick.ck");
 Machine.add("Project/R2D50/Instrument/step_sequencer.ck");
 
+// META
+Machine.add("Project/R2D50/Meta/StepSequencerPatternManager.ck");
+
 // PROJECT
 Machine.add("Project/R2D50/Project/patterns.ck");
 Machine.add("Project/R2D50/Project/presets.ck");
