@@ -35,6 +35,9 @@ To run these files:
   - Synthesize an 808-style hi hat
   - D34 converts from square waves to Ring Mod
   - D36 converts patch to Chugen
+R2D50
+  - write to disk
+  - create a multi-instrument composition (composition incomplete but demonstrably possible)
 
 ## Project Architecture
 
