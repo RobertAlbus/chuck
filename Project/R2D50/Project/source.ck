@@ -41,7 +41,7 @@ hpfMin => bassHpf.freq;
 
 // MIXER GAIN
 1 => kickChannel.gain;
-1 => bassChannel.gain;
+0.7 => bassChannel.gain;
 0.25 => hatChannel.gain;
 0.4 => chordChannel.gain;
 
@@ -112,12 +112,25 @@ kickHpfKnob.set(5, 1000, hpfMin);
 bassHpfKnob.set(2, 400, hpfMin);
 bassLpfEnvAmount.set(6, 4000, 100);
 
+-1 => int _; // pass 
+[
+//[       T N   T N   T N   T N]
+//[msr    Kick  Bass  Hat   Pad]
+  [0.0,    _,_,  _,_,  3,_,  _,_],
+  [2.0,    _,_,  _,_,  0,_,  _,_],
+  [5.0,    _,_,  _,1,  _,_,  _,_],
+  [6.0,    _,_,  _,_,  1,_,  _,_],
+  [7.0,    _,_,  _,_,  2,_,  _,_],
+  [8.0,    _,_,  _,2,  0,_,  _,_],
+  [16.0,   3,_,  2,_,  3,_,  _,_]
+] @=> float arrangement[][];
 
 ////////
 // PLAY
 0 => int isMidiTestMode;
 0::_time.measure => _time.playbackOffset;
-while(true) {
+12.0 => float finalMeasure;
+while(_time.currentMeasure() < finalMeasure) {
   midi.recv(msg);
 
   if(isMidiTestMode) {
@@ -129,24 +142,35 @@ while(true) {
     stsq_hat.update(msg);
     stsq_bass.update(msg);
 
-    if (_time.currentMeasure() == 0.0) {
-      stsq_hat.setTriggerPattern(3);
+    // can also perhaps aggregate each arrangement step into a custom
+    // class that includes the stsq to reduce the per-instrument boilerplate
+
+    // optimize by running the for-loop 2x per measure instead of every sample
+    if (_time.currentMeasure() % .5 == 0) {
+
+      for (0 => int i; i < arrangement.size(); i++) {
+        if (_time.currentMeasure() == arrangement[i][0]) {
+          if (arrangement[i][1] >= 0) {
+            stsq_kick.setTriggerPattern(arrangement[i][1] $ int);
+          }
+          if (arrangement[i][2] >= 0) {
+            stsq_kick.setNotePattern   (arrangement[i][2] $ int);
+          }
+          if (arrangement[i][3] >= 0) {
+            stsq_bass.setTriggerPattern(arrangement[i][3] $ int);
+          }
+          if (arrangement[i][4] >= 0) {
+            stsq_bass.setNotePattern   (arrangement[i][4] $ int);
     }
-    if (_time.currentMeasure() == 2.0) {
-      stsq_hat.setTriggerPattern(0);
+          if (arrangement[i][5] >= 0) {
+            stsq_hat .setTriggerPattern(arrangement[i][5] $ int);
     }
-    if (_time.currentMeasure() == 4.0) {
-      stsq_bass.setNotePattern(1);
+          if (arrangement[i][6] >= 0) {
+            stsq_hat .setNotePattern   (arrangement[i][6] $ int);
     }
-    if (_time.currentMeasure() == 6.0) {
-      stsq_hat.setTriggerPattern(1);
     }
-    if (_time.currentMeasure() == 7.0) {
-      stsq_hat.setTriggerPattern(2);
     }
-    if (_time.currentMeasure() == 8.0) {
-      stsq_hat.setTriggerPattern(0);
-      stsq_bass.setNotePattern(2);
+
     }
 
     kickHpfKnob.getVal(msg) => kickHpf.freq;

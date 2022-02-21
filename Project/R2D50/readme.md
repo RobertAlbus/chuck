@@ -4,6 +4,7 @@
 
 ### Reduce verbosity further
 The StepSequencer pattern toggle via MIDI is hugely verbose. Make a class that can handle this.
+
 ### Remove the gain-toggle in favour of a single-note noteOff pattern in a step sequencer
 Gain toggle can lead to clicks and unnatural sound. Using a single-note noteOff pattern allows the synth to complete the envelope for the current note.
 
@@ -21,6 +22,8 @@ I plan to sort the libs in this Project into subfolders. This way I can refactor
 - added currentUnit helper function to Time2
   - created a naive arrangement to test it
 - added playbackOffset to Time2 for starting part way through a song
+- created a declarative solution for composition arrangement
+  - needs further refining with custom classes
 
 ## Lessons / Thoughts
 - I should've focused on sandboxing my decisions into Projects from the beginning.
