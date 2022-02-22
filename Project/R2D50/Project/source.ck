@@ -128,14 +128,14 @@ bassLpfEnvAmount.set(6, 4000, 100);
   [6.0,    _,_,  _,_,  1,_,  _,_],
   [7.0,    _,_,  _,_,  2,_,  _,_],
   [8.0,    _,_,  _,2,  0,_,  0,_],
-  [12.0,   3,_,  2,_,  3,_,  1,_]
+  [16.0,   3,_,  2,_,  3,_,  1,_]
 ] @=> float arrangement[][];
 
 ////////
 // PLAY
 0 => int isMidiTestMode;
 0::_time.measure => _time.playbackOffset;
-12.0 => float finalMeasure;
+16.25 => float finalMeasure;
 while(_time.currentMeasure() < finalMeasure) {
   midi.recv(msg);
 
@@ -153,6 +153,7 @@ while(_time.currentMeasure() < finalMeasure) {
 
     // optimize by running the for-loop 2x per measure instead of every sample
     if (_time.currentMeasure() % .5 == 0) {
+      <<<_time.currentMeasure()>>>;
 
       for (0 => int i; i < arrangement.size(); i++) {
         if (_time.currentMeasure() == arrangement[i][0]) {
@@ -201,5 +202,5 @@ while(_time.currentMeasure() < finalMeasure) {
   }
 
 }
-_time.measure => now;
+
 wvOut.closeFile();
