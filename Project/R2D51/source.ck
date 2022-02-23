@@ -11,7 +11,7 @@ if (midi.open(axiom) == false) me.exit();
 
 
 LfoController lfo => Gain lfoCatcher => blackhole;
-lfo.set(.1::_time.beat, 2);
+lfo.set(10::_time.beat, 2);
 
 
 ////////
@@ -27,7 +27,12 @@ while(_time.currentMeasure() < finalMeasure) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
-    <<<lfoCatcher.last()>>>;
+    if (_time.currentBeat() % 1 == 0) {
+      lfo.retrigger();
+    }
+    if (now / samp % 4000 == 1) {
+      <<<lfoCatcher.last()>>>;
+    }
 
     samp=>now;
   }

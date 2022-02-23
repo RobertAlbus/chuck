@@ -2,6 +2,7 @@ public class LfoController extends Chugen {
 
   float amount;
   SinOsc osc => Gain out => blackhole;
+  
   fun float tick(float in) {
     return out.last() * amount;
   }
@@ -12,5 +13,10 @@ public class LfoController extends Chugen {
   ) {
     _rate => osc.period;
     _amount => amount;
+  }
+
+  fun void retrigger() {
+    <<<"retrigger">>>;
+    osc.phase(0);
   }
 }
