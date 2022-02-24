@@ -13,4 +13,4 @@ Should try to figure out how to re-trigger the osc phase.
 - Used the LFO on the pitch of a sine so that I could hear it in action
 
 ## Lessons / Thoughts
-- 
+- LFO could use a flag for "never below zero" so it can easily and safely be used for controlling `.freq` on filters or oscillators

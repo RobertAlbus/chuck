@@ -13,14 +13,21 @@ public class LfoController extends Chugen {
     float _centerVal,
     float _amount
   ) {
-    _rate => osc.period;
+    _rate => rate;
     _amount => amount;
     _centerVal => centerVal;
-
   }
 
   fun float getVal() {
-    return centerVal +(out.last() * amount);
+    return centerVal + (out.last() * amount);
+  }
+
+  fun dur rate(dur _rate) {
+    _rate => osc.period;
+    return rate();
+  }
+  fun dur rate() {
+    return osc.period();
   }
 
   fun void retrigger() {

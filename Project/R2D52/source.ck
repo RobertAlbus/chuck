@@ -13,7 +13,7 @@ SqrOsc osc => LPF lpfFilter => dac;
 44 => osc.freq;
 
 LfoController lfo => Gain lfoCatcher => blackhole;
-lfo.set(1::_time.beat, 350, 300);
+lfo.set(1::_time.beat, 350, 400);
 
 
 ////////
@@ -29,7 +29,8 @@ while(_time.currentMeasure() < finalMeasure) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
-    lfo.getVal() => lpfFilter.freq;
+    Math.max(0, lfo.getVal()) => lpfFilter.freq;
+    
 
     samp=>now;
   }
