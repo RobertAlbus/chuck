@@ -36,8 +36,10 @@ To run these files:
   - D34 converts from square waves to Ring Mod
   - D36 converts patch to Chugen
 R2D50
-  - write to disk
+  - write audio to disk
   - create a multi-instrument composition (composition incomplete but demonstrably possible)
+R2D52
+  - created an LFO utility
 
 ## Project Architecture
 
