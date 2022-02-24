@@ -9,9 +9,11 @@ MidiMsg msg;
 if (midi.open(axiom) == false) me.exit();
 <<< "midi device", midi.name(), "ready" >>>;
 
-SinOsc osc => dac;
+SqrOsc osc => LPF lpfFilter => dac;
+44 => osc.freq;
+
 LfoController lfo => Gain lfoCatcher => blackhole;
-lfo.set(0.4::_time.beat, 200, 20);
+lfo.set(1::_time.beat, 350, 300);
 
 
 ////////
@@ -27,10 +29,7 @@ while(_time.currentMeasure() < finalMeasure) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
-    lfo.getVal() => osc.freq;
-    if (_time.currentBeat() % 1 == 0) {
-      lfo.retrigger();
-    }
+    lfo.getVal() => lpfFilter.freq;
 
     samp=>now;
   }
