@@ -12,6 +12,10 @@ if (midi.open(axiom) == false) me.exit();
 SqrOsc osc => LPF lpfFilter => dac;
 44 => osc.freq;
 
+Envelope env => blackhole;
+env.duration(_time.beat);
+env.value(0.5);
+
 LfoController lfo => Gain lfoCatcher => blackhole;
 lfo.set(1::_time.beat, 350, 400);
 
@@ -31,6 +35,19 @@ while(_time.currentMeasure() < finalMeasure) {
   } else {
     Math.max(0, lfo.getVal()) => lpfFilter.freq;
     
+    env.value()::_time.beat => lfo.rate;
+
+    if ((now / _time.beat) % 4.0 == 0) {
+      env.target(0.25);
+
+    } else if ((now / _time.beat) % 4.0 == 1.5) {
+      env.target(2);
+    }
+
+    if ((now / samp) % 1000.0 == 0) {
+      <<<env.value()>>>;
+
+    }
 
     samp=>now;
   }
