@@ -19,6 +19,17 @@ env.value(0.5);
 LfoController lfo => Gain lfoCatcher => blackhole;
 lfo.set(1::_time.beat, 350, 400);
 
+// composition-level automation clip
+[
+  [0.00, 0.25],
+  [1.25, 2.00],
+  [4.00, 0.25],
+  [5.25, 2.00],
+  [8.00, 0.25],
+  [9.25, 2.00]
+] @=> float envelopeArrangement[][];
+
+
 
 ////////
 // PLAY
@@ -37,16 +48,21 @@ while(_time.currentMeasure() < finalMeasure) {
     
     env.value()::_time.beat => lfo.rate;
 
-    if ((now / _time.beat) % 4.0 == 0) {
-      env.target(0.25);
+    
+    if (_time.currentBeat() % 0.125 == 0.0) {
+      <<<"hit">>>;
+      <<<_time.currentBeat()>>>;
+      for (0 => int i; i < envelopeArrangement.size(); i++) {
 
-    } else if ((now / _time.beat) % 4.0 == 1.5) {
-      env.target(2);
-    }
+        if(envelopeArrangement[i][0] == _time.currentBeat()) {
+        <<<envelopeArrangement[i][0], envelopeArrangement[i][1]>>>;
+          env.target(envelopeArrangement[i][1]);
+        }
+      }
+    } 
 
     if ((now / samp) % 1000.0 == 0) {
-      <<<env.value()>>>;
-
+      // <<<env.value()>>>;
     }
 
     samp=>now;
