@@ -11,7 +11,7 @@ Attempt to drive the envelope from a list of instructions
 
 ## Lessons / Thoughts
 - I would benefit from having both composition-level and sequencer-level automation clips. 
-  - composition-level automation would be like-length automation clips in a DAW
+  - composition-level automation would be like full-length automation clips in a DAW
   - sequencer-level automation would be great for looping patterns
   - the highest ROI creation right now would be the full-composition automation clips
 - rate of change has to be converted from dur to float for array-type purposes
