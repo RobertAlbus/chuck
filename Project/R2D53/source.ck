@@ -19,17 +19,17 @@ env.value(0.5);
 LfoController lfo => Gain lfoCatcher => blackhole;
 lfo.set(1::_time.beat, 350, 400);
 
+_time.beat/samp => float beatSamples;
 // composition-level automation clip
-[
-  [0.00, 0.25],
-  [1.25, 2.00],
-  [4.00, 0.25],
-  [5.25, 2.00],
-  [8.00, 0.25],
-  [9.25, 2.00]
-] @=> float envelopeArrangement[][];
-
-
+float envelopeArrangement[0][0];
+for (0 => int i; i < 8; i++) {
+  envelopeArrangement
+    << [(i * 4.0) + 0.00 ,  0.25, 1]
+    << [(i * 4.0) + 1.25 ,  1.00, 1]
+    << [(i * 4.0) + 2.00 ,  0.25, 1 * beatSamples]
+    << [(i * 4.0) + 3.00 ,  1.00, 2 * beatSamples]
+    ;
+}
 
 ////////
 // PLAY
@@ -49,14 +49,15 @@ while(_time.currentMeasure() < finalMeasure) {
     env.value()::_time.beat => lfo.rate;
 
     
-    if (_time.currentBeat() % 0.125 == 0.0) {
-      <<<"hit">>>;
-      <<<_time.currentBeat()>>>;
+    if (_time.currentBar() % 0.25 == 0.0) {
       for (0 => int i; i < envelopeArrangement.size(); i++) {
+        envelopeArrangement[i][0]       => float beat;
+        envelopeArrangement[i][1]       => float target;
+        envelopeArrangement[i][2]::samp => dur   changeRate;
 
-        if(envelopeArrangement[i][0] == _time.currentBeat()) {
-        <<<envelopeArrangement[i][0], envelopeArrangement[i][1]>>>;
-          env.target(envelopeArrangement[i][1]);
+        if(beat == _time.currentBar()) {
+          env.duration(changeRate);
+          env.target(target);
         }
       }
     } 
