@@ -1,5 +1,17 @@
 # Things to implement, in no order
 
+## R2D50
+- Need some more things
+  - LFO (with different oscs and noise as well)
+  - velocity
+  - knob automations (automation clips)
+  - mixer
+  - processing effects
+  - instruments
+  - copy constructor (would potentially
+   be useful when trying to re-approach multi-voice)
+
+
 ## 2022 Jan 04?
 
 - chord generator
