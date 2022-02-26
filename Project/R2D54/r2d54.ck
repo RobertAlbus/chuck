@@ -13,5 +13,6 @@ for (0 => int i; i < foundation.size(); i++) {
 // }
 
 Machine.add("Project/R2D54/time2.ck");
+Machine.add("Project/R2D54/automation-envelope.ck");
 Machine.add("Project/R2D54/lfo-controller.ck");
 Machine.add("Project/R2D54/source.ck");
