@@ -19,7 +19,7 @@ public class LfoController extends Chugen {
   }
 
   fun float getVal() {
-    return centerVal + (out.last() * amount);
+    return centerVal + (out.last() * (amount / 2));
   }
 
   fun dur rate(dur _rate) {
