@@ -32,3 +32,17 @@ Turn OscSynthSingle's waveform selector into a stand-alone utility
     - assigner functions for each param, run calculations and reassign member variables
     - it is unlikely to use multiple paradigms on the same LFO
     - but would use multiple paradigms on different LFOs in one composition
+
+
+### more thoughts
+- sequencer and arranger are similar, one just loops
+- time scales on both can be flexible
+- should consider a base class that can be used for both StepSequencer for Instruments, and AutomationClip
+- base class can loop or not... set with a flag
+- StepSequencer for Instruments might be made of two of this base class
+- THERE IS A KEY DIFFERENCE
+  - step sequencer uses array index valaue selection
+  - automation clip uses an explicit time value
+  - perhaps should not combine these things
+  - should still have a base class for LoopSequencers
+  - should still have a base class for LinearSequencers
