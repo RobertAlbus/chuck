@@ -1,6 +1,6 @@
 public class LfoController extends Chugen {
 
-  float amount;
+  float range;
   float centerVal;
   SinOsc osc => Gain out => blackhole;
   
@@ -11,15 +11,16 @@ public class LfoController extends Chugen {
   fun void set(
     dur _rate,
     float _centerVal,
+    float _range,
     float _amount
   ) {
     _rate => rate;
-    _amount => amount;
+    _range => range;
     _centerVal => centerVal;
   }
 
   fun float getVal() {
-    return centerVal + (out.last() * (amount / 2));
+    return centerVal + (out.last() * (range / 2));
   }
 
   fun dur rate(dur _rate) {
