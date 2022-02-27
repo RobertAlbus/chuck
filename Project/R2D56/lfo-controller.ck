@@ -1,8 +1,9 @@
 public class LfoController extends Chugen {
+  OscPicker _picker;
 
   float range;
   float centerVal;
-  SinOsc osc => Gain out => blackhole;
+  Osc osc => Gain out => blackhole;
   
   fun float tick(float in) {
     return getVal();
@@ -12,8 +13,10 @@ public class LfoController extends Chugen {
     dur _rate,
     float _centerVal,
     float _range,
-    float _amount
+    string oscType
   ) {
+    _picker.pick(oscType) @=> osc;
+    connectOsc();
     _rate => rate;
     _range => range;
     _centerVal => centerVal;
@@ -33,5 +36,9 @@ public class LfoController extends Chugen {
 
   fun void retrigger() {
     osc.phase(0);
+  }
+
+  fun void connectOsc() {
+    osc => out;
   }
 }

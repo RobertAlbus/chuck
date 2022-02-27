@@ -7,7 +7,8 @@ Turn OscSynthSingle's waveform selector into a stand-alone utility
 
 ## Today's outcomes
 - created UGenPicker class
-  - dialed back the scope to just OscPicker 
+  - dialed back the scope to just OscPicker
+- Add OscPicker to LFO
 
 ## Lessons / Thoughts
 - yesterday's automation clip is great, but the time constraint sucks
