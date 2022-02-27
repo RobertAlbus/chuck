@@ -13,7 +13,7 @@ SqrOsc osc => LPF lpfFilter => dac;
 44 => osc.freq;
 
 LfoController lfo => Gain lfoCatcher => blackhole;
-lfo.set(1::_time.beat, 350, 400);
+lfo.setMinMax(1::_time.beat, 0, 700, "saw");
 
 AutomationEnvelope automationEnvelope;
 automationEnvelope.set(0.5);
@@ -49,8 +49,8 @@ while(_time.currentMeasure() < finalMeasure) {
     automatioClip.update();
 
     automatioClip.getVal()::_time.beat => lfo.rate;
-    (automatioClip.getVal() * 1000) + 400 => lfo.centerVal;
-    (automatioClip.getVal() * 1000) + 350 => lfo.amount;
+    // (automatioClip.getVal() * 1000) + 400 => lfo.centerVal;
+    // (automatioClip.getVal() * 1000) + 350 => lfo.range;
 
     Math.max(0, lfo.getVal()) => lpfFilter.freq;
 

@@ -22,6 +22,19 @@ public class LfoController extends Chugen {
     _centerVal => centerVal;
   }
 
+  fun void setMinMax(
+    dur _rate,
+    float min,
+    float max,
+    string oscType
+  ) {
+    _picker.pick(oscType) @=> osc;
+    connectOsc();
+    _rate => rate;
+    max - min => range;
+    (range * 0.5) + min => centerVal;
+  }
+
   fun float getVal() {
     return centerVal + (out.last() * (range / 2));
   }

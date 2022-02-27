@@ -19,6 +19,16 @@ Turn OscSynthSingle's waveform selector into a stand-alone utility
   - Noise directly subclasses UGen
   - various Oscs subclass Osc, which in turn subclasses UGen
   - calling `.freq(...)` on Noise should just transparently do nothing, but will currently crash the composition
+  - guess I could create a NoiseLfoController as a seperate class!!
   - BIG IMPORTANT NOTE
   - trying to step through this, there is more to figure out that I have brame right now
   - just add bespoke noise mode to LFO!
+- I should consider if I want my LFO to track member variables for
+  - min and max lfo values
+  - center and range values
+  - min and range
+  - these each offer different options for meta-control
+  - there might be an approach to explore where::
+    - assigner functions for each param, run calculations and reassign member variables
+    - it is unlikely to use multiple paradigms on the same LFO
+    - but would use multiple paradigms on different LFOs in one composition
