@@ -7,6 +7,7 @@ Turn OscSynthSingle's waveform selector into a stand-alone utility
 
 ## Today's outcomes
 - created UGenPicker class
+  - dialed back the scope to just OscPicker 
 
 ## Lessons / Thoughts
 - yesterday's automation clip is great, but the time constraint sucks
@@ -17,3 +18,6 @@ Turn OscSynthSingle's waveform selector into a stand-alone utility
   - Noise directly subclasses UGen
   - various Oscs subclass Osc, which in turn subclasses UGen
   - calling `.freq(...)` on Noise should just transparently do nothing, but will currently crash the composition
+  - BIG IMPORTANT NOTE
+  - trying to step through this, there is more to figure out that I have brame right now
+  - just add bespoke noise mode to LFO!

@@ -1,5 +1,5 @@
-public class UGenPicker {
-    fun UGen pick(string type) {
+public class OscPicker {
+    fun Osc pick(string type) {
     type.lower() => type;
 
     if (type == "sine" || type == "sin") {
@@ -14,9 +14,7 @@ public class UGenPicker {
     else if (type == "triangle" || type == "tri") {
       return new TriOsc;
     }
-    else if (type == "noise" || type == "nz") {
-      return new Noise;
-    } else {
+    else {
       <<<"Invalid selection UGenPicker.pick(",type,")">>>;
       me.exit();
     }
