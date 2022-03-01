@@ -1,7 +1,7 @@
 public class LfoController extends Chugen {
   OscPicker _picker;
 
-  float range;
+  float modRange;
   float centerVal;
   Osc osc => Gain out => blackhole;
   
@@ -16,9 +16,9 @@ public class LfoController extends Chugen {
     string oscType
   ) {
     _picker.pick(oscType) @=> osc;
-    connectOsc();
+    osc => out;
     _rate => rate;
-    _range => range;
+    _range => modRange;
     _centerVal => centerVal;
   }
 
@@ -29,16 +29,40 @@ public class LfoController extends Chugen {
     string oscType
   ) {
     _picker.pick(oscType) @=> osc;
-    connectOsc();
+    osc => out;
     _rate => rate;
-    max - min => range;
-    (range * 0.5) + min => centerVal;
+    max - min => modRange;
+    (modRange * 0.5) + min => centerVal;
   }
 
-  // setMin(float min)        // expand down, contract up
-  // setMax(float max)        // expand up, contract down
-  // setRange(float range)    // adjust min/max conversely
-  // setCenter(float center)  // adjust min/max linearly
+  fun float min() {
+    return centerVal - ( modRange / 2 );
+  }
+  fun float min(float _min) {
+    min() - _min = float difference;
+    difference +=> modRange;
+    ( _min / 2 ) +=> centerVal;
+  }
+  fun float max() {
+    return centerVal + ( modRange / 2 );
+  }
+  fun float max(float _max) {
+    _max - max() = float difference;
+    difference +=> modRange;
+    ( _min / 2 ) +=> centerVal;
+  }
+  fun float range() {
+    return modRange;
+  }
+  fun float range(float _range) {
+    _range => modRange;
+  }
+  fun float center() {
+    return centerVal;
+  }
+  fun float center(float _center) {
+    _center => centerVal;
+  }
 
   fun float getVal() {
     return centerVal + (out.last() * (range / 2));
@@ -55,8 +79,7 @@ public class LfoController extends Chugen {
   fun void retrigger() {
     osc.phase(0);
   }
-
-  fun void connectOsc() {
-    osc => out;
+  fun void retrigger(float phase) {
+    osc.phase(phase);
   }
 }
