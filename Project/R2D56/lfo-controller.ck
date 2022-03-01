@@ -35,6 +35,11 @@ public class LfoController extends Chugen {
     (range * 0.5) + min => centerVal;
   }
 
+  // setMin(float min)        // expand down, contract up
+  // setMax(float max)        // expand up, contract down
+  // setRange(float range)    // adjust min/max conversely
+  // setCenter(float center)  // adjust min/max linearly
+
   fun float getVal() {
     return centerVal + (out.last() * (range / 2));
   }
