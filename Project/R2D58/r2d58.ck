@@ -17,9 +17,13 @@ Machine.add("Project/R2D58/Core/time2.ck");
 Machine.add("Project/R2D58/Core/key_indexer.ck");
 Machine.add("Project/R2D58/Core/knob_scaled.ck");
 Machine.add("Project/R2D58/Core/midi_chords.ck");
+Machine.add("Project/R2D58/Core/automation_envelope.ck");
+Machine.add("Project/R2D58/Core/osc_picker.ck");
 
 // FOUNDATION
 Machine.add("Project/R2D58/Foundation/instrument.ck");
+Machine.add("Project/R2D58/Foundation/automation_clip.ck");
+Machine.add("Project/R2D58/Foundation/lfo_controller.ck");
 
 // INSTRUMENTS
 Machine.add("Project/R2D58/Instrument/ringmod.ck");
