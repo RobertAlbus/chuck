@@ -1,9 +1,36 @@
 public class Mixer {
   string keys[0];
-  Gain chanIn[0];
-  Gain muteSolo[0]; // need to integrate this to the routing hooker upper and make methods that operate on it
+  Gain chanIn[0]; // need to integrate this to the routing hooker upper and make methods that operate on it
   Gain chanOut[0];
   Processing chanProcessing[0];
+
+  fun void solo(string channel) {
+    muteAll();
+    if (hasChannel(channel)) {
+      1 => chanIn[channel].gain;
+    }
+  }
+  fun void solo(string channels[]){
+    muteAll();
+    for ( 0 => int i; i < channels.size(); i++ ) {
+      if (hasChannel(channels[i])) {
+        1 => chanIn[channels[i]].gain;
+      }
+    }
+  }
+  fun void mute(string channel) {
+    if (hasChannel(channel)) {
+      0 => chanIn[channel].gain;
+    }
+  }
+  fun void mute(string channels[]) {
+    for ( 0 => int i; i < channels.size(); i++ ) {
+      channels[i] => mute;
+    }
+  }
+  fun void muteAll() {
+    keys => mute;
+  }
 
   fun Gain createChannel(string channelName, float channelGain) {
     keys << channelName;
@@ -17,7 +44,6 @@ public class Mixer {
     return chanOut[channelName];
   }
 
-  // Will enforce a single Ugen (chubgraph) as the processor
   fun Gain createChannel(string channelName, float channelGain, Processing processing) {
     createChannel(channelName, channelGain);
     processing @=> chanProcessing[channelName];
@@ -47,5 +73,13 @@ public class Mixer {
       keys[i] => string channelName;
       chanProcessing[channelName].update();
     }
+  }
+
+  fun int hasChannel(string channelName) {
+    for (0 => int i; i < keys.size(); i++) {
+      if (keys[i] == channelName) return 1; 
+    }
+    <<<"No such channel: ", channelName>>>;
+    me.exit();
   }
 }

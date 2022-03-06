@@ -42,6 +42,8 @@ mixer.createChannel(
   ]
 ) => dac;
 
+mixer.solo(["kick", "hat", "drum bus", "master"]);
+
 SinOsc kick => mixer.chanIn["kick"];
 SinOsc hat  => mixer.chanIn["hat"];
 SinOsc sub  => mixer.chanIn["sub"];
