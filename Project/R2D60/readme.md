@@ -8,4 +8,4 @@ Created a naive Mixer implementation. I need to have sample-level updates of the
 - create a superclass Processing that processing classes should inherit
 
 ## Lessons / Thoughts
-- 
+- Similar no-sound bug when I create a string-based preset implementation. I think it's with my "clever" keys as strings, then key-value access to array objects.

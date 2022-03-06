@@ -52,6 +52,9 @@ Std.mtof(63) => hat.freq;
 Std.mtof(67) => sub.freq;
 Std.mtof(70) => acid.freq;
 
+// for( 0 => int i; i < mixer.keys.size(); i++) {
+//   <<<mixer.keys[i]>>>;
+// }
 
 ////////
 // PLAY
@@ -66,7 +69,7 @@ while(_time.currentMeasure() < finalMeasure) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
-
+    mixer.update();
     samp=>now;
   }
 
