@@ -1,4 +1,4 @@
-public class KickProcessing extends Chugraph {
+public class KickProcessing extends Processing {
   inlet => outlet;
 
 }

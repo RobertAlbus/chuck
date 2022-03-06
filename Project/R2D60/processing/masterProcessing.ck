@@ -1,4 +1,4 @@
-public class MasterProcessing extends Chugraph {
+public class MasterProcessing extends Processing {
   inlet => outlet;
 
 }

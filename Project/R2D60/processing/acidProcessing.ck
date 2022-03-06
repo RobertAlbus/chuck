@@ -1,4 +1,4 @@
-public class AcidProcessing extends Chugraph {
+public class AcidProcessing extends Processing {
   inlet => outlet;
 
   

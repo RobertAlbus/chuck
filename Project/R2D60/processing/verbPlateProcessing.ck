@@ -1,3 +1,3 @@
-public class VerbPlateProcessing extends Chugraph {
+public class VerbPlateProcessing extends Processing {
   inlet => outlet;
 }

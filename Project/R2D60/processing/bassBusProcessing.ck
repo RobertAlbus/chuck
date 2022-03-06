@@ -1,4 +1,4 @@
-public class BassBusProcessing extends Chugraph {
+public class BassBusProcessing extends Processing {
   inlet => outlet;
 
 }
