@@ -5,22 +5,21 @@ public class Mixer {
   Gain chanOut[0];
   Processing chanProcessing[0];
 
-  fun Gain createChannel(string channelName, float gain) {
-    <<<channelName>>>;
+  fun Gain createChannel(string channelName, float channelGain) {
     keys << channelName;
 
     new Gain @=> chanIn[channelName];
     new Gain @=> chanOut[channelName];
-    gain => chanOut[channelName].gain;
+    chanOut[channelName].gain(channelGain);
 
-    chanIn[channelName] @=> chanOut[channelName];
+    chanIn[channelName] => chanOut[channelName];
 
     return chanOut[channelName];
   }
 
   // Will enforce a single Ugen (chubgraph) as the processor
-  fun Gain createChannel(string channelName, float gain, Processing processing) {
-    createChannel(channelName, gain);
+  fun Gain createChannel(string channelName, float channelGain, Processing processing) {
+    createChannel(channelName, channelGain);
     processing @=> chanProcessing[channelName];
 
     chanIn[channelName] => processing => chanOut[channelName];
@@ -28,19 +27,18 @@ public class Mixer {
     return chanOut[channelName];
   }
 
-  fun Gain createChannel(string channelName, float gain, Processing processing, Gain routedChannels[]) {
-    createChannel(channelName, gain, processing);
+  fun Gain createChannel(string channelName, float channelGain, Processing processing, Gain routedChannels[]) {
+    createChannel(channelName, channelGain, processing);
     for ( 0 => int i; i < routedChannels.size(); i++ ) {
       routedChannels[i] => chanIn[channelName];
     }
-    gain * (1.0 / routedChannels.size()) => chanOut[channelName].gain;
 
     return chanOut[channelName];
   }
 
-  fun Gain send(string channelName, float gain) {
+  fun Gain send(string channelName, float channelGain) {
     chanOut[channelName] => Gain g;
-    gain => g.gain;
+    g.gain(channelGain);
     return g;
   }
 

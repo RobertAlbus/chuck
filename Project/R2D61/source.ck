@@ -16,19 +16,19 @@ mixer.createChannel(
   new MasterProcessing,
   [
     mixer.createChannel(
-      "drum bus", 1.00,
+      "drum bus", 0.10,
       new DrumBusProcessing,
       [
-        mixer.createChannel("kick", 1.00, new KickProcessing),
-        mixer.createChannel("hat",  1.00, new HatProcessing)
+        mixer.createChannel("kick", 0.10, new KickProcessing),
+        mixer.createChannel("hat",  0.10, new HatProcessing)
       ]
     ),
     mixer.createChannel(
-      "bass bus", 1.00,
+      "bass bus", 0.10,
       new BassBusProcessing,
       [
-        mixer.createChannel("sub",  1.00, new SubProcessing),
-        mixer.createChannel("acid", 1.00, new AcidProcessing)
+        mixer.createChannel("sub",  0.10, new SubProcessing),
+        mixer.createChannel("acid", 0.10, new AcidProcessing)
       ]
     ),
     mixer.createChannel(
@@ -52,9 +52,6 @@ Std.mtof(63) => hat.freq;
 Std.mtof(67) => sub.freq;
 Std.mtof(70) => acid.freq;
 
-// for( 0 => int i; i < mixer.keys.size(); i++) {
-//   <<<mixer.keys[i]>>>;
-// }
 
 ////////
 // PLAY
