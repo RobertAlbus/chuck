@@ -1,5 +1,4 @@
 public class OscPicker {
-    fun Osc pick(string type) {
     type.lower() => type;
 
     if (type == "sine" || type == "sin") {

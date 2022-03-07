@@ -12,6 +12,7 @@ convert the MIDI controlled params to automation clips
 
 ## Today's outcomes
 - migrated mixer lib files from R2D63
+- convered file names to skewer-case
 
 ## Lessons / Thoughts
 -
@@ -19,10 +20,10 @@ convert the MIDI controlled params to automation clips
 
 ## Fodder, and thoughts based on R2D58
 - `CTRL + L|R` doesn't stop at underscores, but does stop at dashes
-- should convert file names to use dashes
+  - should convert file names to use dashes
 - layer hierarchy seems like it should be:
   - core
-  - founation
+  - foundation
   - instrument
   - pattern??
   - arrangement??
