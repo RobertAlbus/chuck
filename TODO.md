@@ -1,5 +1,15 @@
 # Things to implement, in no order
 
+## R2D64
+- Need some more things
+  - LFO but noise (separate tool)
+  - velocity
+  - automation clip LOOPS
+  - processing effects
+  - instruments
+  - copy constructor?
+
+
 ## R2D50
 - Need some more things
   - LFO (with different oscs and noise as well)
