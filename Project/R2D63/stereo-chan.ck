@@ -7,6 +7,7 @@ public class StereoChannel extends StereoProcessor {
     1  => float R;
     -1 => float L;
     0  => float C;
+
     Math.fabs(panVal) => float panAmount;
     Math.sgn(panVal) => float direction;
     if(direction == R) {

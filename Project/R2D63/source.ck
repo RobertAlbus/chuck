@@ -23,8 +23,8 @@ mixer.createChannel(
       "drum bus", 0.10,
       new DrumBusProcessing,
       [
-        mixer.createChannel("kick", 1.00, new KickProcessing),
-        mixer.createChannel("hat",  1.00, new HatProcessing)
+        mixer.createChannel("kick", 1.00, -1, new KickProcessing),
+        mixer.createChannel("hat",  1.00,  1, new HatProcessing)
       ]
     ),
     mixer.createChannel(
@@ -49,7 +49,7 @@ mixer.createChannel(
 mixer.chanOut["master"].outL => dac.left;
 mixer.chanOut["master"].outR => dac.right;
 
-// mixer.solo(["kick", "hat", "drum bus", "master"]);
+// mixer.solo(["drum bus", "master", "kick", "hat"]);
 
 SinOsc kick => mixer.chanIn["kick"].inL;
        kick => mixer.chanIn["kick"].inR;

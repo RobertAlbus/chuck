@@ -63,6 +63,17 @@ public class Mixer {
 
     return chanOut[channelName];
   }
+  fun StereoChannel createChannel(
+    string channelName,
+    float channelGain,
+    float channelPan,
+    StereoProcessor processing
+  ) {
+    createChannel(channelName, channelGain, processing);
+    chanIn[channelName].pan(channelPan);
+    
+    return chanOut[channelName];
+  }
 
   fun StereoChannel createChannel(
     string channelName,
@@ -76,6 +87,18 @@ public class Mixer {
       routedChannels[i].outL => chanIn[channelName].inL;
       routedChannels[i].outR => chanIn[channelName].inR;
     }
+
+    return chanOut[channelName];
+  }
+  fun StereoChannel createChannel(
+    string channelName,
+    float channelGain,
+    float channelPan,
+    StereoProcessor processing,
+    StereoChannel routedChannels[]
+  ) {
+    createChannel(channelName, channelGain, processing, routedChannels);
+    chanIn[channelName].pan(channelPan);
 
     return chanOut[channelName];
   }
