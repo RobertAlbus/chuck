@@ -1,4 +1,5 @@
-public class AcidProcessing extends Processing {
-  inlet => outlet;
+public class AcidProcessing extends StereoProcessor {
+  inL => outL;
+  inR => outR;
   fun void update() {}
 }

@@ -1,5 +1,5 @@
-public class VerbPlateProcessing extends Processing {
-  inlet => outlet;
+public class VerbPlateProcessing extends StereoProcessor {
+  inL => outL;
+  inR => outR;
   fun void update() {}
-
 }

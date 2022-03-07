@@ -10,6 +10,10 @@ MidiMsg msg;
 // <<< "midi device", midi.name(), "ready" >>>;
 
 Mixer mixer;
+// panning
+1 => float R;
+-1 => float L;
+0 => float C;
 
 mixer.createChannel(
   "master", 1.00,
@@ -19,16 +23,16 @@ mixer.createChannel(
       "drum bus", 0.10,
       new DrumBusProcessing,
       [
-        mixer.createChannel("kick", 0.10, new KickProcessing),
-        mixer.createChannel("hat",  0.10, new HatProcessing)
+        mixer.createChannel("kick", 1.00, new KickProcessing),
+        mixer.createChannel("hat",  1.00, new HatProcessing)
       ]
     ),
     mixer.createChannel(
       "bass bus", 0.10,
       new BassBusProcessing,
       [
-        mixer.createChannel("sub",  0.10, new SubProcessing),
-        mixer.createChannel("acid", 0.10, new AcidProcessing)
+        mixer.createChannel("sub",  1.00, new SubProcessing),
+        mixer.createChannel("acid", 1.00, new AcidProcessing)
       ]
     ),
     mixer.createChannel(
@@ -40,14 +44,21 @@ mixer.createChannel(
       ]
     )
   ]
-) => dac;
+);
 
-mixer.solo(["kick", "hat", "drum bus", "master"]);
+mixer.chanOut["master"].outL => dac.left;
+mixer.chanOut["master"].outR => dac.right;
 
-SinOsc kick => mixer.chanIn["kick"];
-SinOsc hat  => mixer.chanIn["hat"];
-SinOsc sub  => mixer.chanIn["sub"];
-SinOsc acid => mixer.chanIn["acid"];
+// mixer.solo(["kick", "hat", "drum bus", "master"]);
+
+SinOsc kick => mixer.chanIn["kick"].inL;
+       kick => mixer.chanIn["kick"].inR;
+SinOsc hat  => mixer.chanIn["hat"].inL;
+       hat  => mixer.chanIn["hat"].inR;
+SinOsc sub  => mixer.chanIn["sub"].inL;
+       sub  => mixer.chanIn["sub"].inR;
+SinOsc acid => mixer.chanIn["acid"].inL;
+       acid => mixer.chanIn["acid"].inR;
 
 Std.mtof(60) => kick.freq;
 Std.mtof(63) => hat.freq;

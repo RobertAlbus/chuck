@@ -14,6 +14,8 @@ for (0 => int i; i < foundation.size(); i++) {
 
 Machine.add("Project/R2D63/time2.ck");
 Machine.add("Project/R2D63/processing/_processing.ck");
+Machine.add("Project/R2D63/processing/_stereo-processing.ck");
+Machine.add("Project/R2D63/stereo-chan.ck");
 Machine.add("Project/R2D63/mixer.ck");
 Machine.add("Project/R2D63/processing/masterProcessing.ck");
 Machine.add("Project/R2D63/processing/drumBusProcessing.ck");

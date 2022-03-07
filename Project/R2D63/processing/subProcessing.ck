@@ -1,5 +1,5 @@
-public class SubProcessing extends Processing {
-  inlet => outlet;
+public class SubProcessing extends StereoProcessor {
+  inL => outL;
+  inR => outR;
   fun void update() {}
-
 }

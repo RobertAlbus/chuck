@@ -1,5 +1,5 @@
-public class MasterProcessing extends Processing {
-  inlet => outlet;
+public class MasterProcessing extends StereoProcessor {
+  inL => outL;
+  inR => outR;
   fun void update() {}
-
 }

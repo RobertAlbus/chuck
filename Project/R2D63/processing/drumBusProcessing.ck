@@ -1,5 +1,5 @@
-public class DrumBusProcessing extends Processing {
-  inlet => outlet;
+public class DrumBusProcessing extends StereoProcessor {
+  inL => outL;
+  inR => outR;
   fun void update() {}
-  
 }
