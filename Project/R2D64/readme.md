@@ -11,7 +11,7 @@
 convert the MIDI controlled params to automation clips
 
 ## Today's outcomes
-- 
+- migrated mixer lib files from R2D63
 
 ## Lessons / Thoughts
 -

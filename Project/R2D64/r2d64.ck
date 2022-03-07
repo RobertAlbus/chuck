@@ -19,11 +19,14 @@ Machine.add("Project/R2D64/Core/knob_scaled.ck");
 Machine.add("Project/R2D64/Core/midi_chords.ck");
 Machine.add("Project/R2D64/Core/automation_envelope.ck");
 Machine.add("Project/R2D64/Core/osc_picker.ck");
+Machine.add("Project/R2D64/Core/stereo-processing.ck");
 
 // FOUNDATION
 Machine.add("Project/R2D64/Foundation/instrument.ck");
 Machine.add("Project/R2D64/Foundation/automation_clip.ck");
 Machine.add("Project/R2D64/Foundation/lfo_controller.ck");
+Machine.add("Project/R2D64/Foundation/stereo-channel.ck");
+Machine.add("Project/R2D64/Foundation/mixer.ck");
 
 // INSTRUMENTS
 Machine.add("Project/R2D64/Instrument/ringmod.ck");
