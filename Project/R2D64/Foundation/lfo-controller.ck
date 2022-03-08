@@ -39,7 +39,7 @@ public class LfoController extends Chugen {
     return centerVal - ( modRange / 2 );
   }
   fun float min(float _min) {
-    min() - _min = float difference;
+    min() - _min => float difference;
     difference +=> modRange;
     ( _min / 2 ) +=> centerVal;
   }
@@ -47,9 +47,9 @@ public class LfoController extends Chugen {
     return centerVal + ( modRange / 2 );
   }
   fun float max(float _max) {
-    _max - max() = float difference;
+    _max - max() => float difference;
     difference +=> modRange;
-    ( _min / 2 ) +=> centerVal;
+    ( _max / 2 ) +=> centerVal;
   }
   fun float range() {
     return modRange;
@@ -65,7 +65,7 @@ public class LfoController extends Chugen {
   }
 
   fun float getVal() {
-    return centerVal + (out.last() * (range / 2));
+    return centerVal + (out.last() * (modRange / 2));
   }
 
   fun dur rate(dur _rate) {
