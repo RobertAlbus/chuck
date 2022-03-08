@@ -6,6 +6,9 @@ MidiChords _chords;
 PatternsR2D49 _patterns;
 PresetsR2D49 _presets; 
 
+MixerR2D64 mixerSetup;
+mixerSetup.mixer @=> Mixer mixer;
+
 
 MidiIn midi;
 MidiMsg msg;
@@ -144,6 +147,7 @@ while(_time.currentMeasure() < finalMeasure) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
+      mixer.update();
     stsq_kick.update(msg);
     stsq_hat.update(msg);
     stsq_bass.update(msg);

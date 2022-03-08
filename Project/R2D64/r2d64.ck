@@ -39,6 +39,17 @@ Machine.add("Project/R2D64/Instrument/step-sequencer.ck");
 Machine.add("Project/R2D64/Meta/step-sequencer-pattern-manager.ck");
 
 // PROJECT
+Machine.add("Project/R2D64/Project/processing/bassArpProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/bassBusProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/chordsProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/drumBusProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/hatProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/kickProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/masterProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/melodicBusProcessing.ck");
+Machine.add("Project/R2D64/Project/processing/verbPlateProcessing.ck");
+
 Machine.add("Project/R2D64/Project/patterns.ck");
 Machine.add("Project/R2D64/Project/presets.ck");
+Machine.add("Project/R2D64/Project/mixer.ck");
 Machine.add("Project/R2D64/Project/source.ck");
