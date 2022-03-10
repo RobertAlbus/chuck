@@ -1,7 +1,7 @@
 public class StereoProcessor {
 
-  Gain inL => blackhole;
-  Gain inR => blackhole;
+  Gain inL;
+  Gain inR;
   Gain outL;
   Gain outR;
   
