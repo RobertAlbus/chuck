@@ -147,17 +147,31 @@ while(_time.currentMeasure() < finalMeasure) {
     <<<msg.data1,msg.data2,msg.data3>>>;
     midi=>now;
   } else {
+    if (_time.currentUnit(samp) % 1000 == 0) {
       mixer.update();
-    stsq_kick.update(msg);
-    stsq_hat.update(msg);
-    stsq_bass.update(msg);
+      stsq_kick.update(msg);
+      stsq_hat.update(msg);
+      stsq_bass.update(msg);
+
+      kickHpfKnob.getVal(msg) => kickHpf.freq;
+      bassHpfKnob.getVal(msg) => bassHpf.freq;
+      bassLpfEnvAmount.getVal(msg) => bass.adsrLpfCutoffAmount;
+    }
+
+    if (_time.currentQuat() % 1.00 == 0) {
+      _time.currentQuat() => float currentStep;
+      stsq_hat.play(currentStep $int);
+      stsq_kick.play(currentStep $int);
+      stsq_bass.play(currentStep $int);
+      stsq_chord.play(currentStep $int);
+    }
 
     // can also perhaps aggregate each arrangement step into a custom
     // class that includes the stsq to reduce the per-instrument boilerplate
 
     // optimize by running the for-loop 2x per measure instead of every sample
     if (_time.currentMeasure() % .5 == 0) {
-      <<<_time.currentMeasure()>>>;
+      // <<<_time.currentMeasure()>>>;
 
       for (0 => int i; i < arrangement.size(); i++) {
         if (_time.currentMeasure() == arrangement[i][0]) {
@@ -190,17 +204,6 @@ while(_time.currentMeasure() < finalMeasure) {
 
     }
 
-    kickHpfKnob.getVal(msg) => kickHpf.freq;
-    bassHpfKnob.getVal(msg) => bassHpf.freq;
-    bassLpfEnvAmount.getVal(msg) => bass.adsrLpfCutoffAmount;
-
-    (now/1::_time.quat) => float currentStep;
-    if (currentStep % 1.00 == 0) {
-      stsq_hat.play(currentStep $int);
-      stsq_kick.play(currentStep $int);
-      stsq_bass.play(currentStep $int);
-      stsq_chord.play(currentStep $int);
-    }
 
     samp=>now;
   }

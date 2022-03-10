@@ -15,7 +15,11 @@ convert the MIDI controlled params to automation clips
 - convered file names to skewer-case
 
 ## Lessons / Thoughts
--
+- Running everything in a single thread is a massive performance bottleneck
+- I should explore some performance enhancements
+- I should also explore cross-thread eventing
+  - can I run pattern managers in another thread?
+  - is it reasonable to send audio across threads?
 
 
 ## Fodder, and thoughts based on R2D58
