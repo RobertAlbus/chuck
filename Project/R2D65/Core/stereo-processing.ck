@@ -22,4 +22,9 @@ public class StereoProcessor {
 
     return this;
   }
+
+  fun void patchThrough() {
+    inL => outL;
+    inR => outR;
+  }
 }

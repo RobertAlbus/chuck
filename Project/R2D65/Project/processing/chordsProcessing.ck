@@ -1,5 +1,4 @@
 public class ChordsProcessing extends StereoProcessor {
-  inL => outL;
-  inR => outR;
+  patchThrough();
   fun void update() {}
 }
