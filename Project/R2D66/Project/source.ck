@@ -170,15 +170,15 @@ while(_time.currentMeasure() < finalMeasure) {
       stsq_kick.play(currentStep $int);
       stsq_bass.play(currentStep $int);
       stsq_chord.play(currentStep $int);
-    }
 
-    // can also perhaps aggregate each arrangement step into a custom
-    // class that includes the stsq to reduce the per-instrument boilerplate
+      // reduce a level of branching by moving the arrangement into an existing logic branch
+      // even though it happens more frequently. 
+      // -- should figure out how to reduce the next levels of branching even more.
+      // -- clearly this is not a fabulous approach
 
-    // optimize by running the for-loop 2x per measure instead of every sample
-    if (_time.currentMeasure() % .5 == 0) {
-      // <<<_time.currentMeasure()>>>;
-
+      //////// existing comment preserved
+      // can also perhaps aggregate each arrangement step into a custom
+      // class that includes the stsq to reduce the per-instrument boilerplate
       for (0 => int i; i < arrangement.size(); i++) {
         if (_time.currentMeasure() == arrangement[i][0]) {
           if (arrangement[i][1] >= 0) {
