@@ -116,10 +116,14 @@ stsq_chords[0] @=> StepSequencerPatternManager stsq_chord;
 // KNOBS
 KnobScaled kickHpfKnob;
 KnobScaled bassHpfKnob;
-KnobScaled bassLpfEnvAmount;
+// KnobScaled bassLpfEnvAmount;
 kickHpfKnob.set(5, 1000, hpfMin);
 bassHpfKnob.set(2, 400, hpfMin);
-bassLpfEnvAmount.set(6, 4000, 100);
+// bassLpfEnvAmount.set(6, 4000, 100);
+
+AutomationEnvelope bassLpfEnvAmount;
+AutomationClip bassLpfEnvAmountAutomationClip;
+bassLpfEnvAmountAutomationClip.set(bassLpfEnvAmount, _patterns.bassLpfEnvAmountAutomationPattern, _time.measure);
 
 -1 => int _; // pass 
 [
@@ -156,6 +160,8 @@ while(_time.currentMeasure() < finalMeasure) {
       // kickHpfKnob.getVal() => kickHpf.freq;
       // bassHpfKnob.getVal() => bassHpf.freq;
       // bassLpfEnvAmount.getVal() => bass.adsrLpfCutoffAmount;
+      bassLpfEnvAmountAutomationClip.getVal() => bass.adsrLpfCutoffAmount;
+      bassLpfEnvAmountAutomationClip.update();
     }
 
     if (_time.currentQuat() % 1.00 == 0) {

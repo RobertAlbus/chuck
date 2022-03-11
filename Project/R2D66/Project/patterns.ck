@@ -7,6 +7,7 @@ non-library code into seperate files
 
 public class PatternsR2D49 {
   MidiNotes _notes;
+  Time2 _time;
   ////
   // PATTERNS
 
@@ -88,4 +89,16 @@ public class PatternsR2D49 {
     [X,_,_,_,_,_,I,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_],
     [X]
   ] @=> float chordTriggerPatterns[][];
+
+  _time.measure/samp => float measure;
+  [
+    [0.0, 100],
+    [1.0, 2000, 7 * measure],
+    [8.0, 4000, 4 * measure],
+    [12.0, 800, 4 * measure],
+    [16.0, 2000, 4 * measure]
+  ] @=> float bassLpfEnvAmountAutomationPattern[][];
+
+
+
 }
