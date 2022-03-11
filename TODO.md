@@ -3,6 +3,13 @@
 ## R2D64
 - Need some more things
   - LFO but noise (separate tool)
+  - Refactor `Intrument` class so that there can be a better delineation between Chugens and Chugraphs
+    - Instruments should subclass `Chugraph`
+      - `Instrument` adds playability to `Chugraph`
+      - should have a class `update()` that functions like Chugen's `tick(f in)` for lfo values etc
+    - custom UGens should subclass `Chugen` and do not need an intermediary class like Instrument
+      - only use when calculations need to happen in `tick()`
+
   - velocity
   - automation clip LOOPS
   - processing effects
