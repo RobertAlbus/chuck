@@ -104,6 +104,8 @@ public class Mixer {
   }
 
   fun StereoChannel send(string channelName, float channelGain) {
+    hasChannel(channelName);
+    
     StereoChannel sendChannel;
     chanOut[channelName].outL => sendChannel.inL;
     chanOut[channelName].outR => sendChannel.inR;
