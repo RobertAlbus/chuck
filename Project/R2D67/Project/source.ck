@@ -17,13 +17,21 @@ MidiMsg msg;
 // if (midi.open(axiom) == false) me.exit();
 // <<< "midi device", midi.name(), "ready" >>>;
 
-Gain master => WvOut wvOut => dac;
-me.dir() + "../bin/r2D50" => wvOut.wavFilename;
+mixer.chanOut["master"].outL => dac.left;
+mixer.chanOut["master"].outL => dac.right;
 
-HH808 hats => Gain hatChannel => Gain hatToggle => master;
-Kick kick => HPF kickHpf => Gain kickChannel => master;
-OscSynthSingle bass => HPF bassHpf => Gain bassChannel => master;
-OscSynthSingle lead => Gain leadChannel => master;
+HH808 hats;
+hats => mixer.chanIn["hat"].inL;
+hats => mixer.chanIn["hat"].inR;
+
+Kick kick;
+kick => mixer.chanIn["kick"].inL;
+kick => mixer.chanIn["kick"].inR;
+
+OscSynthSingle bass;
+bass => mixer.chanIn["bass arp"].inL;
+bass => mixer.chanIn["bass arp"].inR;
+
 [
   new OscSynthSingle,
   new OscSynthSingle,
@@ -31,31 +39,19 @@ OscSynthSingle lead => Gain leadChannel => master;
   new OscSynthSingle
 ] @=> OscSynthSingle chordVoices[];
 
-Gain chordSum => Gain chordChannel => master;
+Gain chordSum;
 for (0 => int i; i < chordVoices.size(); i++) {
   chordVoices[i] => chordSum;
 }
 1.0 / chordVoices.size() => chordSum.gain;
-
-// FILTERS
-30 => float hpfMin;
-hpfMin => kickHpf.freq;
-hpfMin => bassHpf.freq;
-
-// MIXER GAIN
-1 => kickChannel.gain;
-0.7 => bassChannel.gain;
-0.25 => hatChannel.gain;
-0.4 => chordChannel.gain;
-
-0.8 => master.gain;
+chordSum => mixer.chanIn["chords"].inL;
+chordSum => mixer.chanIn["chords"].inR;
 
 ////////
 // SYNTH PATCHES
 kick => _presets.kick;
 hats => _presets.hats;
 bass => _presets.pluck;
-lead => _presets.pluck;
 
 for (0 => int i; i < chordVoices.size(); i++) {
   chordVoices[i] => _presets.pad;
@@ -114,11 +110,11 @@ stsq_chords[0] @=> StepSequencerPatternManager stsq_chord;
 // ARRANGEMENT TOOLS
 
 // KNOBS
-KnobScaled kickHpfKnob;
-KnobScaled bassHpfKnob;
+// KnobScaled kickHpfKnob;
+// KnobScaled bassHpfKnob;
 // KnobScaled bassLpfEnvAmount;
-kickHpfKnob.set(5, 1000, hpfMin);
-bassHpfKnob.set(2, 400, hpfMin);
+// kickHpfKnob.set(5, 1000, hpfMin);
+// bassHpfKnob.set(2, 400, hpfMin);
 // bassLpfEnvAmount.set(6, 4000, 100);
 
 AutomationEnvelope bassLpfEnvAmount;
@@ -215,5 +211,3 @@ while(_time.currentMeasure() < finalMeasure) {
   }
 
 }
-
-wvOut.closeFile();

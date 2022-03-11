@@ -21,7 +21,7 @@ public class MixerR2D64 {
         "bass bus", 0.10,
         new BassBusProcessing,
         [
-          mixer.createChannel("arp",  1.00, new BassArpProcessing)
+          mixer.createChannel("bass arp",  1.00, new BassArpProcessing)
         ]
       ),
       mixer.createChannel(
@@ -35,7 +35,7 @@ public class MixerR2D64 {
         "verb plate",  0.00,
         new VerbPlateProcessing,
         [
-          mixer.send("arp", 0.4),
+          mixer.send("bass arp", 0.4),
           mixer.send("hat", 0.4)
         ]
       )
