@@ -10,12 +10,12 @@ MixerR2D64 mixerSetup;
 mixerSetup.mixer @=> Mixer mixer;
 
 
-MidiIn midi;
+// MidiIn midi;
 MidiMsg msg;
-"Midi Through Port-0" => string midiThrough;
-"Axiom A.I.R. Mini32" => string axiom;
-if (midi.open(axiom) == false) me.exit();
-<<< "midi device", midi.name(), "ready" >>>;
+// "Midi Through Port-0" => string midiThrough;
+// "Axiom A.I.R. Mini32" => string axiom;
+// if (midi.open(axiom) == false) me.exit();
+// <<< "midi device", midi.name(), "ready" >>>;
 
 Gain master => WvOut wvOut => dac;
 me.dir() + "../bin/r2D50" => wvOut.wavFilename;
@@ -140,22 +140,22 @@ bassLpfEnvAmount.set(6, 4000, 100);
 0::_time.measure => _time.playbackOffset;
 16.25 => float finalMeasure;
 while(_time.currentMeasure() < finalMeasure) {
-  midi.recv(msg);
+  // midi.recv(msg);
 
   if(isMidiTestMode) {
-    <<<"MIDI test mode">>>;
-    <<<msg.data1,msg.data2,msg.data3>>>;
-    midi=>now;
+    // <<<"MIDI test mode">>>;
+    // <<<msg.data1,msg.data2,msg.data3>>>;
+    // midi=>now;
   } else {
     if (_time.currentUnit(samp) % 1000 == 0) {
       mixer.update();
-      stsq_kick.update(msg);
-      stsq_hat.update(msg);
-      stsq_bass.update(msg);
+      stsq_kick.update();
+      stsq_hat.update();
+      stsq_bass.update();
 
-      kickHpfKnob.getVal(msg) => kickHpf.freq;
-      bassHpfKnob.getVal(msg) => bassHpf.freq;
-      bassLpfEnvAmount.getVal(msg) => bass.adsrLpfCutoffAmount;
+      // kickHpfKnob.getVal() => kickHpf.freq;
+      // bassHpfKnob.getVal() => bassHpf.freq;
+      // bassLpfEnvAmount.getVal() => bass.adsrLpfCutoffAmount;
     }
 
     if (_time.currentQuat() % 1.00 == 0) {
