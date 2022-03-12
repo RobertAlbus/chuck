@@ -92,11 +92,11 @@ public class PatternsR2D49 {
 
   _time.measure/samp => float measure;
   [
-    [0.0, 100],
-    [1.0, 2000, 7 * measure],
-    [8.0, 4000, 4 * measure],
-    [12.0, 800, 4 * measure],
-    [16.0, 2000, 4 * measure]
+    [0.0,  100],
+    [8.0,  2000,
+           4000],
+    [12.0, 800],
+    [16.0, 2000]
   ] @=> float bassLpfEnvAmountAutomationPattern[][];
 
 

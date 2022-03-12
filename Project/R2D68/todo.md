@@ -15,11 +15,16 @@
   - this prevents a custom-per-composition score format
   - should help generalize the transforms used in any-period-to-fixed-period functions
 
+
+---- DID THIS!
 - should refactor automation clip
   - should only specify `value` at `time`
   - automation clip should interpolate change-duration based on this+next automation point
   - figure out this duration before transforming into the format specified above
   - will have to capture special case: last value of the array doesn't have a "next" value.
+----
+- just need to fix the null reference / index out of bounds error at the end of the composition per R2D68 readme notes
+
 
 ## controllers
 - base class for controllers (perhaps)
