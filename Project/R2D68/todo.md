@@ -25,6 +25,7 @@
   - will have to capture special case: last value of the array doesn't have a "next" value.
 ----
 - just need to fix the null reference / index out of bounds error at the end of the composition per R2D68 readme notes
+- should also make EACH step have a target value and a changerate of the step size. This way I can use the composition playback offset and still hear automation
 
 
 ## controllers
