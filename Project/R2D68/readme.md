@@ -7,6 +7,7 @@ still need this data, but don't want to declare it. it can be inferred from the 
 
 ## Today's outcomes
 - refactor automation clip to prevent full-table lookup every $timeUnit
+- between the recent performance improvements and sound server tweaks, perfomance is restored!
 
 ## Lessons / Thoughts
 - I hadn't considered how to handle two automation points at the same point in time
