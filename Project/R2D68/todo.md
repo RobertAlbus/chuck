@@ -4,6 +4,7 @@
   - any current `Instrument` subclasses that require `tick()` should probably extend `Generator extends Chugen` and then use that inside of the `Insturment`
   - `Generator` is to `Chugen` as `Instrument` is to `Chugraph`
     - `Generator` should have a `retrig()` function to retrigger the oscs and LFOs
+- add osc phase retrigger to instruments
 
 ## composition scores
 - Transform `AutomationClip` scores
@@ -11,7 +12,7 @@
   - this is not the case for short patterns in step sequencers
   - full composition-length patterns should be transformed into fixed-period step sequence from any-period sequence
   - this prevents many conditionals in the main composition loop
-- Consider making the composition score an aggregate of multiple instrument-scores
+- Consider making the composition score an aggregate of multiple instrument-pattern-scores
   - this prevents a custom-per-composition score format
   - should help generalize the transforms used in any-period-to-fixed-period functions
 
