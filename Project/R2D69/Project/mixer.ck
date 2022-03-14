@@ -5,6 +5,12 @@ public class MixerR2D64 {
   -1 => float L;
   0 => float C;
 
+// SIDECHAIN DOES NOT SEEM TO WORK!
+  KickProcessing kickProcessing;
+  BassBusProcessing bassBusProcessing;
+  kickProcessing.sidechainSource.outL => bassBusProcessing.sidechainReceive.inL;
+  kickProcessing.sidechainSource.outR => bassBusProcessing.sidechainReceive.inR;
+
   mixer.createChannel(
     "master", 1.00,
     new MasterProcessing,
@@ -13,19 +19,19 @@ public class MixerR2D64 {
         "drum bus", 0.10,
         new DrumBusProcessing,
         [
-          mixer.createChannel("kick", 1.00, new KickProcessing),
-          mixer.createChannel("hat",  1.00, new HatProcessing)
+          mixer.createChannel("kick", 1.00, kickProcessing),
+          mixer.createChannel("hat",  0.80, -0.3, new HatProcessing)
         ]
       ),
       mixer.createChannel(
         "bass bus", 0.10,
-        new BassBusProcessing,
+        bassBusProcessing,
         [
-          mixer.createChannel("bass arp",  1.00, new BassArpProcessing)
+          mixer.createChannel("bass arp",  0.80, new BassArpProcessing)
         ]
       ),
       mixer.createChannel(
-        "melodic bus", 0.10,
+        "melodic bus", 0.40,
         new BassBusProcessing,
         [
           mixer.createChannel("chords",  1.00, new ChordsProcessing)
@@ -44,4 +50,6 @@ public class MixerR2D64 {
 
   mixer.chanOut["master"].outL => dac.left;
   mixer.chanOut["master"].outR => dac.right;
+
+  // mixer.mute(["melodic bus", "hat"]);
 }
