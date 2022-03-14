@@ -25,6 +25,8 @@ public class OscSynthSingle extends Instrument {
   1 => float lpfQ;
   float adsrLpfQAmount;
 
+  1 => int shouldRetrigger;
+
   init();
 
   fun float tick( float in ) {
@@ -58,6 +60,7 @@ public class OscSynthSingle extends Instrument {
     adsrLpfCutoff.keyOn();
     adsrLpfQ.keyOn();
     adsrPitch.keyOn();
+    if(shouldRetrigger) osc.phase(0);
   }
   fun void keyOn(float midiNote) {
     note(midiNote);
