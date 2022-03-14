@@ -37,6 +37,8 @@ public class StereoChannel extends StereoProcessor {
 
     mergeAmount => feedLR.gain;
     mergeAmount => feedRL.gain;
+
+    // I should probably scale down equally to the merge amount
   }
 
   fun void update(float L, float R) {

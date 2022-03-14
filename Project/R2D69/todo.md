@@ -38,3 +38,4 @@
   - copy constructor (instruments and generators)
     - this would be useful for creating additional voices when implementing velocity
 - automation clip LOOPS
+- stereo channel's stereo merge should compensate for the incresed gain
