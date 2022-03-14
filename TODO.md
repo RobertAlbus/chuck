@@ -1,5 +1,14 @@
 # Things to implement, in no order
 
+## R2D69
+Improve composition performance
+- convert specified-point-in-time arrangement arrays to index-based approach (used in automation clip)
+- generalize the any-time-to-fixed-time transformation into a util class
+- create a per-instrument arrangement construct that hand-written multi-instrument arrangment can be transformed to.
+
+- this is the most recent day where the instruments and composition from R2D50 have been carried forward
+- after this, I have stripped that to work on the framework more
+
 ## R2D64
 - Need some more things
   - LFO but noise (separate tool)
